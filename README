@@ -1,4 +1,23 @@
-README
-status, todos and ideas
+incubation phase: experiment with ideas inside the "incubation/" folder only
 
-...
+- setup database for user management
+- php scripts to manage and authenticate users
+- create web page to test user accounts
+- try accessing user accounts in ios app
+- do the same for android
+- add minimal functionality for actual content (panning events, messaging...)
+
+----------
+
+design phase: start software design using text/diagrams/charts
+
+- ER models for database
+- component diagram
+- class/module diagrams for php server side
+- class diagrams module structure for client (application) side (platform independant)
+- platform technology considerations (ios/android/web app javascript)
+
+----------
+
+implementation phase:
+TODO
