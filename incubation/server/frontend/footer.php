@@ -1,4 +1,6 @@
-        <hr>
-        <div id='footer'>Copyright blabla</div>
-    </body>
+<footer>
+<p>FOOTER</p>
+</footer>
+</body>
+
 </html>

@@ -2,13 +2,11 @@
     
     include("header.php");
     
-    require_once("common.php");
-    
     if(user_logged_in() == true)
     {
         echo '
-<h1>Member Area</h1>
-<pThanks for logging in!</p>
+<h1>Hi!</h1>
+<p>You are logged in. Have a look at the <a href="events">events</a> section.</p>
         ';
     }
     else if(!empty($_POST['username']) && !empty($_POST['password']))
@@ -25,10 +23,9 @@
     {
         echo '
 <h1>Member Login</h1>
+<p>Please either login below, or <a href="register.php">click here to sign up</a>.</p>
 
-<p>Thanks for visiting! Please either login below, or <a href="register.php">click here to register</a>.</p>
-
-<form method="post" action="index.php" name="loginform" id="loginform">
+<form method="post" action="login.php" name="loginform" id="loginform">
 <fieldset>
 <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
 <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
