@@ -43,7 +43,7 @@
                                        CURLOPT_USERAGENT => 'Codular Sample cURL Request',
                                        CURLOPT_POST => 1,
                                        CURLOPT_POSTFIELDS => $post_data,
-                                       CURLOPT_HTTPHEADER => array("Cookie: ".$_SESSION['interface_cookie'])
+                                       CURLOPT_HTTPHEADER => array("Cookie: ".$cookie)
                                        ));
         
         // execute request (for pure xml without header)
@@ -109,6 +109,17 @@
         echo "\n".$result."\n";
         
         return read_response_value($result);
+    }
+    
+    function get_users()
+    {
+        $data = array('action' => 'get_users');
+        
+        $result = send_query($data);
+        
+        $users = read_response_message($result);
+        
+        return explode(';', $users);
     }
     
     function user_register($username, $password)

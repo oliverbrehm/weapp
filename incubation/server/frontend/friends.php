@@ -8,8 +8,16 @@
 <?php
     if(user_logged_in() == true) {
         echo '
-        <p>Logged in. TBD list friends.</p>
+        <p>Logged in. </p><br>
+        <br>
+        <p>List of all users:</p>
+        <br>
         ';
+
+        $users = get_users();
+        foreach($users as $user) {
+            echo '<p>'.$user.'</p><br>';
+        }
     } else {
         echo'
         <p>Please <a href="login.php">login</a> to view this section.</p>

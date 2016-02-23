@@ -9,6 +9,8 @@
     require_once('xml_response.php');
     require_once('authentication.php');
     
+    initialize();
+    
     $action = $_POST["action"];
 
     if($action == "user_register") {
@@ -38,6 +40,8 @@
         user_logged_in();
     } else if($action == "say_hello") {
         say_hello();
+    } else if($action == "get_users") {
+        get_users();
     } else {
         no_action();
     }

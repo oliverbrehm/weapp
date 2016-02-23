@@ -22,8 +22,6 @@
             return;
         }
         
-        initialize();
-        
         $checklogin = mysql_query("SELECT * FROM users WHERE name = '".$username."' AND password = '".$password."'");
         
         if(mysql_num_rows($checklogin) == 1)
@@ -60,11 +58,26 @@
         xml_add_response(true, "Sucessfully logged out user");
         xml_send();
     }
+    
+    function get_users()
+    {
+        $result = mysql_query("SELECT * FROM users");
+        
+        $users = "";
+        
+        while($row = mysql_fetch_array($result))
+        {
+            if(isset($row['name'])) {
+                $users = $users.';'.$row['name'];
+            }
+        }
+        
+        xml_add_response(true, $users);
+        xml_send();
+    }
 
     function user_register($username, $password)
     {
-        initialize();
-        
         $checkusername = mysql_query("SELECT * FROM users WHERE name = '".$username."'");
         
         if(mysql_num_rows($checkusername) == 1)
