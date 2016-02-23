@@ -6,7 +6,7 @@
     {
         echo '
 <h1>Hi!</h1>
-<p>You are logged in. Have a look at the <a href="events">events</a> section.</p>
+<p>You are logged in. Have a look at the <a href="events.php">events</a> section.</p>
         ';
     }
     else if(!empty($_POST['username']) && !empty($_POST['password']))

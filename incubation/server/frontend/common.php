@@ -1,8 +1,18 @@
 <?php
+    if(session_id() == '' || !isset($_SESSION)) {
+        session_start();
+    }
+    
     function send_query($post_data)
     {
+        if(isset($_SESSION['interface_cookie'])) {
+            // cookie set
+            //echo 'old cookie: '.$_SESSION['interface_cookie']."\n\n";
+        }
         $url = 'http://vocab-book.com/integrationsprojekt/interface/interface.php';
         
+        /*
+        // REMOVE file_get_contents provides not enough functionallity (e.g. receive cookie)
         // use key 'http' even if you send the request to https://...
         $options = array(
                          'http' => array(
@@ -17,7 +27,42 @@
             return "http request failed";
         }
         
-        return $result;
+        return $result;*/
+        
+        // Get cURL resource
+        $curl = curl_init();
+        
+        $cookie = "";
+        if(isset($_SESSION['interface_cookie'])) {
+             $cookie = $_SESSION['interface_cookie'];
+        }
+        // Set some options - we are passing in a useragent too here
+        curl_setopt_array($curl, array(
+                                       CURLOPT_RETURNTRANSFER => 1,
+                                       CURLOPT_URL => $url,
+                                       CURLOPT_USERAGENT => 'Codular Sample cURL Request',
+                                       CURLOPT_POST => 1,
+                                       CURLOPT_POSTFIELDS => $post_data,
+                                       CURLOPT_HTTPHEADER => array("Cookie: ".$_SESSION['interface_cookie'])
+                                       ));
+        
+        // execute request (for pure xml without header)
+        $resp = curl_exec($curl);
+
+        // repeat request requiring header information
+        curl_setopt($curl, CURLOPT_HEADER, 1);
+        $resp_header = curl_exec($curl);
+        
+        // search and save cookie
+        preg_match('/^Set-Cookie:\s*([^\r\n]*)/mi', $resp_header, $cookies);
+        
+        if(!isset($_SESSION['interface_cookie'])) {
+            $_SESSION['interface_cookie'] = $cookies[1];
+        }
+        // Close request to clear up some resources
+        curl_close($curl);
+        
+        return $resp;
     }
     
     function read_response_message($response)

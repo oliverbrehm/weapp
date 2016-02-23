@@ -10,5 +10,7 @@
         </article>
 
 <?php
+    
+    
     include('footer.php');
 ?>

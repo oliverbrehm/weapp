@@ -1,5 +1,6 @@
 <?php
-    //error_reporting(0); debug/release?
+    error_reporting(-1);
+    ini_set('display_errors', 'On');
     
     require_once('common.php');
     

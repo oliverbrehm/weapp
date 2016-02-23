@@ -10,7 +10,8 @@
         mysql_connect($dbhost, $dbuser, $dbpass) or die("MySQL Error: " . mysql_error());
         $database = mysql_select_db($dbname) or die("MySQL Error: " . mysql_error());
         
-        $rows = mysql_query("SELECT * FROM users");
+        //$rows = mysql_query("SELECT * FROM users");
+        //echo('initialize!!!');
     }
     
     function user_login($username, $password)
