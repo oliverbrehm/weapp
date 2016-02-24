@@ -78,6 +78,12 @@
 
     function user_register($username, $password)
     {
+        if(!empty($_SESSION['username'])) {
+            xml_add_response(true, "User already logged in.");
+            xml_send();
+            return;
+        }
+        
         $checkusername = mysql_query("SELECT * FROM users WHERE name = '".$username."'");
         
         if(mysql_num_rows($checkusername) == 1)
@@ -98,6 +104,114 @@
         }
         
         xml_send();
+    }
+    
+    function event_create($name, $description)
+    {
+        if(empty($_SESSION['username'])) {
+            return;
+        }
+        
+        $checkeventname = mysql_query("SELECT * FROM events WHERE name = '".$name."'");
+        
+        if(mysql_num_rows($checkeventname) >= 1)
+        {
+            xml_add_response(false, "Event with the same name exists");
+        }
+        else
+        {
+            $result = mysql_query("SELECT id FROM users WHERE name = '".$_SESSION['username']."'");
+            $row = mysql_fetch_array($result);
+            $user_id = $row['id'];
+            $createEventQuery = mysql_query("INSERT INTO events (name, description, owner_id) VALUES('".$name."', '".$description."', '".$user_id."')");
+            if($createEventQuery)
+            {
+                xml_add_response(true, "Event ".$name." successfully created.");
+            }
+            else
+            {
+                xml_add_response(false, "Failed to create event.");
+            }
+        }
+        
+        xml_send();
+    }
+    
+    // returns a list of event ids ; seperated
+    function event_get_all()
+    {
+        // TODO if logged in
+        
+        $ids = "";
+        
+        $result = mysql_query("SELECT * FROM events");
+                
+        while($row = mysql_fetch_array($result))
+        {
+            if(isset($row['name'])) {
+                if(!empty($ids)) {
+                    $ids = $ids.';';
+                }
+                $ids = $ids.$row['id'];
+            }
+        }
+        
+        xml_add_response(true, $ids);
+        xml_send();
+    }
+    
+    function event_get_user($id) 
+    {
+        $result = mysql_query("SELECT owner_id FROM events WHERE id='".$id."'");
+                
+        // TODO check #rows == 1
+        $row = mysql_fetch_array($result);
+
+        if(isset($row['owner_id'])) {
+            $owner_id = $row['owner_id'];
+            
+            // TODO combine 2 sql queries to one
+            $result = mysql_query("SELECT name FROM users WHERE id='".$owner_id."'");
+            
+            // TODO check #rows == 1
+            $row = mysql_fetch_array($result);
+
+            if(isset($row['name'])) {
+                xml_add_response(true, $row['name']);
+                xml_send();
+            }
+        } else {
+            xml_error('Event owner name not found.');
+        }
+    }
+    
+    function event_get_description($id)
+    {
+        $result = mysql_query("SELECT description FROM events WHERE id='".$id."'");
+                
+        // TODO check #rows == 1
+        $row = mysql_fetch_array($result);
+
+        if(isset($row['description'])) {
+            xml_add_response(true, $row['description']);
+            xml_send();
+        } else {
+            xml_error('Event description not found.');
+        }
+    }
+    
+    function event_get_name($id) {        
+        $result = mysql_query("SELECT name FROM events WHERE id='".$id."'");
+                
+        // TODO check #rows == 1
+        $row = mysql_fetch_array($result);
+
+        if(isset($row['name'])) {
+            xml_add_response(true, $row['name']);
+            xml_send();
+        } else {
+            xml_error('Event name not found.');
+        }
     }
 
     function say_hello()

@@ -9,25 +9,7 @@
             // cookie set
             //echo 'old cookie: '.$_SESSION['interface_cookie']."\n\n";
         }
-        $url = 'http://vocab-book.com/integrationsprojekt/interface/interface.php';
-        
-        /*
-        // REMOVE file_get_contents provides not enough functionallity (e.g. receive cookie)
-        // use key 'http' even if you send the request to https://...
-        $options = array(
-                         'http' => array(
-                                         'header'=> 'Cookie: ' . $_SERVER['HTTP_COOKIE']."\r\n", // TODO use session cookie
-                                         'method'  => 'POST',
-                                         'content' => http_build_query($post_data),
-                                         ),
-                         );
-        $context  = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        if ($result === FALSE) {
-            return "http request failed";
-        }
-        
-        return $result;*/
+        $url = 'http://vocab-book.com/integrationsprojekt/interface/interface.php';      
         
         // Get cURL resource
         $curl = curl_init();
@@ -122,6 +104,61 @@
         return explode(';', $users);
     }
     
+    function get_events() 
+    {
+        $data = array('action' => 'event_get_all');
+        
+        $result = send_query($data);
+        
+        $events = read_response_message($result);
+                
+        return explode(';', $events);        
+    }
+    
+    function event_get_name($id) 
+    {
+        $data = array('action' => 'event_get_name', 'event_id' => $id);
+        
+        $result = send_query($data);
+                
+        $event_name = read_response_message($result);
+        
+        return $event_name;     
+    }
+    
+    function event_get_user($id) 
+    {
+        $data = array('action' => 'event_get_user', 'event_id' => $id);
+        
+        $result = send_query($data);
+                
+        $event_name = read_response_message($result);
+        
+        return $event_name;     
+    }
+    
+    function event_get_description($id) 
+    {
+        $data = array('action' => 'event_get_description', 'event_id' => $id);
+        
+        $result = send_query($data);
+                
+        $event_name = read_response_message($result);
+        
+        return $event_name;     
+    }
+    
+    function event_create($name, $description)
+    {
+        $data = array('action' => 'event_create', 'event_name' => $name, 'event_description' => $description);
+        
+        $result = send_query($data);
+        
+        echo "\n".$result."\n";
+        
+        return read_response_value($result);
+    }
+    
     function user_register($username, $password)
     {
         $data = array('action' => 'user_register', 'username' => $username, 'password' => $password);
@@ -135,6 +172,17 @@
     
     function user_logged_in() {
         $data = array('action' => 'user_logged_in');
+        
+        $result = send_query($data);
+        
+        echo $result;
+        
+        return read_response_value($result);
+    }
+    
+    function user_logout()
+    {
+        $data = array('action' => 'user_logout');
         
         $result = send_query($data);
         

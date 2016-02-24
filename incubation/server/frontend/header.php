@@ -15,36 +15,36 @@
 
 <style>
 
-body{
-margin: 10px auto;
-    max-width: 60em;
-}
-* {
-padding: 10px;margin:5px;
-}
-header{
-border: 2px solid #3481cd
-}
-nav{
-background: skyblue;
-}
-footer{
-border: 2px solid seagreen;
-}
+    body{
+        margin: 10px auto;
+        max-width: 60em;
+    }
+    * {
+        padding: 10px;margin:5px;
+    }
+    header{
+        border: 2px solid #3481cd;
+    }
+    nav{
+        background: skyblue;
+    }
+    footer{
+        border: 2px solid seagreen;
+    }
 
-main{
-border: 2px solid hotpink;
-}
+    main{
+        border: 2px solid hotpink;
+    }
 
-article{
-border: 2px solid purple;
-}
-section{
-border: 2px solid slateblue;
-}
-aside{
-border: 2px solid tomato;
-}
+    article{
+        border: 2px solid purple;
+    }
+    section{
+        border: 2px solid slateblue;
+    }
+    aside{
+        border: 2px solid tomato;
+    }
 
 </style>
 
@@ -62,6 +62,7 @@ border: 2px solid tomato;
 <li><a href="events.php">Events</a></li>
 <li><a href="login.php">Login</a></li>
 <li><a href="register.php">Sign up</a></li>
+<li><a href="logout.php">Log out</a></li>
 
 </ul>
 </nav>
