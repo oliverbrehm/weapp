@@ -1,6 +1,6 @@
 <?php
     
-    include("header.php");
+    include("../resources/header.php");
     
     require_once("common.php");
     
@@ -37,5 +37,5 @@
         ';
     }
     
-    include("footer.php");
+    include("../resources/footer.php");
 ?>

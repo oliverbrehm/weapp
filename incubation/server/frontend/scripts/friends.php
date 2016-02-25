@@ -1,6 +1,6 @@
 <?php
     
-    include("header.php");
+    include("../resources/header.php");
     ?>
 
 <h2>Friends</h2>
@@ -24,5 +24,5 @@
         ';
     }
     
-    include("footer.php");
+    include("../resources/footer.php");
 ?>

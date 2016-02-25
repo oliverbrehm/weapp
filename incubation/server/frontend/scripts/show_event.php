@@ -1,6 +1,6 @@
 <?php
     
-    include("header.php");
+    include("../resources/header.php");
     
     if(empty($_GET['event_id'])) {
         echo "<h2>No event specified</h2>\n";
@@ -17,5 +17,5 @@
         ';
     }
     
-    include("footer.php");
+    include("../resources/footer.php");
 ?>

@@ -1,6 +1,6 @@
 <?php
     
-    include("header.php");
+    include("../resources/header.php");
     
     if(user_logged_in() == true)
     {
@@ -35,5 +35,5 @@
         ';
     }
     
-    include("footer.php");
+    include("../resources/footer.php");
 ?>
