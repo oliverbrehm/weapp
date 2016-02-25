@@ -4,13 +4,52 @@
 
     class Event
     {
-        private $xmlResponse;
+        private static $xmlResponse;    
         
-        public function __construct($xmlResponse) {
-            $this->xmlResponse = $xmlResponse;
+        public static function setXMLResponse($xmlResponse)
+        {
+            Event::$xmlResponse = $xmlResponse;
         }
         
-        function create($name, $description)
+        public static function processAction($action) 
+        {
+            if($action == "event_create") {
+                if(empty($_POST['event_name']) || empty($_POST['event_description'])) {
+                    Event::$xmlResponse->sendError("Event name or description not specified");
+                } else {
+                    Event::create($_POST['event_name'], $_POST['event_description']);
+                }
+                return true;
+            } else if($action == "event_get_all") {
+                Event::queryAllIDs();
+                return true;
+            } else if($action == "event_get_description") {
+                if(empty($_POST['event_id'])) {
+                    Event::$xmlResponse->sendError("Event id not specified");
+                } else {
+                    Event::queryDescription($_POST['event_id']);
+                }
+                return true;
+            } else if($action == "event_get_user") {
+                if(empty($_POST['event_id'])) {
+                    Event::$xmlResponse->sendError("Event id not specified");
+                } else {
+                    Event::queryUser($_POST['event_id']);
+                }
+                return true;
+            } else if($action == "event_get_name") {
+                if(empty($_POST['event_id'])) {
+                    Event::$xmlResponse->sendError("Event id not specified");
+                } else {
+                    Event::queryName($_POST['event_id']);
+                }
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public static function create($name, $description)
         {
             if(empty($_SESSION['username'])) {
                 return;
@@ -20,7 +59,7 @@
 
             if(mysql_num_rows($checkeventname) >= 1)
             {
-                $this->xmlResponse->sendError("Event with the same name exists");
+                Event::$xmlResponse->sendError("Event with the same name exists");
             }
             else
             {
@@ -30,19 +69,17 @@
                 $createEventQuery = mysql_query("INSERT INTO events (name, description, owner_id) VALUES('".$name."', '".$description."', '".$user_id."')");
                 if($createEventQuery)
                 {
-                    $this->xmlResponse->sendMessage("Event ".$name." successfully created.");
+                    Event::$xmlResponse->sendMessage("Event ".$name." successfully created.");
                 }
                 else
                 {
-                    $this->xmlResponse->sendError("Failed to create event.");
+                    Event::$xmlResponse->sendError("Failed to create event.");
                 }
-            }
-
-            
+            }  
         }
 
         // returns a list of event ids ; seperated
-        function retrieveAllIDs()
+        public static function queryAllIDs()
         {
             // TODO if logged in
 
@@ -60,11 +97,10 @@
                 }
             }
 
-            $this->xmlResponse->sendMessage($ids);
-            
+            Event::$xmlResponse->sendMessage($ids);
         }
 
-        function retrieveUser($id) 
+        public static function queryUser($id) 
         {
             $result = mysql_query("SELECT owner_id FROM events WHERE id='".$id."'");
 
@@ -81,7 +117,7 @@
                 $row = mysql_fetch_array($result);
 
                 if(isset($row['name'])) {
-                    $this->xmlResponse->sendMessage($row['name']);
+                    Event::$xmlResponse->sendMessage($row['name']);
                     
                 }
             } else {
@@ -89,7 +125,7 @@
             }
         }
 
-        function retrieveDescription($id)
+        public static function queryDescription($id)
         {
             $result = mysql_query("SELECT description FROM events WHERE id='".$id."'");
 
@@ -97,21 +133,21 @@
             $row = mysql_fetch_array($result);
 
             if(isset($row['description'])) {
-                $this->xmlResponse->sendMessage($row['description']);
+                Event::$xmlResponse->sendMessage($row['description']);
                 
             } else {
                 xml_error('Event description not found.');
             }
         }
 
-        function retrieveName($id) {        
+        public static function queryName($id) {        
             $result = mysql_query("SELECT name FROM events WHERE id='".$id."'");
 
             // TODO check #rows == 1
             $row = mysql_fetch_array($result);
 
             if(isset($row['name'])) {
-                $this->xmlResponse->sendMessage($row['name']);
+                Event::$xmlResponse->sendMessage($row['name']);
                 
             } else {
                 xml_error('Event name not found.');

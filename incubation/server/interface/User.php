@@ -4,16 +4,56 @@
 
     class User
     {
-        private $xmlResponse;
+        private static $xmlResponse;    
         
-        public function __construct($xmlResponse) {
-            $this->xmlResponse = $xmlResponse;
+        public static function setXMLResponse($xmlResponse)
+        {
+            User::$xmlResponse = $xmlResponse;
         }
         
-        function login($username, $password)
+        public static function processAction($action)
+        {
+            if($action == "user_register") {
+                if(empty($_POST["username"]) || empty($_POST["password"])) {
+                    User::$xmlResponse->sendError("Username or password not specified");
+                } else {
+                    $username = $_POST['username'];//);
+                    $password = $_POST['password'];//); TODO encrypt
+
+                    User::register($username, $password);
+                }
+                return true;
+            } else if($action == "user_login") {
+                if(empty($_POST["username"]) || empty($_POST["password"])) {
+                    User::$xmlResponse->sendError("Username or password not specified");
+                } else {
+                    //$username = mysql_real_escape_string($_POST['username']);
+                    //$password = md5(mysql_real_escape_string($_POST['password']); //TODO encrypt
+
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+
+                    User::login($username, $password);
+                }
+                return true;
+            } else if($action == "user_logout") {
+                User::logout();
+                return true;
+            } else if($action == "user_logged_in") {
+                User::queryLoggedIn();
+                return true;
+            } else if($action == "get_users") {
+                User::queryAllIDs();
+                return true;
+            } 
+            
+            return false;
+        }
+        
+        public static function login($username, $password)
         {
             if(!empty($_SESSION['username'])) {
-                $this->xmlResponse->sendMessage("User already logged in.");
+                User::$xmlResponse->sendMessage("User already logged in.");
                 return;
             }
 
@@ -23,34 +63,34 @@
             {
                 $_SESSION['username'] = $username;
 
-                $this->xmlResponse->sendMessage("Successfully logged in user.");
+                User::$xmlResponse->sendMessage("Successfully logged in user.");
             }
             else
             {
-                $this->xmlResponse->sendError("Invalid username or password.");
+                User::$xmlResponse->sendError("Invalid username or password.");
             }
         }
 
-        function loggedIn()
+        public static function queryLoggedIn()
         {
             if(!empty($_SESSION['username'])) {
-                $this->xmlResponse->sendMessage("User logged in.");
+                User::$xmlResponse->sendMessage("User logged in.");
                 return true;
             }
 
-            $this->xmlResponse->sendError("User not logged in.");
+            User::$xmlResponse->sendError("User not logged in.");
 
             return false;
         }
 
-        function logout()
+        public static function logout()
         {
             $_SESSION = array();
             session_destroy();
-            $this->xmlResponse->sendMessage("Sucessfully logged out user");
+            User::$xmlResponse->sendMessage("Sucessfully logged out user");
         }
 
-        function retrieveAllIDs()
+        public static function queryAllIDs()
         {
             $result = mysql_query("SELECT * FROM users");
 
@@ -63,13 +103,13 @@
                 }
             }
 
-            $this->xmlResponse->sendMessage($users);
+            User::$xmlResponse->sendMessage($users);
         }
 
-        function register($username, $password)
+        public static function register($username, $password)
         {
             if(!empty($_SESSION['username'])) {
-                $this->xmlResponse->sendMessage("User already logged in.");
+                User::$xmlResponse->sendMessage("User already logged in.");
                 
                 return;
             }
@@ -78,18 +118,18 @@
 
             if(mysql_num_rows($checkusername) == 1)
             {
-                $this->xmlResponse->sendError("Username already taken");
+                User::$xmlResponse->sendError("Username already taken");
             }
             else
             {
                 $registerquery = mysql_query("INSERT INTO users (name, password) VALUES('".$username."', '".$password."')");
                 if($registerquery)
                 {
-                    $this->xmlResponse->sendMessage("User ".$username." successfully created");
+                    User::$xmlResponse->sendMessage("User ".$username." successfully created");
                 }
                 else
                 {
-                    $this->xmlResponse->sendError("Failed to register user");
+                    User::$xmlResponse->sendError("Failed to register user");
                 }
             }  
         }        
