@@ -1,12 +1,12 @@
 <?php
     
-    include("../resources/header.php");
+    include("header.php");
 ?>
 
     <h2>Events</h2>
 
 <?php
-    if(user_logged_in() == true) {
+    if(User::queryLoggedIn() == true) {
         echo '
         <p>Logged in.</p>
         <br>
@@ -14,10 +14,10 @@
         <br>
         ';
         
-        $events = get_events();
+        $events = Event::queryAllIDs();
                 
         foreach($events as $event_id) {
-            $event_name = event_get_name($event_id);
+            $event_name = Event::queryName($event_id);
             echo "<a href=show_event.php?event_id=".$event_id.">".$event_name."</a><br>\n\n";
         }
     } else {
@@ -26,5 +26,5 @@
         ';
     }
     
-    include("../resources/footer.php");
+    include("footer.php");
 ?>

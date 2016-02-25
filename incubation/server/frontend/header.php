@@ -2,9 +2,13 @@
     error_reporting(-1);
     ini_set('display_errors', 'On');
     
-    require_once('common.php');
+    if(session_id() == '' || !isset($_SESSION)) {
+        session_start();
+    }
     
-    //$seed="0dAfghRqSTgx"; // the seed for the passwords
+    require_once('classes/PostRequest.php');
+    require_once('classes/Event.php');
+    require_once('classes/User.php');
 ?>
 
 <html>

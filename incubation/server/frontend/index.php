@@ -1,5 +1,5 @@
 <?php
-    include('resources/header.php');
+    include('header.php');
 ?>
 
 <article>
@@ -9,5 +9,5 @@
 </article>
 
 <?php
-    include('resources/footer.php');
+    include('footer.php');
 ?>

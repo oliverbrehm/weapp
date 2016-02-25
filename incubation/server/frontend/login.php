@@ -1,8 +1,8 @@
 <?php
     
-    include("../resources/header.php");
+    include("header.php");
     
-    if(user_logged_in() == true)
+    if(User::queryLoggedIn() == true)
     {
         echo '
 <h1>Hi!</h1>
@@ -13,7 +13,7 @@
     {
         $username = $_POST['username'];
         $password_cleartext = $_POST['password'];
-        if(user_login($username, $password_cleartext) == true) {
+        if(User::login($username, $password_cleartext) == true) {
             echo "<h1>Login successful</h1>";
         } else {
             echo "<h1>Login failed</h1>";
@@ -35,5 +35,5 @@
         ';
     }
     
-    include("../resources/footer.php");
+    include("footer.php");
 ?>

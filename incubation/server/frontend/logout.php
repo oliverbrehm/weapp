@@ -1,17 +1,17 @@
 <?php
     
-    include("../resources/header.php");
+    include("header.php");
     ?>
 
 <h2>Log out</h2>
 
 <?php
-    if(user_logged_in() == false) {
+    if(User::queryLoggedIn() == false) {
         echo '
         <p>You are not logged in. Please <a href="login.php">log in</a> or <a href="register.php">sign up</a>.
         ';
     } else {
-        if(user_logout() == true) {
+        if(User::logout() == true) {
             echo '
             <p>Successfully logged out. Please <a href="login.php">log in</a> or <a href="register.php">sign up</a>.
             ';
@@ -20,5 +20,5 @@
         }
     }
     
-    include("../resources/footer.php");
+    include("footer.php");
 ?>

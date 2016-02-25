@@ -1,15 +1,13 @@
 <?php
     
-    include("../resources/header.php");
-    
-    require_once("common.php");
-    
+    include("header.php");
+        
     if(!empty($_POST['username']) && !empty($_POST['password']))
     {
         $username = $_POST['username'];
         $password = $_POST['password']; // TODO encrypt
         
-        if(!user_register($username, $password))
+        if(!User::register($username, $password))
         {
             echo "<h1>Error</h1>";
             echo "<p>Sorry, that username is taken. Please go <a href=\"register.php\">back</a> and try again.</p>";
@@ -37,5 +35,5 @@
         ';
     }
     
-    include("../resources/footer.php");
+    include("footer.php");
 ?>

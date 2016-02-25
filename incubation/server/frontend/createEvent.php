@@ -1,14 +1,14 @@
 <?php
     
-    include("../resources/header.php");
+    include("header.php");
     
-    if(user_logged_in() == true) {
+    if(User::queryLoggedIn() == true) {
         if(!empty($_POST['event_name']) && !empty($_POST['event_description']))
         {
             $event_name = $_POST['event_name'];
             $event_description = $_POST['event_description']; // TODO encrypt
 
-            if(!event_create($event_name, $event_description))
+            if(!Event::create($event_name, $event_description))
             {
                 echo "<h2>Error</h2>";
                 echo "<p>Sorry, There is already an event with the same name. Please go <a href=\"createEvent.php\">back</a> and choose another name.</p>";
@@ -40,5 +40,5 @@
         ';
     }
     
-    include("../resources/footer.php");
+    include("footer.php");
 ?>

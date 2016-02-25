@@ -1,12 +1,12 @@
 <?php
     
-    include("../resources/header.php");
+    include("header.php");
     ?>
 
 <h2>Friends</h2>
 
 <?php
-    if(user_logged_in() == true) {
+    if(User::queryLoggedIn() == true) {
         echo '
         <p>Logged in. </p><br>
         <br>
@@ -14,7 +14,7 @@
         <br>
         ';
 
-        $users = get_users();
+        $users = User::queryAllNames();
         foreach($users as $user) {
             echo '<p>'.$user.'</p><br>';
         }
@@ -24,5 +24,5 @@
         ';
     }
     
-    include("../resources/footer.php");
+    include("footer.php");
 ?>
