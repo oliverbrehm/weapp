@@ -20,8 +20,9 @@
         max-width: 60em;
     }
     * {
-        padding: 10px;margin:5px;
+        padding: 5px;margin:3px;
     }
+    
     header{
         border: 2px solid #3481cd;
     }
@@ -44,6 +45,15 @@
     }
     aside{
         border: 2px solid tomato;
+    }
+    
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    li {
+        list-style-type: none;
     }
 
 </style>

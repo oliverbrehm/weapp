@@ -9,7 +9,7 @@
             // cookie set
             //echo 'old cookie: '.$_SESSION['interface_cookie']."\n\n";
         }
-        $url = 'http://vocab-book.com/integrationsprojekt/interface/interface.php';      
+        $url = 'http://vocab-book.com/integrationsprojekt/interface/API.php';      
         
         // Get cURL resource
         $curl = curl_init();
@@ -43,6 +43,8 @@
         }
         // Close request to clear up some resources
         curl_close($curl);
+        
+        echo "\n<!--\nRESPONSE:\n".$resp."\n-->\n";
         
         return $resp;
     }
@@ -87,9 +89,7 @@
         $data = array('action' => 'user_login', 'username' => $username, 'password' => $password_cleartext);
         
         $result = send_query($data);
-        
-        echo "\n".$result."\n";
-        
+                
         return read_response_value($result);
     }
     
@@ -153,9 +153,7 @@
         $data = array('action' => 'event_create', 'event_name' => $name, 'event_description' => $description);
         
         $result = send_query($data);
-        
-        echo "\n".$result."\n";
-        
+                
         return read_response_value($result);
     }
     
@@ -164,9 +162,7 @@
         $data = array('action' => 'user_register', 'username' => $username, 'password' => $password);
         
         $result = send_query($data);
-        
-        echo "\n".$result."\n";
-        
+                
         return read_response_value($result);
     }
     
@@ -174,9 +170,7 @@
         $data = array('action' => 'user_logged_in');
         
         $result = send_query($data);
-        
-        echo $result;
-        
+                
         return read_response_value($result);
     }
     
@@ -185,21 +179,8 @@
         $data = array('action' => 'user_logout');
         
         $result = send_query($data);
-        
-        echo $result;
-        
+                
         return read_response_value($result);
-    }
-    
-    function say_hello_action()
-    {
-        $data = array('action' => 'say_hello');
-        
-        $result = send_query($data);
-        
-        //echo $result;
-        
-        return read_response_message($result);
     }
     
 ?>
