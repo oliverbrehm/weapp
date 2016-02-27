@@ -19,8 +19,19 @@
 
             $request = new PostRequest($data);
             $request->execute();
+            
+            $userNames = new ArrayObject;
+            
+            $xml = new DOMDocument();
+            $xml->loadXML($request->response);
 
-            return explode(';', $request->responseMessage);
+            $response_nodes = $xml->getElementsByTagName("id");
+
+            foreach($response_nodes as $node) {
+                $userNames->append($node->textContent);
+            }
+
+            return $userNames;
         }
 
         public static function register($username, $password)

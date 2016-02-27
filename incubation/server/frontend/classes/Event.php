@@ -8,8 +8,20 @@
 
             $request = new PostRequest($data);
             $request->execute();
+            
+            $ids = new ArrayObject;
+            
+            $xml = new DOMDocument();
+            $xml->loadXML($request->response);
 
-            return explode(';', $request->responseMessage);        
+            $response_nodes = $xml->getElementsByTagName("id");
+
+            foreach($response_nodes as $node) {
+                $ids->append($node->textContent);
+            }
+
+            return $ids;
+
         }
 
         public static function queryName($id) 
@@ -18,8 +30,17 @@
 
             $request = new PostRequest($data);
             $request->execute();
+                        
+            $xml = new DOMDocument();
+            $xml->loadXML($request->response);
 
-            return $request->responseMessage;     
+            $response_nodes = $xml->getElementsByTagName("string");
+
+            foreach($response_nodes as $node) {
+                return $node->textContent;
+            }
+
+            return ""; 
         }
 
         public static function queryUser($id) 
@@ -29,7 +50,16 @@
             $request = new PostRequest($data);
             $request->execute();
 
-            return $request->responseMessage;     
+            $xml = new DOMDocument();
+            $xml->loadXML($request->response);
+
+            $response_nodes = $xml->getElementsByTagName("string");
+
+            foreach($response_nodes as $node) {
+                return $node->textContent;
+            }
+
+            return "";  
         }
 
         public static function queryDescription($id) 
@@ -39,7 +69,16 @@
             $request = new PostRequest($data);
             $request->execute();
 
-            return $request->responseMessage;     
+            $xml = new DOMDocument();
+            $xml->loadXML($request->response);
+
+            $response_nodes = $xml->getElementsByTagName("string");
+
+            foreach($response_nodes as $node) {
+                return $node->textContent;
+            }
+
+            return "";   
         }
 
         public static function create($name, $description)

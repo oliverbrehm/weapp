@@ -94,16 +94,16 @@
         {
             $result = mysql_query("SELECT * FROM users");
 
-            $users = "";
+            $users = new ArrayObject;
 
             while($row = mysql_fetch_array($result))
             {
                 if(isset($row['name'])) {
-                    $users = $users.';'.$row['name'];
+                    $users->append($row['name']);
                 }
             }
 
-            User::$xmlResponse->sendMessage($users);
+            User::$xmlResponse->sendIdList("userIds", "userId", $users);
         }
 
         public static function register($username, $password)

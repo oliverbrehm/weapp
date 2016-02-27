@@ -34,7 +34,7 @@
                 if(empty($_POST['event_id'])) {
                     Event::$xmlResponse->sendError("Event id not specified");
                 } else {
-                    Event::queryUser($_POST['event_id']);
+                    Event::queryUserName($_POST['event_id']);
                 }
                 return true;
             } else if($action == "event_get_name") {
@@ -83,24 +83,21 @@
         {
             // TODO if logged in
 
-            $ids = "";
+            $ids = new ArrayObject;
 
-            $result = mysql_query("SELECT * FROM events");
+            $result = mysql_query("SELECT id FROM events");
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['name'])) {
-                    if(!empty($ids)) {
-                        $ids = $ids.';';
-                    }
-                    $ids = $ids.$row['id'];
+                if(isset($row['id'])) {
+                    $ids->append($row['id']);
                 }
             }
 
-            Event::$xmlResponse->sendMessage($ids);
+            Event::$xmlResponse->sendIdList("eventIds", "eventId", $ids);
         }
 
-        public static function queryUser($id) 
+        public static function queryUserName($id) 
         {
             $result = mysql_query("SELECT owner_id FROM events WHERE id='".$id."'");
 
@@ -117,7 +114,7 @@
                 $row = mysql_fetch_array($result);
 
                 if(isset($row['name'])) {
-                    Event::$xmlResponse->sendMessage($row['name']);
+                    Event::$xmlResponse->sendString("ownerName", $row['name']);
                     
                 }
             } else {
@@ -133,7 +130,7 @@
             $row = mysql_fetch_array($result);
 
             if(isset($row['description'])) {
-                Event::$xmlResponse->sendMessage($row['description']);
+                Event::$xmlResponse->sendString("description", $row['description']);
                 
             } else {
                 xml_error('Event description not found.');
@@ -147,7 +144,7 @@
             $row = mysql_fetch_array($result);
 
             if(isset($row['name'])) {
-                Event::$xmlResponse->sendMessage($row['name']);
+                Event::$xmlResponse->sendString("name", $row['name']);
                 
             } else {
                 xml_error('Event name not found.');

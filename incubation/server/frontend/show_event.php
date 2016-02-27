@@ -7,9 +7,9 @@
     } else if(User::queryLoggedIn() == true) {
         $id = $_GET['event_id'];
                 
-        echo "<h2>".event_get_name($id)."</h2>";
+        echo "<h2>".Event::queryName($id)."</h2>";
         echo "
-        Author: ".event_get_user($id)." <br>\n
+        Author: ".Event::queryUser($id)." <br>\n
         Description: <br><br>\n".  Event::queryDescription($id)."\n<br><br>\n";     
     } else {
         echo'
