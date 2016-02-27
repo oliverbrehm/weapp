@@ -7,8 +7,8 @@
     }
     
     require_once('classes/PostRequest.php');
-    require_once('classes/Event.php');
-    require_once('classes/User.php');
+    require_once('classes/EventQuery.php');
+    require_once('classes/UserQuery.php');
 ?>
 
 <html>

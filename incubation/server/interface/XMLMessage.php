@@ -17,105 +17,71 @@
             $this->responseNode = new XMLList("response");  
 
             $this->xmlDocument->appendChild($this->responseNode);
-
-            $this->responseNode->init();
                       
             $attr_response_value = $this->xmlDocument->createAttribute("success");
             $attr_response_value->value = json_encode($success);
             $this->responseNode->appendChild($attr_response_value);
 
             return $this->responseNode;
-        }            
+        }     
         
+        public function addElement($type, $id, $data)
+        {
+            $this->responseNode->addItem($type, $id, $data);
+        }   
+        
+        public function addList($name)
+        {
+            return $this->responseNode->addList($name);
+        }
+                
         public function sendError($message)
         {
             $this->addResponse(false);
-            $this->responseNode->addString("error", $message);
+            $this->responseNode->addElement("error", $message);
             $this->writeOutput();
         }
         
         public function sendMessage($message)
         {
-            $this->sendString("message", $message);
+            $this->addResponse(true);
+            $this->responseNode->addElement("message", $message);
+            $this->writeOutput();     
         }
         
-        public function sendString($name, $string)
+        public function sendList($listName, $itemName, $list)
         {
             $this->addResponse(true);
-            $this->responseNode->addString($name, $string);
-            $this->writeOutput();
-        }
-        
-        public function sendId($name, $id)
-        {
-            $this->addResponse(true);
-            $this->responseNode->addId($name, $id);
-            $this->writeOutput();
-        }
-        
-        public function sendIdList($listName, $itemName, $idList)
-        {
-            $this->addResponse(true);
-            $list = $this->responseNode->addList($listName);
-            foreach($idList as $id)
+            $listNode = $this->responseNode->addList($listName);
+            foreach($list as $item)
             {
-                $list->addId($itemName, $id);
+                $listNode->addElement($itemName, $item);
             }
             $this->writeOutput();
         }
         
-        private function writeOutput()
+        public function writeOutput()
         {
             echo $this->xmlDocument->saveXML();
         }    
     }
     
     class XMLList extends DOMElement
-    {
-        private $name;
-        
-        public function __construct($name) {   
-            if($name === "response") {
-                parent::__construct("response", null, null);     
-            } else {
-                parent::__construct("list", null, null);     
-            }
-            $this->name = $name;
+    {        
+        public function __construct($type) {   
+                parent::__construct($type, null, null);     
         }
         
-        public function init()
-        {
-            $attr_type = $this->ownerDocument->createAttribute("name");
-            $attr_type->value = $this->name;
-            $this->appendChild($attr_type);
-        }
-        
-        public function addElement($type, $name, $data)
+        public function addElement($type, $data)
         {            
             $element = $this->ownerDocument->createElement($type, $data);
-
-            $attr_type = $this->ownerDocument->createAttribute("name");
-            $attr_type->value = $name;
-            $element->appendChild($attr_type);
-
             $this->appendChild($element);
         }
-        
-        public function addString($name, $string)
+                
+        public function addList($type)
         {
-            $this->addElement("string", $name, $string);
-        }
-        
-        public function addId($name, $id)
-        {            
-            $this->addElement("id", $name, $id);
-        }
-        
-        public function addList($name)
-        {
-            $list = new XMLList($name); 
+            $list = new XMLList($type); 
             $this->appendChild($list);            
-            $list->init();
             
             return $list;
         }

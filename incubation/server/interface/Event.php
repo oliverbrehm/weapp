@@ -20,31 +20,31 @@
                     Event::create($_POST['event_name'], $_POST['event_description']);
                 }
                 return true;
+            } else if($action == "event_post_comment") {
+                if(empty($_POST['event_id']) || empty($_POST['event_comment'])) {
+                    Event::$xmlResponse->sendError("Event id or comment not specified");
+                } else {
+                    Event::postComment($_POST['event_id'], $_POST['event_comment']);
+                }
+                return true;            
+            } else if($action == "event_get_comments") {
+                if(empty($_POST['event_id'])) {
+                    Event::$xmlResponse->sendError("Event id not specified");
+                } else {
+                    Event::queryComments($_POST['event_id']);
+                }                
+                return true;
             } else if($action == "event_get_all") {
-                Event::queryAllIDs();
+                Event::queryAll();
                 return true;
-            } else if($action == "event_get_description") {
+            } else if($action == "event_get_details") {
                 if(empty($_POST['event_id'])) {
                     Event::$xmlResponse->sendError("Event id not specified");
                 } else {
-                    Event::queryDescription($_POST['event_id']);
+                    Event::queryDetails($_POST['event_id']);
                 }
                 return true;
-            } else if($action == "event_get_user") {
-                if(empty($_POST['event_id'])) {
-                    Event::$xmlResponse->sendError("Event id not specified");
-                } else {
-                    Event::queryUserName($_POST['event_id']);
-                }
-                return true;
-            } else if($action == "event_get_name") {
-                if(empty($_POST['event_id'])) {
-                    Event::$xmlResponse->sendError("Event id not specified");
-                } else {
-                    Event::queryName($_POST['event_id']);
-                }
-                return true;
-            }
+            } 
             
             return false;
         }
@@ -77,77 +77,110 @@
                 }
             }  
         }
+        
+        public static function postComment($eventId, $comment)
+        {
+            if(empty($_SESSION['username'])) {
+                return;
+            }
 
-        // returns a list of event ids ; seperated
-        public static function queryAllIDs()
+            $result = mysql_query("SELECT id FROM users WHERE name = '".$_SESSION['username']."'");
+            $row = mysql_fetch_array($result);
+            
+            $user_id = $row['id'];
+            
+            $postCommentQuery = mysql_query("INSERT INTO event_post (user_id, event_id, message) VALUES('".$user_id."', '".$eventId."', '".$comment."')");
+            if($postCommentQuery)
+            {
+                Event::$xmlResponse->sendMessage("Comment successfully posted.");
+            }
+            else
+            {
+                Event::$xmlResponse->sendError("Failed to post comment.");
+            }
+        }
+
+        /// returns a list of event headers containg id and name
+        public static function queryAll()
         {
             // TODO if logged in
+            Event::$xmlResponse->addResponse(true);
+            $events = Event::$xmlResponse->addList("eventList");
 
-            $ids = new ArrayObject;
-
-            $result = mysql_query("SELECT id FROM events");
+            $result = mysql_query("SELECT id, name FROM events");
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['id'])) {
-                    $ids->append($row['id']);
+                if(isset($row['id']) && isset($row['name'])) {
+                    $event = $events->addList("event");
+                    
+                    $event->addElement('id', $row['id']);
+                    $event->addElement('name', $row['name']);
                 }
             }
 
-            Event::$xmlResponse->sendIdList("eventIds", "eventId", $ids);
+            Event::$xmlResponse->writeOutput();
+        }
+        
+        public static function queryComments($eventId)
+        {
+            // TODO if logged in
+            Event::$xmlResponse->addResponse(true);
+            $events = Event::$xmlResponse->addList("commentList");
+
+            $result = mysql_query("SELECT user_id, message, time FROM event_post WHERE event_id='".$eventId."'");
+
+            while($row = mysql_fetch_array($result))
+            {
+                if(isset($row['user_id']) && isset($row['message']) && isset($row['time'])) {
+                    $comment = $events->addList("comment");
+                    $username = "";
+                    // get user name
+                    $result = mysql_query("SELECT name FROM users WHERE id='".$row['user_id']."'");
+                    while($row_username = mysql_fetch_array($result)) {
+                        // TODO check numenteries
+                        $username = $row_username['name'];
+                    }
+
+                    $comment->addElement('message', $row['message']);
+                    $comment->addElement('author', $username); // TODO get user name
+                    $comment->addElement('time', $row['time']);
+                }
+            }
+
+            Event::$xmlResponse->writeOutput();                   
         }
 
-        public static function queryUserName($id) 
+        public static function queryDetails($id) 
         {
-            $result = mysql_query("SELECT owner_id FROM events WHERE id='".$id."'");
+            $result = mysql_query("SELECT * FROM events WHERE id='".$id."'");
 
             // TODO check #rows == 1
             $row = mysql_fetch_array($result);
 
-            if(isset($row['owner_id'])) {
-                $owner_id = $row['owner_id'];
-
+            if(isset($row['owner_id']) && isset($row['name']) && isset($row['description'])) {
+                $name = $row['name'];
+                $description = $row['description'];
+                
                 // TODO combine 2 sql queries to one
-                $result = mysql_query("SELECT name FROM users WHERE id='".$owner_id."'");
-
+                $ownerId = $row['owner_id'];
+                $result = mysql_query("SELECT name FROM users WHERE id='".$ownerId."'");            
                 // TODO check #rows == 1
-                $row = mysql_fetch_array($result);
+                $user_row = mysql_fetch_array($result);
+                $ownerName = $user_row['name'];
+                
+                Event::$xmlResponse->addResponse(true);
+                
+                $event = Event::$xmlResponse->addList("event");
 
-                if(isset($row['name'])) {
-                    Event::$xmlResponse->sendString("ownerName", $row['name']);
-                    
-                }
+                $event->addElement('id', $id);
+                $event->addElement('name', $name);
+                $event->addElement('ownerName', $ownerName);
+                $event->addElement('description', $description);
+
+                Event::$xmlResponse->writeOutput();
             } else {
                 xml_error('Event owner name not found.');
-            }
-        }
-
-        public static function queryDescription($id)
-        {
-            $result = mysql_query("SELECT description FROM events WHERE id='".$id."'");
-
-            // TODO check #rows == 1
-            $row = mysql_fetch_array($result);
-
-            if(isset($row['description'])) {
-                Event::$xmlResponse->sendString("description", $row['description']);
-                
-            } else {
-                xml_error('Event description not found.');
-            }
-        }
-
-        public static function queryName($id) {        
-            $result = mysql_query("SELECT name FROM events WHERE id='".$id."'");
-
-            // TODO check #rows == 1
-            $row = mysql_fetch_array($result);
-
-            if(isset($row['name'])) {
-                Event::$xmlResponse->sendString("name", $row['name']);
-                
-            } else {
-                xml_error('Event name not found.');
             }
         }
     }    

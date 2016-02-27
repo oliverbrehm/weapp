@@ -1,6 +1,6 @@
 <?php
     
-    class User
+    class UserQuery
     {
 
         public static function login($username, $password_cleartext)
@@ -25,7 +25,7 @@
             $xml = new DOMDocument();
             $xml->loadXML($request->response);
 
-            $response_nodes = $xml->getElementsByTagName("id");
+            $response_nodes = $xml->getElementsByTagName("userName");
 
             foreach($response_nodes as $node) {
                 $userNames->append($node->textContent);

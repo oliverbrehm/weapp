@@ -6,12 +6,12 @@
 <h2>Log out</h2>
 
 <?php
-    if(User::queryLoggedIn() == false) {
+    if(UserQuery::queryLoggedIn() == false) {
         echo '
         <p>You are not logged in. Please <a href="login.php">log in</a> or <a href="register.php">sign up</a>.
         ';
     } else {
-        if(User::logout() == true) {
+        if(UserQuery::logout() == true) {
             echo '
             <p>Successfully logged out. Please <a href="login.php">log in</a> or <a href="register.php">sign up</a>.
             ';

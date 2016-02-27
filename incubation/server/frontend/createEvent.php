@@ -2,13 +2,13 @@
     
     include("header.php");
     
-    if(User::queryLoggedIn() == true) {
+    if(UserQuery::queryLoggedIn() == true) {
         if(!empty($_POST['event_name']) && !empty($_POST['event_description']))
         {
             $event_name = $_POST['event_name'];
             $event_description = $_POST['event_description']; // TODO encrypt
 
-            if(!Event::create($event_name, $event_description))
+            if(!EventQuery::create($event_name, $event_description))
             {
                 echo "<h2>Error</h2>";
                 echo "<p>Sorry, There is already an event with the same name. Please go <a href=\"createEvent.php\">back</a> and choose another name.</p>";

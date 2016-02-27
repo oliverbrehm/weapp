@@ -6,7 +6,7 @@
 <h2>Friends</h2>
 
 <?php
-    if(User::queryLoggedIn() == true) {
+    if(UserQuery::queryLoggedIn() == true) {
         echo '
         <p>Logged in. </p><br>
         <br>
@@ -14,7 +14,7 @@
         <br>
         ';
 
-        $users = User::queryAllNames();
+        $users = UserQuery::queryAllNames();
         foreach($users as $user) {
             echo '<p>'.$user.'</p><br>';
         }

@@ -7,7 +7,7 @@
         $username = $_POST['username'];
         $password = $_POST['password']; // TODO encrypt
         
-        if(!User::register($username, $password))
+        if(!UserQuery::register($username, $password))
         {
             echo "<h1>Error</h1>";
             echo "<p>Sorry, that username is taken. Please go <a href=\"register.php\">back</a> and try again.</p>";

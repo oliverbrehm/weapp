@@ -6,7 +6,7 @@
     <h2>Events</h2>
 
 <?php
-    if(User::queryLoggedIn() == true) {
+    if(UserQuery::queryLoggedIn() == true) {
         echo '
         <p>Logged in.</p>
         <br>
@@ -14,11 +14,10 @@
         <br>
         ';
         
-        $events = Event::queryAllIDs();
+        $events = EventQuery::queryAll();
                 
-        foreach($events as $event_id) {
-            $event_name = Event::queryName($event_id);
-            echo "<a href=show_event.php?event_id=".$event_id.">".$event_name."</a><br>\n\n";
+        foreach($events as $event) {
+            echo "<a href=show_event.php?event_id=".$event->id.">".$event->name."</a><br>\n\n";
         }
     } else {
         echo'

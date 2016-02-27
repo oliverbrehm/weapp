@@ -43,7 +43,7 @@
                 User::queryLoggedIn();
                 return true;
             } else if($action == "get_users") {
-                User::queryAllIDs();
+                User::queryAllNames();
                 return true;
             } 
             
@@ -90,7 +90,7 @@
             User::$xmlResponse->sendMessage("Sucessfully logged out user");
         }
 
-        public static function queryAllIDs()
+        public static function queryAllNames()
         {
             $result = mysql_query("SELECT * FROM users");
 
@@ -103,7 +103,7 @@
                 }
             }
 
-            User::$xmlResponse->sendIdList("userIds", "userId", $users);
+            User::$xmlResponse->sendList("userList", "userName", $users);
         }
 
         public static function register($username, $password)
