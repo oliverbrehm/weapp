@@ -5,7 +5,7 @@
 <article>
     <h1>Hi!</h1>
 
-    <p>TBD home, about...</p>
+    <div class="info"><p>TBD home, about...</p></div>
 </article>
 
 <?php

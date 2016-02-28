@@ -23,9 +23,6 @@
         margin: 10px auto;
         max-width: 60em;
     }
-    * {
-        padding: 5px;margin:3px;
-    }
     
     header{
         border: 2px solid #3481cd;
@@ -43,12 +40,22 @@
 
     article{
         border: 2px solid purple;
+        margin: 10px;
     }
     section{
         border: 2px solid slateblue;
     }
     aside{
         border: 2px solid tomato;
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    h2 {
+        color: darkslategray;
+        font-size: 22;
     }
     
     ul {
@@ -58,6 +65,52 @@
     
     li {
         list-style-type: none;
+    }
+    
+    a {
+        color: green;
+        margin: 5px;
+        text-decoration: none;
+        border: 1px solid greenyellow;
+    }
+    
+    p {
+        margin: 5px;
+    }
+    
+    .action {
+        margin: 10px;
+        border: 4px solid red;
+    }
+    
+    .errorMessage {
+        color: darkred;      
+    }
+    
+    .successMessage {
+        color: green;
+    }
+    
+    .info {
+        font-family: sans-serif;
+    }
+    
+    .eventComment {
+        margin: 10px;
+        padding: 3px;
+        border: 3px solid coral;
+        background: lightgoldenrodyellow;
+    }
+    
+    .label {
+        margin: 5px;
+        color: darkslategrey;
+    }
+    
+    .textBlock {
+        margin: 5px;
+        padding: 5px;
+        white-space: pre;
     }
 
 </style>
@@ -72,7 +125,7 @@
 <nav>
 <ul>
 <li><a href="index.php">Home</a></li>
-<li><a href="friends.php">Friends</a></li>
+<li><a href="friends.php">Users</a></li>
 <li><a href="events.php">Events</a></li>
 <li><a href="login.php">Login</a></li>
 <li><a href="register.php">Sign up</a></li>

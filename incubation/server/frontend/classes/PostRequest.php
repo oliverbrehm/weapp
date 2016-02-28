@@ -38,30 +38,30 @@
                                            CURLOPT_HTTPHEADER => array("Cookie: ".$cookie)
                                            ));
 
-            // execute request (for pure xml without header)
-            $resp = curl_exec($curl);
-
             // repeat request requiring header information
             curl_setopt($curl, CURLOPT_HEADER, 1);
-            $resp_header = curl_exec($curl);
+            $resp = curl_exec($curl);
 
             // search and save cookie
-            preg_match('/^Set-Cookie:\s*([^\r\n]*)/mi', $resp_header, $cookies);
+            preg_match('/^Set-Cookie:\s*([^\r\n]*)/mi', $resp, $cookies);
 
             if(!isset($_SESSION['interface_cookie'])) {
                 $_SESSION['interface_cookie'] = $cookies[1];
             }
-            // Close request to clear up some resources
-            curl_close($curl);
-
-            echo "\n<!--\nRESPONSE:\n".$resp."\n-->\n";
             
-            $this->response = $resp;
+            $header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+            $xml_body = substr($resp, $header_size);
+            $this->response = $xml_body;
 
             $this->responseMessage = $this->readResponseMessage();
             $this->responseValue = $this->readResponseValue();
             
-            return $resp;
+            // Close request to clear up some resources
+            curl_close($curl);
+            
+            echo "\n<!--\nRESPONSE:\n".$this->response."\n-->\n";
+            
+            return $this->response;
         }
 
         private function readResponseMessage()

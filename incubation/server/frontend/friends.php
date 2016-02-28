@@ -1,28 +1,36 @@
 <?php
     
     include("header.php");
+    
+    echo '<article>';
+
     ?>
 
-<h2>Friends</h2>
+<h1>Users</h1>
 
 <?php
     if(UserQuery::queryLoggedIn() == true) {
         echo '
-        <p>Logged in. </p><br>
         <br>
-        <p>List of all users:</p>
+        <h2>List of all users</h2>
         <br>
         ';
 
-        $users = UserQuery::queryAllNames();
+        $users = UserQuery::queryAll();
         foreach($users as $user) {
-            echo '<p>'.$user.'</p><br>';
+            echo '<a href="show_user.php?user_id='.$user->id.'">'.$user->name.'</a><br>';
         }
+        
+        echo '<br>';
     } else {
         echo'
-        <p>Please <a href="login.php">login</a> to view this section.</p>
+        <div class="info"><p>Please login to view this section.</p></div>
+        <a href="login.php">Login</a>
         ';
     }
     
+    echo '</article>';
+    
     include("footer.php");
-?>
+    
+ ?>

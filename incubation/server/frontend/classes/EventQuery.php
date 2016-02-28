@@ -4,12 +4,14 @@
     {
         public $id;
         public $name;
+        public $ownerId;
         public $ownerName;
         public $description;
                
-        public function __construct($id, $name, $ownerName, $description) {
+        public function __construct($id, $name, $ownerId, $ownerName, $description) {
             $this->id = $id;
             $this->name = $name;
+            $this->ownerId = $ownerId;
             $this->ownerName = $ownerName;
             $this->description = $description;
         }
@@ -19,12 +21,14 @@
     {
         public $message;
         public $time;
-        public $author;
+        public $authorId;
+        public $authorName;
         
-        public function __construct($message, $author, $time) {
+        public function __construct($message, $authorId, $authorName, $time) {
             $this->message = $message;
             $this->time = $time;
-            $this->author = $author;
+            $this->authorId = $authorId;
+            $this->authorName = $authorName;
         }
     }
     
@@ -58,13 +62,48 @@
                     }
                 }
 
-                $event = new Event($eventId, $eventName, "", "");
+                $event = new Event($eventId, $eventName, "", "", "");
                 $events->append($event);
             }
 
             return $events;
         }
 
+        public static function queryByUser($user_id) // returns a list of events containing id and name
+        {
+            $data = array('action' => 'event_get_user', 'user_id' => $user_id);
+
+            $request = new PostRequest($data);
+            $request->execute();
+            
+            $events = new ArrayObject;
+            
+            $xml = new DOMDocument();
+            $xml->loadXML($request->response);
+
+            // api sends id and name
+            $eventNodes = $xml->getElementsByTagName("event");
+
+            foreach($eventNodes as $eventNode) {
+                $eventId = "";//$eventNode->getElementsByTagName("id")->textContent;                    
+                $eventName = "";//$eventNode->getElementsByTagName("name")->textContent;                    
+
+                $children = $eventNode->getElementsByTagName("*");
+                foreach($children as $child) {
+                    if($child->tagName === "id") {
+                        $eventId = $child->textContent;
+                    } else if($child->tagName === "name") {
+                        $eventName = $child->textContent;
+                    }
+                }
+
+                $event = new Event($eventId, $eventName, "", "", "");
+                $events->append($event);
+            }
+
+            return $events;
+        }
+        
         public static function queryDetails($id) 
         {
             $data = array('action' => 'event_get_details', 'event_id' => $id);
@@ -85,14 +124,16 @@
                         $eventId = $child->textContent;
                     } else if($child->tagName === "name") {
                         $eventName = $child->textContent;
+                    } else if($child->tagName === "ownerId") {
+                        $ownerId = $child->textContent;
                     } else if($child->tagName === "ownerName") {
-                        $eventOwnerName = $child->textContent;
+                        $ownerName = $child->textContent;
                     } else if($child->tagName === "description") {
                         $eventDescription = $child->textContent;
                     }
                 }
 
-                $event = new Event($eventId, $eventName, $eventOwnerName, $eventDescription);
+                $event = new Event($eventId, $eventName, $ownerId, $ownerName, $eventDescription);
                 
                 return $event;
             }
@@ -116,21 +157,24 @@
                 
             foreach($commentNodes as $commentNode) {
                 $message = "";
-                $author = "";
+                $authorId = "";
+                $authorName = "";
                 $time = "";
                 
                 $children = $commentNode->getElementsByTagName("*");
                 foreach($children as $child) {
                     if($child->tagName === "message") {
                         $message = $child->textContent;
-                    } else if($child->tagName === "author") {
-                        $author = $child->textContent;
+                    } else if($child->tagName === "authorId") {
+                        $authorId = $child->textContent;
+                    } else if($child->tagName === "authorName") {
+                        $authorName = $child->textContent;
                     } else if($child->tagName === "time") {
                         $time = $child->textContent;
                     } 
                 }
-                
-                $comment = new Comment($message, $author, $time);
+                                
+                $comment = new Comment($message, $authorId, $authorName, $time);
                 
                 $comments->append($comment);
             }

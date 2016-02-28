@@ -2,6 +2,8 @@
     
     include("header.php");
     
+    echo '<article>';
+    
     if(UserQuery::queryLoggedIn() == true) {
         if(!empty($_POST['event_name']) && !empty($_POST['event_description']))
         {
@@ -10,12 +12,13 @@
 
             if(!EventQuery::create($event_name, $event_description))
             {
-                echo "<h2>Error</h2>";
-                echo "<p>Sorry, There is already an event with the same name. Please go <a href=\"createEvent.php\">back</a> and choose another name.</p>";
+                echo "<h1>Event not created</h1>";
+                echo "<div class='errorMessage'><p>Sorry, There is already an event with the same name.</p></div>";
+                echo "<a class='action' href=\"createEvent.php\">Choose another name</a>";
             } else
             {
-                echo "<h2>Success</h2>";
-                echo "<p>The event ".$event_name." was successfully created.</p>";
+                echo "<h1>Event created</h1>";
+                echo "<div class='successMessage'><p>The event ".$event_name." was successfully created.</p></div>";
             }
         }
         else
@@ -23,7 +26,7 @@
             echo '
             <h1>Create new event</h1>
 
-            <p>Please enter the devent details below.</p>
+            <div class="info"><p>Please enter the devent details below.</p></div>
 
             <form method="post" action="createEvent.php" name="createEventForm" id="createEventForm">
                 <fieldset>
@@ -36,9 +39,11 @@
         }
     } else {
         echo'
-        <p>Please <a href="login.php">login</a> to view this section.</p>
+        <div class="info"><p>Please <a href="login.php">login</a> to view this section.</p></div>
         ';
     }
+    
+    echo '</article>';
     
     include("footer.php");
 ?>

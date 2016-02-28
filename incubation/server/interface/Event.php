@@ -37,6 +37,13 @@
             } else if($action == "event_get_all") {
                 Event::queryAll();
                 return true;
+            } else if($action == "event_get_user") {
+                if(empty($_POST['user_id'])) {
+                    Event::$xmlResponse->sendError("User id not specified");
+                } else {
+                    Event::queryByUser($_POST['user_id']);
+                }
+                return true;
             } else if($action == "event_get_details") {
                 if(empty($_POST['event_id'])) {
                     Event::$xmlResponse->sendError("Event id not specified");
@@ -88,7 +95,7 @@
             $row = mysql_fetch_array($result);
             
             $user_id = $row['id'];
-            
+
             $postCommentQuery = mysql_query("INSERT INTO event_post (user_id, event_id, message) VALUES('".$user_id."', '".$eventId."', '".$comment."')");
             if($postCommentQuery)
             {
@@ -122,28 +129,51 @@
             Event::$xmlResponse->writeOutput();
         }
         
+        public static function queryByUser($userId)
+        {
+            // TODO if logged in
+            Event::$xmlResponse->addResponse(true);
+            $events = Event::$xmlResponse->addList("eventList");
+
+            $result = mysql_query("SELECT id, name FROM events WHERE owner_id='".$userId."'");
+
+            while($row = mysql_fetch_array($result))
+            {
+                if(isset($row['id']) && isset($row['name'])) {
+                    $event = $events->addList("event");
+                    
+                    $event->addElement('id', $row['id']);
+                    $event->addElement('name', $row['name']);
+                }
+            }
+
+            Event::$xmlResponse->writeOutput();
+        }
+        
         public static function queryComments($eventId)
         {
             // TODO if logged in
             Event::$xmlResponse->addResponse(true);
-            $events = Event::$xmlResponse->addList("commentList");
+            $comments = Event::$xmlResponse->addList("commentList");
 
             $result = mysql_query("SELECT user_id, message, time FROM event_post WHERE event_id='".$eventId."'");
 
             while($row = mysql_fetch_array($result))
             {
                 if(isset($row['user_id']) && isset($row['message']) && isset($row['time'])) {
-                    $comment = $events->addList("comment");
+                    $comment = $comments->addList("comment");
+                    $userId = $row['user_id'];
                     $username = "";
                     // get user name
-                    $result = mysql_query("SELECT name FROM users WHERE id='".$row['user_id']."'");
-                    while($row_username = mysql_fetch_array($result)) {
+                    $result_user = mysql_query("SELECT name FROM users WHERE id='".$userId."'");
+                    while($row_user = mysql_fetch_array($result_user)) {
                         // TODO check numenteries
-                        $username = $row_username['name'];
+                        $username = $row_user['name'];
                     }
 
                     $comment->addElement('message', $row['message']);
-                    $comment->addElement('author', $username); // TODO get user name
+                    $comment->addElement('authorId', $userId);
+                    $comment->addElement('authorName', $username);
                     $comment->addElement('time', $row['time']);
                 }
             }
@@ -175,6 +205,7 @@
 
                 $event->addElement('id', $id);
                 $event->addElement('name', $name);
+                $event->addElement('ownerId', $ownerId);
                 $event->addElement('ownerName', $ownerName);
                 $event->addElement('description', $description);
 

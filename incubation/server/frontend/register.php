@@ -1,6 +1,9 @@
 <?php
     
     include("header.php");
+    
+    echo '<article>';
+
         
     if(!empty($_POST['username']) && !empty($_POST['password']))
     {
@@ -10,20 +13,22 @@
         if(!UserQuery::register($username, $password))
         {
             echo "<h1>Error</h1>";
-            echo "<p>Sorry, that username is taken. Please go <a href=\"register.php\">back</a> and try again.</p>";
+            echo "<div class='errorMessage'><p>Sorry, that username is taken.</p></div>";
+            echo "<a href=\"register.php\">Choose another name</a>";
         }
         else
         {
             echo "<h1>Success</h1>";
-            echo "<p>Your account was successfully created. Please <a href=\"login.php\">click here to login</a>.</p>";
+            echo "<div class='successMessage'><p>Your account was successfully created.</p></div>";
+            echo ' <a href="login.php">Log in</a>';
         }
     }
     else
     {
         echo '
-        <h1>Register</h1>
+        <h1>Sign up</h1>
         
-        <p>Please enter your details below to register.</p>
+        <div class="info"><p>Please enter your details below to sign up.</p></div>
         
         <form method="post" action="register.php" name="registerform" id="registerform">
             <fieldset>
@@ -35,5 +40,8 @@
         ';
     }
     
+    echo '</article>';
+    
     include("footer.php");
-?>
+    
+ ?>

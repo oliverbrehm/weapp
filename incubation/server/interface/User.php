@@ -42,10 +42,17 @@
             } else if($action == "user_logged_in") {
                 User::queryLoggedIn();
                 return true;
-            } else if($action == "get_users") {
-                User::queryAllNames();
+            } else if($action == "user_get_all") {
+                User::queryAll();
                 return true;
-            } 
+            } else if($action == "user_get_details") {
+                if(empty($_POST["user_id"])) {
+                    User::$xmlResponse->sendError("User not specified");
+                } else {
+                    User::queryDetails($_POST['user_id']);
+                }
+                return true;
+            }
             
             return false;
         }
@@ -90,22 +97,49 @@
             User::$xmlResponse->sendMessage("Sucessfully logged out user");
         }
 
-        public static function queryAllNames()
+        public static function queryAll()
         {
-            $result = mysql_query("SELECT * FROM users");
+            // TODO if logged in
+            User::$xmlResponse->addResponse(true);
+            $users = User::$xmlResponse->addList("eventList");
 
-            $users = new ArrayObject;
+            $result = mysql_query("SELECT id, name FROM users");
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['name'])) {
-                    $users->append($row['name']);
+                if(isset($row['id']) && isset($row['name'])) {
+                    $user = $users->addList("user");
+                    
+                    $user->addElement('id', $row['id']);
+                    $user->addElement('name', $row['name']);
                 }
             }
 
-            User::$xmlResponse->sendList("userList", "userName", $users);
+            User::$xmlResponse->writeOutput();
         }
+        
+        public static function queryDetails($id) 
+        {
+            $result = mysql_query("SELECT * FROM users WHERE id='".$id."'");
 
+            // TODO check #rows == 1
+            $row = mysql_fetch_array($result);
+
+            if(isset($row['name'])) {
+                $name = $row['name'];
+                
+                User::$xmlResponse->addResponse(true);
+                
+                $user = User::$xmlResponse->addList("user");
+
+                $user->addElement('id', $id);
+                $user->addElement('name', $name);
+
+
+                User::$xmlResponse->writeOutput();
+            } 
+        }
+        
         public static function register($username, $password)
         {
             if(!empty($_SESSION['username'])) {

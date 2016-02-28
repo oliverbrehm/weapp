@@ -1,29 +1,36 @@
 <?php
     
     include("header.php");
+    
+    echo '<article>';
+
 ?>
 
-    <h2>Events</h2>
+    <h1>Events</h1>
 
 <?php
     if(UserQuery::queryLoggedIn() == true) {
         echo '
-        <p>Logged in.</p>
-        <br>
-        <a href="createEvent.php">Create event</a><br>
+        <a class="action" href="createEvent.php">Create event</a><br>
         <br>
         ';
         
         $events = EventQuery::queryAll();
                 
         foreach($events as $event) {
-            echo "<a href=show_event.php?event_id=".$event->id.">".$event->name."</a><br>\n\n";
+            echo "<a class='event' href=show_event.php?event_id=".$event->id.">".$event->name."</a><br>\n\n";
         }
+        
+        echo '<br>';
     } else {
         echo'
-        <p>Please <a href="login.php">login</a> to view this section.</p>
+        <div class="info"><p>Please login to view this section.</p></div>
+        <a href="login.php">Login</a>
         ';
     }
     
+    echo '</article>';
+    
     include("footer.php");
+ 
 ?>
