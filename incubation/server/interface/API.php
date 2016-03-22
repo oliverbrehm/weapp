@@ -2,7 +2,7 @@
 
     require_once('XMLMessage.php');
     require_once('User.php');
-    require_once('Event.php');
+    require_once('Invitation.php');
 
     class APIResponse
     {
@@ -23,7 +23,7 @@
             $this->xmlResponse = new XMLMessage();
             
             User::setXMLResponse($this->xmlResponse);
-            Event::setXMLResponse($this->xmlResponse);
+            Invitation::setXMLResponse($this->xmlResponse);
         }
         
         private function readAction() // -> $success: Bool
@@ -49,7 +49,7 @@
         public function processAction()
         {
             if(!User::processAction($this->action)) {
-                if(!Event::processAction($this->action)) {
+                if(!Invitation::processAction($this->action)) {
                     $this->xmlResponse->sendError("Invalid action specified.");
                 }
             }

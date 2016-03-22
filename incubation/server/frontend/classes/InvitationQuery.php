@@ -1,6 +1,6 @@
 <?php
 
-    class Event
+    class Invitation
     {
         public $id;
         public $name;
@@ -32,81 +32,81 @@
         }
     }
     
-    class EventQuery
+    class InvitationQuery
     {
-        public static function queryAll() // returns a list of events containing id and name
+        public static function queryAll() // returns a list of Invitations containing id and name
         {
-            $data = array('action' => 'event_get_all');
+            $data = array('action' => 'invitation_get_all');
 
             $request = new PostRequest($data);
             $request->execute();
             
-            $events = new ArrayObject;
+            $invitations = new ArrayObject;
             
             $xml = new DOMDocument();
             $xml->loadXML($request->response);
 
             // api sends id and name
-            $eventNodes = $xml->getElementsByTagName("event");
+            $invitationNodes = $xml->getElementsByTagName("invitation");
 
-            foreach($eventNodes as $eventNode) {
-                $eventId = "";//$eventNode->getElementsByTagName("id")->textContent;                    
-                $eventName = "";//$eventNode->getElementsByTagName("name")->textContent;                    
+            foreach($invitationNodes as $invitationNode) {
+                $invitationId = "";//$invitationNode->getElementsByTagName("id")->textContent;                    
+                $invitationName = "";//$invitationNode->getElementsByTagName("name")->textContent;                    
 
-                $children = $eventNode->getElementsByTagName("*");
+                $children = $invitationNode->getElementsByTagName("*");
                 foreach($children as $child) {
                     if($child->tagName === "id") {
-                        $eventId = $child->textContent;
+                        $invitationId = $child->textContent;
                     } else if($child->tagName === "name") {
-                        $eventName = $child->textContent;
+                        $invitationName = $child->textContent;
                     }
                 }
 
-                $event = new Event($eventId, $eventName, "", "", "");
-                $events->append($event);
+                $invitation = new Invitation($invitationId, $invitationName, "", "", "");
+                $invitations->append($invitation);
             }
 
-            return $events;
+            return $invitations;
         }
 
-        public static function queryByUser($user_id) // returns a list of events containing id and name
+        public static function queryByUser($user_id) // returns a list of invitations containing id and name
         {
-            $data = array('action' => 'event_get_user', 'user_id' => $user_id);
+            $data = array('action' => 'invitation_get_user', 'user_id' => $user_id);
 
             $request = new PostRequest($data);
             $request->execute();
             
-            $events = new ArrayObject;
+            $invitations = new ArrayObject;
             
             $xml = new DOMDocument();
             $xml->loadXML($request->response);
 
             // api sends id and name
-            $eventNodes = $xml->getElementsByTagName("event");
+            $invitationNodes = $xml->getElementsByTagName("invitation");
 
-            foreach($eventNodes as $eventNode) {
-                $eventId = "";//$eventNode->getElementsByTagName("id")->textContent;                    
-                $eventName = "";//$eventNode->getElementsByTagName("name")->textContent;                    
+            foreach($invitationNodes as $invitationNode) {
+                $invitationId = "";//$invitationNode->getElementsByTagName("id")->textContent;                    
+                $invitationName = "";//$invitationNode->getElementsByTagName("name")->textContent;                    
 
-                $children = $eventNode->getElementsByTagName("*");
+                $children = $invitationNode->getElementsByTagName("*");
                 foreach($children as $child) {
                     if($child->tagName === "id") {
-                        $eventId = $child->textContent;
+                        $invitationId = $child->textContent;
                     } else if($child->tagName === "name") {
-                        $eventName = $child->textContent;
+                        $invitationName = $child->textContent;
                     }
                 }
 
-                $event = new Event($eventId, $eventName, "", "", "");
-                $events->append($event);
+                $invitation = new Invitation($invitationId, $invitationName, "", "", "");
+                $invitations->append($invitation);
             }
 
-            return $events;
+            return $invitations;
         }
         
         public static function queryDetails($id) 
         {
-            $data = array('action' => 'event_get_details', 'event_id' => $id);
+            $data = array('action' => 'invitation_get_details', 'invitation_id' => $id);
 
             $request = new PostRequest($data);
             $request->execute();
@@ -114,28 +114,28 @@
             $xml = new DOMDocument();
             $xml->loadXML($request->response);
 
-            $eventNodes = $xml->getElementsByTagName("event");
+            $invitationNodes = $xml->getElementsByTagName("invitation");
                 
-            foreach($eventNodes as $eventNode) {
+            foreach($invitationNodes as $invitationNode) {
                 
-                $children = $eventNode->getElementsByTagName("*");
+                $children = $invitationNode->getElementsByTagName("*");
                 foreach($children as $child) {
                     if($child->tagName === "id") {
-                        $eventId = $child->textContent;
+                        $invitationId = $child->textContent;
                     } else if($child->tagName === "name") {
-                        $eventName = $child->textContent;
+                        $invitationName = $child->textContent;
                     } else if($child->tagName === "ownerId") {
                         $ownerId = $child->textContent;
                     } else if($child->tagName === "ownerName") {
                         $ownerName = $child->textContent;
                     } else if($child->tagName === "description") {
-                        $eventDescription = $child->textContent;
+                        $invitationDescription = $child->textContent;
                     }
                 }
 
-                $event = new Event($eventId, $eventName, $ownerId, $ownerName, $eventDescription);
+                $invitation = new Invitation($invitationId, $invitationName, $ownerId, $ownerName, $invitationDescription);
                 
-                return $event;
+                return $invitation;
             }
 
             return null;
@@ -143,7 +143,7 @@
         
         public static function queryComments($id) 
         {
-            $data = array('action' => 'event_get_comments', 'event_id' => $id);
+            $data = array('action' => 'invitation_get_comments', 'invitation_id' => $id);
 
             $request = new PostRequest($data);
             $request->execute();
@@ -185,7 +185,7 @@
 
         public static function create($name, $description)
         {
-            $data = array('action' => 'event_create', 'event_name' => $name, 'event_description' => $description);
+            $data = array('action' => 'invitation_create', 'invitation_name' => $name, 'invitation_description' => $description);
 
             $request = new PostRequest($data);
             $request->execute();
@@ -193,9 +193,9 @@
             return $request->responseValue;
         }
         
-        public static function postComment($eventId, $comment)
+        public static function postComment($invitationId, $comment)
         {
-            $data = array('action' => 'event_post_comment', 'event_id' => $eventId, 'event_comment' => $comment);
+            $data = array('action' => 'invitation_post_comment', 'invitation_id' => $invitationId, 'invitation_comment' => $comment);
 
             $request = new PostRequest($data);
             $request->execute();

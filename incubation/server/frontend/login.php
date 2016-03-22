@@ -9,8 +9,8 @@
     {
         echo '
 <h1>Logged in</h1>
-<div class="info"><p>You are logged in. Have a look at the event section.</p><div>
-<a href="events.php">Events</a>
+<div class="info"><p>You are logged in. Have a look at the invitation section.</p><div>
+<a href="invitations.php">Invitations</a>
 <br>
 <a href="logout.php">Logout</a>
         ';
@@ -21,7 +21,7 @@
         $password_cleartext = $_POST['password'];
         if(UserQuery::login($username, $password_cleartext) == true) {
             echo '<h1>Login successful</h1>
-            <a href="events.php">Events</a>
+            <a href="invitations.php">Invitations</a>
             <br>
             <a href="logout.php">Logout</a>';
         } else {

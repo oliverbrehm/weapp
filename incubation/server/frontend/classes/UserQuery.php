@@ -24,7 +24,7 @@
             return $request->responseValue;
         }
 
-        public static function queryAll() // returns a list of events containing id and name
+        public static function queryAll() // returns a list of invitations containing id and name
         {
             $data = array('action' => 'user_get_all');
 

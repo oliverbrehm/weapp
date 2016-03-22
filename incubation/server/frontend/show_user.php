@@ -15,12 +15,12 @@
         echo "<h1>".$user->name."</h1>";
         echo "<div class='info'>TBD user info</div><br>";
         echo "
-            <div class='label'>Events by this user: </div><br>\n";
+            <div class='label'>Invitations by this user: </div><br>\n";
         
-        $userEvents = EventQuery::queryByUser($id);
+        $userInvitations = InvitationQuery::queryByUser($id);
         
-        foreach($userEvents as $event) { 
-            echo "<a href='show_event.php?event_id=".$event->id."'>".$event->name."</a><br>";
+        foreach($userInvitations as $invitation) { 
+            echo "<a href='show_invitation.php?invitation_id=".$invitation->id."'>".$invitation->name."</a><br>";
         }          
         echo '<br>';
     } else {

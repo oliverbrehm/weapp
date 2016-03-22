@@ -6,19 +6,19 @@
 
 ?>
 
-    <h1>Events</h1>
+    <h1>Invitations</h1>
 
 <?php
     if(UserQuery::queryLoggedIn() == true) {
         echo '
-        <a class="action" href="createEvent.php">Create event</a><br>
+        <a class="action" href="createInvitation.php">Create invitation</a><br>
         <br>
         ';
         
-        $events = EventQuery::queryAll();
+        $invitations = InvitationQuery::queryAll();
                 
-        foreach($events as $event) {
-            echo "<a class='event' href=show_event.php?event_id=".$event->id.">".$event->name."</a><br>\n\n";
+        foreach($invitations as $invitation) {
+            echo "<a class='invitation' href=show_invitation.php?invitation_id=".$invitation->id.">".$invitation->name."</a><br>\n\n";
         }
         
         echo '<br>';
