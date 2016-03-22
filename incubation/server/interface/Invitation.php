@@ -14,24 +14,35 @@
         public static function processAction($action) 
         {
             if($action == "invitation_create") {
-                if(empty($_POST['invitation_name']) || empty($_POST['invitation_description'])) {
+                if(empty($_POST['name']) || empty($_POST['description'])) {
                     Invitation::$xmlResponse->sendError("Invitation name or description not specified");
                 } else {
-                    Invitation::create($_POST['invitation_name'], $_POST['invitation_description']);
+                    $name = $_POST['name'];
+                    $description = $_POST['description'];
+                    $maxParticipants = $_POST['maxParticipants'];
+                    $date = $_POST['date'];
+                    $time = $_POST['time'];
+                    $locationCity = $_POST['locationCity'];
+                    $locationStreet = $_POST['locationStreet'];
+                    $locationStreetNumber = $_POST['locationStreetNumber'];
+                    $locationLatitude = $_POST['locationLatitude'];
+                    $locationLongitude = $_POST['locationLongitude'];
+            
+                    Invitation::create($name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude);
                 }
                 return true;
             } else if($action == "invitation_post_comment") {
-                if(empty($_POST['invitation_id']) || empty($_POST['invitation_comment'])) {
+                if(empty($_POST['id']) || empty($_POST['comment'])) {
                     Invitation::$xmlResponse->sendError("Invitation id or comment not specified");
                 } else {
-                    Invitation::postComment($_POST['invitation_id'], $_POST['invitation_comment']);
+                    Invitation::postComment($_POST['id'], $_POST['comment']);
                 }
                 return true;            
             } else if($action == "invitation_get_comments") {
-                if(empty($_POST['invitation_id'])) {
+                if(empty($_POST['id'])) {
                     Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
-                    Invitation::queryComments($_POST['invitation_id']);
+                    Invitation::queryComments($_POST['id']);
                 }                
                 return true;
             } else if($action == "invitation_get_all") {
@@ -45,10 +56,10 @@
                 }
                 return true;
             } else if($action == "invitation_get_details") {
-                if(empty($_POST['invitation_id'])) {
+                if(empty($_POST['id'])) {
                     Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
-                    Invitation::queryDetails($_POST['invitation_id']);
+                    Invitation::queryDetails($_POST['id']);
                 }
                 return true;
             } 
@@ -56,7 +67,7 @@
             return false;
         }
         
-        public static function create($name, $description)
+        public static function create($name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude)
         {
             if(empty($_SESSION['username'])) {
                 return;
@@ -73,7 +84,7 @@
                 $result = mysql_query("SELECT UserID FROM User WHERE Name = '".$_SESSION['username']."'");
                 $row = mysql_fetch_array($result);
                 $user_id = $row['UserID'];
-                $createInvitationQuery = mysql_query("INSERT INTO Invitation (Name, Description, UserID) VALUES('".$name."', '".$description."', '".$user_id."')");
+                $createInvitationQuery = mysql_query("INSERT INTO Invitation (Name, Description, UserID, MaxParticipants, Date, Time, LocationCity, LocationStreet, LocationStreetNumber, LocationLatitude, LocationLongitude) VALUES('".$name."', '".$description."', '".$user_id."', '".$maxParticipants."', '".$date."', '".$time."', '".$locationCity."', '".$locationStreet."', '".$locationStreetNumber."', '".$locationLatitude."', '".$locationLongitude."')");
                 if($createInvitationQuery)
                 {
                     Invitation::$xmlResponse->sendMessage("Invitation ".$name." successfully created.");
@@ -191,6 +202,15 @@
                 $name = $row['Name'];
                 $description = $row['Description'];
                 
+                $maxParticipants = $row['MaxParticipants'];
+                $date = $row['Date'];
+                $time = $row['Time'];
+                $locationCity = $row['LocationCity'];
+                $locationStreet = $row['LocationStreet'];
+                $locationStreetNumber = $row['LocationStreetNumber'];
+                $locationLatitude = $row['LocationLatitude'];
+                $locationLongitude = $row['LocationLongitude'];
+                
                 // TODO combine 2 sql queries to one
                 $ownerId = $row['UserID'];
                 $result = mysql_query("SELECT Name FROM User WHERE UserID='".$ownerId."'");            
@@ -202,11 +222,19 @@
                 
                 $invitation = Invitation::$xmlResponse->addList("invitation");
 
-                $invitation->addElement('id', $id);
-                $invitation->addElement('name', $name);
-                $invitation->addElement('ownerId', $ownerId);
-                $invitation->addElement('ownerName', $ownerName);
-                $invitation->addElement('description', $description);
+                $invitation->addElement('InvitationId', $id);
+                $invitation->addElement('Name', $name);
+                $invitation->addElement('OwnerId', $ownerId);
+                $invitation->addElement('OwnerName', $ownerName);
+                $invitation->addElement('Description', $description);
+                $invitation->addElement('MaxParticipants', $maxParticipants);
+                $invitation->addElement('Date', $date);
+                $invitation->addElement('Time', $time);
+                $invitation->addElement('LocationCity', $locationCity);
+                $invitation->addElement('LocationStreet', $locationStreet);
+                $invitation->addElement('LocationStreetNumber', $locationStreetNumber);
+                $invitation->addElement('LocationLatitude', $locationLatitude);
+                $invitation->addElement('LocationLongitude', $locationLongitude);
 
                 Invitation::$xmlResponse->writeOutput();
             } else {

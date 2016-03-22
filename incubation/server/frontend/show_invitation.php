@@ -28,10 +28,17 @@
         $invitation = InvitationQuery::queryDetails($id);
                 
         echo "<h1>".$invitation->name."</h2>";
-        echo "
-            <div class='label'>Author</div> <a href='show_user.php?user_id=".$invitation->ownerId."'>".$invitation->ownerName."</a><br><br>\n
-            <div class='textBlock'>".$invitation->description."\n</div><br><br>\n
-            <div class='label'>Comments</div><br>\n";
+        echo "<div class='label'>Author</div> <a href='show_user.php?user_id=".$invitation->ownerId."'>".$invitation->ownerName."</a><br><br>\n";
+        
+        echo "<div class='textBlock'>".$invitation->description."\n</div><br><br>\n";
+        echo "<div class='info'>Maximum Participants: ".$invitation->maxParticipants."</div><br>";  
+        echo "<div class='info'>Date: ".$invitation->date."</div><br>";  
+        echo "<div class='info'>Time: ".$invitation->time."</div><br>";  
+        echo "<div class='info'>City: ".$invitation->locationCity."</div><br>";  
+        echo "<div class='info'>Street: ".$invitation->locationStreet." Number: ".$invitation->locationStreetNumber."</div><br>";  
+        echo "<div class='info'>Location: (".$invitation->locationLatitude.", ".$invitation->locationLongitude.")</div><br><br>";    
+
+        echo "<div class='label'>Comments</div><br>\n";
         
         $comments = InvitationQuery::queryComments($id);
         foreach($comments as $comment) {

@@ -6,14 +6,36 @@
         public $name;
         public $ownerId;
         public $ownerName;
-        public $description;
+        public $description;      
+        public $maxParticipants;
+        public $date;
+        public $time;
+        public $locationCity;
+        public $locationStreet;
+        public $locationStreetNumber;
+        public $locationLatitude;
+        public $locationLongitude;
                
-        public function __construct($id, $name, $ownerId, $ownerName, $description) {
+        public function __construct($id, $name, $ownerId, $ownerName, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude) {
             $this->id = $id;
             $this->name = $name;
             $this->ownerId = $ownerId;
             $this->ownerName = $ownerName;
             $this->description = $description;
+            $this->maxParticipants = $maxParticipants;
+            $this->date = $date;
+            $this->time = $time;
+            $this->locationCity = $locationCity;
+            $this->locationStreet = $locationStreet;
+            $this->locationStreetNumber = $locationStreetNumber;
+            $this->locationLatitude = $locationLatitude;
+            $this->locationLongitude = $locationLongitude;
+        }
+        
+        public static function withIdAndName($id, $name) 
+        {
+            $instance = new Invitation($id, $name, "", "", "", "", "", "", "", "", "", "", "");
+            return $instance;
         }
     }
     
@@ -62,7 +84,7 @@
                     }
                 }
 
-                $invitation = new Invitation($invitationId, $invitationName, "", "", "");
+                $invitation = Invitation::withIdAndName($invitationId, $invitationName);
                 $invitations->append($invitation);
             }
 
@@ -97,7 +119,7 @@
                     }
                 }
 
-                $invitation = new Invitation($invitationId, $invitationName, "", "", "");
+                $invitation = Invitation::withIdAndName($invitationId, $invitationName);
                 $invitations->append($invitation);
             }
 
@@ -106,7 +128,7 @@
         
         public static function queryDetails($id) 
         {
-            $data = array('action' => 'invitation_get_details', 'invitation_id' => $id);
+            $data = array('action' => 'invitation_get_details', 'id' => $id);
 
             $request = new PostRequest($data);
             $request->execute();
@@ -115,25 +137,52 @@
             $xml->loadXML($request->response);
 
             $invitationNodes = $xml->getElementsByTagName("invitation");
+            
+            $name = "";
+            $ownerId = "";
+            $ownerName = "";
+            $description = "";
+            $maxParticipants = "";
+            $date = "";
+            $time = "";
+            $locationCity = "";
+            $locationStreet = "";
+            $locationStreetNumber = "";
+            $locationLatitude = "";
+            $locationLongitude = "";
                 
             foreach($invitationNodes as $invitationNode) {
                 
                 $children = $invitationNode->getElementsByTagName("*");
                 foreach($children as $child) {
-                    if($child->tagName === "id") {
-                        $invitationId = $child->textContent;
-                    } else if($child->tagName === "name") {
-                        $invitationName = $child->textContent;
-                    } else if($child->tagName === "ownerId") {
+                    if($child->tagName === "Name") {
+                        $name = $child->textContent;
+                    } else if($child->tagName === "OwnerId") {
                         $ownerId = $child->textContent;
-                    } else if($child->tagName === "ownerName") {
+                    } else if($child->tagName === "OwnerName") {
                         $ownerName = $child->textContent;
-                    } else if($child->tagName === "description") {
-                        $invitationDescription = $child->textContent;
+                    } else if($child->tagName === "Description") {
+                        $description = $child->textContent;
+                    } else if($child->tagName === "MaxParticipants") {
+                        $maxParticipants = $child->textContent;
+                    } else if($child->tagName === "Date") {
+                        $date = $child->textContent;
+                    } else if($child->tagName === "Time") {
+                        $time = $child->textContent;
+                    } else if($child->tagName === "LocationCity") {
+                        $locationCity = $child->textContent;
+                    } else if($child->tagName === "LocationStreet") {
+                        $locationStreet = $child->textContent;
+                    } else if($child->tagName === "LocationStreetNumber") {
+                        $locationStreetNumber = $child->textContent;
+                    } else if($child->tagName === "LocationLatitude") {
+                        $locationLatitude = $child->textContent;
+                    } else if($child->tagName === "LocationLongitude") {
+                         $locationLongitude= $child->textContent;
                     }
                 }
 
-                $invitation = new Invitation($invitationId, $invitationName, $ownerId, $ownerName, $invitationDescription);
+                $invitation = new Invitation($id, $name, $ownerId, $ownerName, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude);
                 
                 return $invitation;
             }
@@ -143,7 +192,7 @@
         
         public static function queryComments($id) 
         {
-            $data = array('action' => 'invitation_get_comments', 'invitation_id' => $id);
+            $data = array('action' => 'invitation_get_comments', 'id' => $id);
 
             $request = new PostRequest($data);
             $request->execute();
@@ -183,9 +232,19 @@
         }
 
 
-        public static function create($name, $description)
+        public static function create($name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude)
         {
-            $data = array('action' => 'invitation_create', 'invitation_name' => $name, 'invitation_description' => $description);
+            $data = array('action' => 'invitation_create'
+                , 'name' => $name
+                , 'description' => $description
+                , 'maxParticipants' => $maxParticipants
+                , 'date' => $date
+                , 'time' => $time
+                , 'locationCity' => $locationCity
+                , 'locationStreet' => $locationStreet
+                , 'locationStreetNumber' => $locationStreetNumber
+                , 'locationLatitude' => $locationLatitude
+                , 'locationLongitude' => $locationLongitude);
 
             $request = new PostRequest($data);
             $request->execute();
@@ -195,7 +254,7 @@
         
         public static function postComment($invitationId, $comment)
         {
-            $data = array('action' => 'invitation_post_comment', 'invitation_id' => $invitationId, 'invitation_comment' => $comment);
+            $data = array('action' => 'invitation_post_comment', 'id' => $invitationId, 'comment' => $comment);
 
             $request = new PostRequest($data);
             $request->execute();
