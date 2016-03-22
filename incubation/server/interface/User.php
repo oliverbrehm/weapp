@@ -19,8 +19,18 @@
                 } else {
                     $username = $_POST['username'];//);
                     $password = $_POST['password'];//); TODO encrypt
-
-                    User::register($username, $password);
+                    $firstName = $_POST['firstName'];
+                    $lastName = $_POST['lastName'];
+                    $userType = $_POST['userType'];
+                    $gender = $_POST['gender'];
+                    $dateOfBirth = $_POST['dateOfBirth'];
+                    $nationality = $_POST['nationality'];
+                    $email = $_POST['email'];
+                    $dateOfImmigration = $_POST['dateOfImmigration'];
+                    $locationLatitude = $_POST['locationLatitude'];
+                    $locationLongitude = $_POST['locationLongitude'];
+                    
+                    User::register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $email, $dateOfImmigration, $locationLatitude, $locationLongitude);
                 }
                 return true;
             } else if($action == "user_login") {
@@ -64,7 +74,8 @@
                 return;
             }
 
-            $checklogin = mysql_query("SELECT * FROM users WHERE name = '".$username."' AND password = '".$password."'");
+            $query = "SELECT * FROM User WHERE Name = '".$username."' AND Password = '".$password."'";
+            $checklogin = mysql_query($query);
 
             if(mysql_num_rows($checklogin) == 1)
             {
@@ -101,17 +112,17 @@
         {
             // TODO if logged in
             User::$xmlResponse->addResponse(true);
-            $users = User::$xmlResponse->addList("eventList");
+            $users = User::$xmlResponse->addList("userList");
 
-            $result = mysql_query("SELECT id, name FROM users");
+            $result = mysql_query("SELECT UserID, Name FROM User");
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['id']) && isset($row['name'])) {
+                if(isset($row['UserID']) && isset($row['Name'])) {
                     $user = $users->addList("user");
                     
-                    $user->addElement('id', $row['id']);
-                    $user->addElement('name', $row['name']);
+                    $user->addElement('id', $row['UserID']);
+                    $user->addElement('name', $row['Name']);
                 }
             }
 
@@ -120,13 +131,13 @@
         
         public static function queryDetails($id) 
         {
-            $result = mysql_query("SELECT * FROM users WHERE id='".$id."'");
+            $result = mysql_query("SELECT * FROM User WHERE UserID='".$id."'");
 
             // TODO check #rows == 1
             $row = mysql_fetch_array($result);
 
-            if(isset($row['name'])) {
-                $name = $row['name'];
+            if(isset($row['Name'])) {
+                $name = $row['Name'];
                 
                 User::$xmlResponse->addResponse(true);
                 
@@ -140,7 +151,7 @@
             } 
         }
         
-        public static function register($username, $password)
+        public static function register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $email, $dateOfImmigration, $locationLatitude, $locationLongitude)
         {
             if(!empty($_SESSION['username'])) {
                 User::$xmlResponse->sendMessage("User already logged in.");
@@ -148,7 +159,7 @@
                 return;
             }
 
-            $checkusername = mysql_query("SELECT * FROM users WHERE name = '".$username."'");
+            $checkusername = mysql_query("SELECT * FROM User WHERE Name = '".$username."'");
 
             if(mysql_num_rows($checkusername) == 1)
             {
@@ -156,13 +167,15 @@
             }
             else
             {
-                $registerquery = mysql_query("INSERT INTO users (name, password) VALUES('".$username."', '".$password."')");
+                $query = "INSERT INTO User (Name, Password, FirstName, LastName, Immigrant, Gender, DateOfBirth, Nationality, Email, DateOfImmigration, LocationLatitude, LocationLongitude) VALUES('".$username."', '".$password."', '".$firstName."', '".$lastName."', ".$userType.", ".$gender.", '".$dateOfBirth."', '".$nationality."', '".$email."', '".$dateOfImmigration."', '".$locationLatitude."', '".$locationLongitude."')";
+                $registerquery = mysql_query($query);
                 if($registerquery)
                 {
                     User::$xmlResponse->sendMessage("User ".$username." successfully created");
                 }
                 else
                 {
+                    echo mysqli_errno();
                     User::$xmlResponse->sendError("Failed to register user");
                 }
             }  

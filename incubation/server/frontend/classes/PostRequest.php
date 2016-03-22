@@ -2,7 +2,7 @@
 
     class PostRequest
     {
-        private static $apiUrl = 'http://vocab-book.com/integrationsprojekt/interface/API.php';      
+        private static $apiUrl = 'http://vocab-book.com/integrationsprojekt/develop/interface/API.php';      
       
         private $postData;
         

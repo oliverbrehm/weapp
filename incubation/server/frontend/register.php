@@ -9,8 +9,23 @@
     {
         $username = $_POST['username'];
         $password = $_POST['password']; // TODO encrypt
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
         
-        if(!UserQuery::register($username, $password))
+        $userTypeText = $_POST['userType'];
+        $userType = ($userTypeText == "immigrant" ) ? 1 : 0;
+        
+        $genderText = $_POST['gender'];
+        $gender = ($genderText == "male" ) ? 1 : 0;
+
+        $dateOfBirth = $_POST['dateOfBirth'];
+        $nationality = $_POST['nationality'];
+        $email = $_POST['email'];
+        $dateOfImmigration = $_POST['dateOfImmigration'];
+        $locationLatitude = $_POST['locationLatitude'];
+        $locationLongitude = $_POST['locationLongitude'];
+                
+        if(!UserQuery::register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $email, $dateOfImmigration, $locationLatitude, $locationLongitude))
         {
             echo "<h1>Error</h1>";
             echo "<div class='errorMessage'><p>Sorry, that username is taken.</p></div>";
@@ -34,6 +49,20 @@
             <fieldset>
                 <label for="username">Username:</label><input type="text" name="username" id="username" /><br />
                 <label for="password">Password:</label><input type="password" name="password" id="password" /><br />
+                <label for="firstName">First name:</label><input type="text" name="firstName" id="firstName" /><br />
+                <label for="lastName">Last name:</label><input type="text" name="lastName" id="lastName" /><br />
+                <label for="userType">I am:</label>
+                    <input type="radio" name="userType" id="userType" value="immigrant" checked> Immigrant
+                    <input type="radio" name="userType" id="userType" value="local"> Local<br><br />
+                <label for="gender">Gender:</label>
+                    <input type="radio" name="gender" id="gender" value="male" checked> Male
+                    <input type="radio" name="gender" id="gender" value="female"> Female<br><br />
+                <label for="dateOfBirth">Date of birth:</label><input type="date" name="dateOfBirth" id="dateOfBirth" /><br />
+                <label for="nationality">Nationality:</label><input type="text" name="nationality" id="nationality" /><br />
+                <label for="email">Mail:</label><input type="email" name="email" id="email" /><br />
+                <label for="dateOfImmigration">Date of immigration:</label><input type="date" name="dateOfImmigration" id="dateOfImmigration" /><br />
+                <label for="locationLatitude">Longitude:</label><input type="text" name="locationLatitude" id="locationLatitude" /><br />
+                <label for="locationLongitude">Latitude:</label><input type="text" name="locationLongitude" id="locationLongitude" /><br />
                 <input type="submit" name="register" id="register" value="Register" />
             </fieldset>
         </form>

@@ -62,7 +62,7 @@
                 return;
             }
 
-            $checkeventname = mysql_query("SELECT * FROM events WHERE name = '".$name."'");
+            $checkeventname = mysql_query("SELECT * FROM Event WHERE Name = '".$name."'");
 
             if(mysql_num_rows($checkeventname) >= 1)
             {
@@ -70,10 +70,10 @@
             }
             else
             {
-                $result = mysql_query("SELECT id FROM users WHERE name = '".$_SESSION['username']."'");
+                $result = mysql_query("SELECT UserID FROM User WHERE Name = '".$_SESSION['username']."'");
                 $row = mysql_fetch_array($result);
-                $user_id = $row['id'];
-                $createEventQuery = mysql_query("INSERT INTO events (name, description, owner_id) VALUES('".$name."', '".$description."', '".$user_id."')");
+                $user_id = $row['UserID'];
+                $createEventQuery = mysql_query("INSERT INTO Event (Name, Description, UserID) VALUES('".$name."', '".$description."', '".$user_id."')");
                 if($createEventQuery)
                 {
                     Event::$xmlResponse->sendMessage("Event ".$name." successfully created.");
@@ -91,12 +91,12 @@
                 return;
             }
 
-            $result = mysql_query("SELECT id FROM users WHERE name = '".$_SESSION['username']."'");
+            $result = mysql_query("SELECT UserID FROM User WHERE Name = '".$_SESSION['username']."'");
             $row = mysql_fetch_array($result);
             
-            $user_id = $row['id'];
+            $user_id = $row['UserID'];
 
-            $postCommentQuery = mysql_query("INSERT INTO event_post (user_id, event_id, message) VALUES('".$user_id."', '".$eventId."', '".$comment."')");
+            $postCommentQuery = mysql_query("INSERT INTO EventPost (UserID, EventID, Message) VALUES('".$user_id."', '".$eventId."', '".$comment."')");
             if($postCommentQuery)
             {
                 Event::$xmlResponse->sendMessage("Comment successfully posted.");
@@ -114,15 +114,14 @@
             Event::$xmlResponse->addResponse(true);
             $events = Event::$xmlResponse->addList("eventList");
 
-            $result = mysql_query("SELECT id, name FROM events");
+            $result = mysql_query("SELECT EventID, Name FROM Event");
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['id']) && isset($row['name'])) {
+                if(isset($row['EventID']) && isset($row['Name'])) {
                     $event = $events->addList("event");
-                    
-                    $event->addElement('id', $row['id']);
-                    $event->addElement('name', $row['name']);
+                    $event->addElement('id', $row['EventID']);
+                    $event->addElement('name', $row['Name']);
                 }
             }
 
@@ -135,15 +134,15 @@
             Event::$xmlResponse->addResponse(true);
             $events = Event::$xmlResponse->addList("eventList");
 
-            $result = mysql_query("SELECT id, name FROM events WHERE owner_id='".$userId."'");
+            $result = mysql_query("SELECT EventID, Name FROM Event WHERE UserID='".$userId."'");
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['id']) && isset($row['name'])) {
+                if(isset($row['EventID']) && isset($row['Name'])) {
                     $event = $events->addList("event");
                     
-                    $event->addElement('id', $row['id']);
-                    $event->addElement('name', $row['name']);
+                    $event->addElement('id', $row['EventID']);
+                    $event->addElement('name', $row['Name']);
                 }
             }
 
@@ -156,25 +155,25 @@
             Event::$xmlResponse->addResponse(true);
             $comments = Event::$xmlResponse->addList("commentList");
 
-            $result = mysql_query("SELECT user_id, message, time FROM event_post WHERE event_id='".$eventId."'");
+            $result = mysql_query("SELECT UserID, Message, Time FROM EventPost WHERE EventID='".$eventId."'");
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['user_id']) && isset($row['message']) && isset($row['time'])) {
+                if(isset($row['UserID']) && isset($row['Message']) && isset($row['Time'])) {
                     $comment = $comments->addList("comment");
-                    $userId = $row['user_id'];
+                    $userId = $row['UserID'];
                     $username = "";
                     // get user name
-                    $result_user = mysql_query("SELECT name FROM users WHERE id='".$userId."'");
+                    $result_user = mysql_query("SELECT Name FROM User WHERE UserID='".$userId."'");
                     while($row_user = mysql_fetch_array($result_user)) {
                         // TODO check numenteries
-                        $username = $row_user['name'];
+                        $username = $row_user['Name'];
                     }
 
-                    $comment->addElement('message', $row['message']);
+                    $comment->addElement('message', $row['Message']);
                     $comment->addElement('authorId', $userId);
                     $comment->addElement('authorName', $username);
-                    $comment->addElement('time', $row['time']);
+                    $comment->addElement('time', $row['Time']);
                 }
             }
 
@@ -183,21 +182,21 @@
 
         public static function queryDetails($id) 
         {
-            $result = mysql_query("SELECT * FROM events WHERE id='".$id."'");
+            $result = mysql_query("SELECT * FROM Event WHERE EventID='".$id."'");
 
             // TODO check #rows == 1
             $row = mysql_fetch_array($result);
 
-            if(isset($row['owner_id']) && isset($row['name']) && isset($row['description'])) {
-                $name = $row['name'];
-                $description = $row['description'];
+            if(isset($row['UserID']) && isset($row['Name']) && isset($row['Description'])) {
+                $name = $row['Name'];
+                $description = $row['Description'];
                 
                 // TODO combine 2 sql queries to one
-                $ownerId = $row['owner_id'];
-                $result = mysql_query("SELECT name FROM users WHERE id='".$ownerId."'");            
+                $ownerId = $row['UserID'];
+                $result = mysql_query("SELECT Name FROM User WHERE UserID='".$ownerId."'");            
                 // TODO check #rows == 1
                 $user_row = mysql_fetch_array($result);
-                $ownerName = $user_row['name'];
+                $ownerName = $user_row['Name'];
                 
                 Event::$xmlResponse->addResponse(true);
                 

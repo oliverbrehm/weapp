@@ -87,9 +87,21 @@
 
             return null;        }
 
-        public static function register($username, $password)
+        public static function register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $email, $dateOfImmigration, $locationLatitude, $locationLongitude)
         {
-            $data = array('action' => 'user_register', 'username' => $username, 'password' => $password);
+            $data = array('action' => 'user_register'
+                    , 'username' => $username
+                    , 'password' => $password
+                    , 'firstName' => $firstName
+                    , 'lastName' => $lastName
+                    , 'userType' => $userType
+                    , 'gender' => $gender
+                    , 'dateOfBirth' => $dateOfBirth
+                    , 'nationality' => $nationality
+                    , 'email' => $email
+                    , 'dateOfImmigration' => $dateOfImmigration
+                    , 'locationLatitude' => $locationLatitude
+                    , 'locationLongitude' => $locationLongitude);
 
             $request = new PostRequest($data);
             $request->execute();
