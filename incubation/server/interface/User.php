@@ -131,21 +131,40 @@
         
         public static function queryDetails($id) 
         {
-            $result = mysql_query("SELECT * FROM User WHERE UserID='".$id."'");
+            $result = mysql_query("SELECT *, CAST(Immigrant AS unsigned integer) AS ImmigrantUI, CAST(Gender AS unsigned integer) AS GenderUI FROM User WHERE UserID='".$id."'");
 
             // TODO check #rows == 1
             $row = mysql_fetch_array($result);
 
             if(isset($row['Name'])) {
                 $name = $row['Name'];
+                $firstName = $row['FirstName'];
+                $lastName = $row['LastName'];
+                $userType = $row['ImmigrantUI'];
+                $gender = $row['GenderUI'];
+                $dateOfBirth = $row['DateOfBirth'];
+                $nationality = $row['Nationality'];
+                $email = $row['Email'];
+                $dateOfImmigration = $row['DateOfImmigration'];
+                $locationLatitude = $row['LocationLatitude'];
+                $locationLongitude = $row['LocationLongitude'];
                 
                 User::$xmlResponse->addResponse(true);
                 
                 $user = User::$xmlResponse->addList("user");
 
-                $user->addElement('id', $id);
-                $user->addElement('name', $name);
-
+                $user->addElement('UserID', $id);
+                $user->addElement('Name', $name);
+                $user->addElement('FirstName', $firstName);
+                $user->addElement('LastName', $lastName);
+                $user->addElement('Immigrant', $userType);
+                $user->addElement('Gender', $gender);
+                $user->addElement('DateOfBirth', $dateOfBirth);
+                $user->addElement('Nationality', $nationality);
+                $user->addElement('Email', $email);
+                $user->addElement('DateOfImmigration', $dateOfImmigration);
+                $user->addElement('LocationLatitude', $locationLatitude);
+                $user->addElement('LocationLongitude', $locationLongitude);
 
                 User::$xmlResponse->writeOutput();
             } 
