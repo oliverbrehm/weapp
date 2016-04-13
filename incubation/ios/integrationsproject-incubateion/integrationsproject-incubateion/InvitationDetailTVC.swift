@@ -1,25 +1,52 @@
 //
-//  UserProfileTVC.swift
+//  InvitationDetailTVC.swift
 //  integrationsproject-incubateion
 //
-//  Created by Oliver Brehm on 10.04.16.
+//  Created by Oliver Brehm on 13.04.16.
 //  Copyright © 2016 Oliver Brehm. All rights reserved.
 //
 
 import UIKit
 
-class UserProfileTVC: UITableViewController {
+class InvitationDetailTVC: UITableViewController {
 
-    @IBOutlet weak var mailLabel: UILabel!
-    @IBOutlet weak var sessionIdLabel: UILabel!
-    @IBOutlet weak var userIdLabel: UILabel!
-    @IBOutlet weak var userTypeLabel: UILabel!
-    @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var dateOfBirthLabel: UILabel!
-    @IBOutlet weak var dateOfImmigrationLabel: UILabel!
-    @IBOutlet weak var nationalityLabel: UILabel!
-    @IBOutlet weak var locationLatitudeLabel: UILabel!
-    @IBOutlet weak var locationLongitudeLabel: UILabel!
+    @IBOutlet weak var ownerLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var streetLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    
+    var invitation: Invitation?
+    
+    private func updateUI()
+    {
+        if let i = self.invitation {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+            
+            self.ownerLabel.text = i.ownerName
+            self.descriptionTextView.text = i.description
+            self.cityLabel.text = i.locationCity
+
+            if(i.date != nil) {
+                self.dateLabel.text = dateFormatter.stringFromDate(i.date!)
+            }
+            
+            if(i.locationStreet != nil && i.locationStreetNumber != nil) {
+                self.streetLabel.text = i.locationStreet! + "\(i.locationStreetNumber!)"
+            }
+            
+            if(i.locationLatitude != nil && i.locationLongitude != nil) {
+                self.locationLabel.text = "(\(i.locationLatitude!), \(i.locationLongitude!))"
+            }
+            
+            for cell in self.tableView.visibleCells {
+                cell.hidden = false
+            }
+        }
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,53 +57,25 @@ class UserProfileTVC: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        updateUI()
-    }
-    
-    func updateUI()
-    {
-        if let user = User.current {
-            let sqlDateFormatter = NSDateFormatter()
-            sqlDateFormatter.dateFormat = "yyyy-MM-dd"
-            
-            self.title = user.firstName + " " + user.lastName
-            self.mailLabel.text = user.mail
-            self.sessionIdLabel.text = User.sessionId
-            self.userIdLabel.text = "\(user.id)"
-            self.userTypeLabel.text = user.immigrant! ? "Immigrant" : "Local"
-            self.genderLabel.text = user.gender! ? "Male" : "Female"
-            self.dateOfBirthLabel.text  = sqlDateFormatter.stringFromDate(user.dateOfBirth!)
-            self.dateOfImmigrationLabel.text  = sqlDateFormatter.stringFromDate(user.dateOfImmigration!)
-            self.nationalityLabel.text = user.nationality
-            self.locationLatitudeLabel.text = "\(user.locationLatitude!)"
-            self.locationLongitudeLabel.text = "\(user.locationLongitude!)"
-        }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = self.tableView(self.tableView, cellForRowAtIndexPath: indexPath)
-        
-        if(cell.reuseIdentifier == "logoutCell") {
-            if(!User.logout()) {
-                let alertController = UIAlertController(title: "Logout", message: "Unable to logout user", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-                return
-            }
-            
-            // if logged out
-            User.current = nil
-            
-            // -> UINavigationController -> MainTBC
-            self.parentViewController?.parentViewController?.performSegueWithIdentifier("showLogin", sender: self)
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if(self.invitation != nil) {
+            self.title = invitation!.name
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                
+                self.invitation!.queryDetails()
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.updateUI()
+                }
+            }
+        }
     }
 
     // MARK: - Table view data source

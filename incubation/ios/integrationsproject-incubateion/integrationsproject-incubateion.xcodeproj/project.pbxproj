@@ -7,27 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A743D8551CBE801B00D14320 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
+		A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8581CBE805A00D14320 /* InvitationRequest.swift */; };
+		A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85A1CBE861400D14320 /* InvitationListTVC.swift */; };
+		A743D85D1CBE8BE900D14320 /* InvitationDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */; };
 		A747768B1CBA868D00144226 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A747768A1CBA868D00144226 /* LoginVC.swift */; };
 		A747768E1CBA891900144226 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A747768D1CBA891900144226 /* User.swift */; };
 		A74776921CBA8CAE00144226 /* MainTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74776911CBA8CAE00144226 /* MainTBC.swift */; };
 		A74776941CBA92E500144226 /* UserProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74776931CBA92E500144226 /* UserProfileTVC.swift */; };
+		A74DA6181CBB86D0008AB1C3 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */; };
+		A74DA61A1CBBA670008AB1C3 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA6191CBBA670008AB1C3 /* UserRequest.swift */; };
 		A74F5B281C5676A9006C03CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F5B271C5676A9006C03CC /* AppDelegate.swift */; };
-		A74F5B2A1C5676A9006C03CC /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F5B291C5676A9006C03CC /* FirstViewController.swift */; };
-		A74F5B2C1C5676A9006C03CC /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F5B2B1C5676A9006C03CC /* SecondViewController.swift */; };
 		A74F5B2F1C5676A9006C03CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B2D1C5676A9006C03CC /* Main.storyboard */; };
 		A74F5B311C5676A9006C03CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B301C5676A9006C03CC /* Assets.xcassets */; };
 		A74F5B341C5676A9006C03CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A743D8541CBE801B00D14320 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
+		A743D8581CBE805A00D14320 /* InvitationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationRequest.swift; sourceTree = "<group>"; };
+		A743D85A1CBE861400D14320 /* InvitationListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationListTVC.swift; sourceTree = "<group>"; };
+		A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationDetailTVC.swift; sourceTree = "<group>"; };
 		A747768A1CBA868D00144226 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		A747768D1CBA891900144226 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A74776911CBA8CAE00144226 /* MainTBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTBC.swift; sourceTree = "<group>"; };
 		A74776931CBA92E500144226 /* UserProfileTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTVC.swift; sourceTree = "<group>"; };
+		A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		A74DA6191CBBA670008AB1C3 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		A74F5B241C5676A9006C03CC /* integrationsproject-incubateion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "integrationsproject-incubateion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74F5B271C5676A9006C03CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A74F5B291C5676A9006C03CC /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		A74F5B2B1C5676A9006C03CC /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		A74F5B2E1C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A74F5B301C5676A9006C03CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A74F5B331C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +57,10 @@
 			isa = PBXGroup;
 			children = (
 				A747768D1CBA891900144226 /* User.swift */,
+				A743D8541CBE801B00D14320 /* Invitation.swift */,
+				A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */,
+				A74DA6191CBBA670008AB1C3 /* UserRequest.swift */,
+				A743D8581CBE805A00D14320 /* InvitationRequest.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -74,8 +86,6 @@
 			children = (
 				A747768C1CBA890C00144226 /* Model */,
 				A74F5B271C5676A9006C03CC /* AppDelegate.swift */,
-				A74F5B291C5676A9006C03CC /* FirstViewController.swift */,
-				A74F5B2B1C5676A9006C03CC /* SecondViewController.swift */,
 				A74F5B2D1C5676A9006C03CC /* Main.storyboard */,
 				A74F5B301C5676A9006C03CC /* Assets.xcassets */,
 				A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */,
@@ -83,6 +93,8 @@
 				A747768A1CBA868D00144226 /* LoginVC.swift */,
 				A74776911CBA8CAE00144226 /* MainTBC.swift */,
 				A74776931CBA92E500144226 /* UserProfileTVC.swift */,
+				A743D85A1CBE861400D14320 /* InvitationListTVC.swift */,
+				A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */,
 			);
 			path = "integrationsproject-incubateion";
 			sourceTree = "<group>";
@@ -158,12 +170,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A74F5B2C1C5676A9006C03CC /* SecondViewController.swift in Sources */,
+				A743D8551CBE801B00D14320 /* Invitation.swift in Sources */,
 				A74F5B281C5676A9006C03CC /* AppDelegate.swift in Sources */,
+				A74DA61A1CBBA670008AB1C3 /* UserRequest.swift in Sources */,
+				A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */,
+				A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */,
+				A743D85D1CBE8BE900D14320 /* InvitationDetailTVC.swift in Sources */,
 				A74776921CBA8CAE00144226 /* MainTBC.swift in Sources */,
 				A747768B1CBA868D00144226 /* LoginVC.swift in Sources */,
 				A747768E1CBA891900144226 /* User.swift in Sources */,
-				A74F5B2A1C5676A9006C03CC /* FirstViewController.swift in Sources */,
+				A74DA6181CBB86D0008AB1C3 /* HTTPRequest.swift in Sources */,
 				A74776941CBA92E500144226 /* UserProfileTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -79,9 +79,14 @@
 
             if(mysql_num_rows($checklogin) == 1)
             {
+                $row = mysql_fetch_array($checklogin);
+                $userId = $row['UserID'];
                 $_SESSION['username'] = $username;
 
-                User::$xmlResponse->sendMessage("Successfully logged in user.");
+                User::$xmlResponse->addResponse(true);
+                $loginNode = User::$xmlResponse->addElement("Login", "Successfully logged in user.");
+                $loginNode = User::$xmlResponse->addElement("UserID", $userId);
+                User::$xmlResponse->writeOutput();
             }
             else
             {

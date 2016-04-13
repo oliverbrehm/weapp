@@ -1,26 +1,16 @@
 //
-//  UserProfileTVC.swift
+//  InvitationListTVC.swift
 //  integrationsproject-incubateion
 //
-//  Created by Oliver Brehm on 10.04.16.
+//  Created by Oliver Brehm on 13.04.16.
 //  Copyright © 2016 Oliver Brehm. All rights reserved.
 //
 
 import UIKit
 
-class UserProfileTVC: UITableViewController {
+class InvitationListTVC: UITableViewController {
+    private var invitations: [Invitation] = []
 
-    @IBOutlet weak var mailLabel: UILabel!
-    @IBOutlet weak var sessionIdLabel: UILabel!
-    @IBOutlet weak var userIdLabel: UILabel!
-    @IBOutlet weak var userTypeLabel: UILabel!
-    @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var dateOfBirthLabel: UILabel!
-    @IBOutlet weak var dateOfImmigrationLabel: UILabel!
-    @IBOutlet weak var nationalityLabel: UILabel!
-    @IBOutlet weak var locationLatitudeLabel: UILabel!
-    @IBOutlet weak var locationLongitudeLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,51 +19,49 @@ class UserProfileTVC: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+
+    }
+    
+    private func sendInvitationListRequest() -> [Invitation]
+    {
+        let request = HTTPInvitationListRequest()
+        request.send()
+        
+        if(request.responseValue == false) {
+            return [Invitation(invitationId: 0, name: "Error loading invitations...")]
+        }
+        
+        var invitationList: [Invitation] = []
+        for invitationHeader in request.invitations {
+            let invitationId = Int(invitationHeader.id)!
+            invitationList.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
+        }
+        
+        return invitationList
+    }
+
+    private func loadInvitations()
+    {
+        invitations.removeAll()
+        invitations.append(Invitation(invitationId: 0, name: "Loading..."))
+        self.tableView.reloadData()
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+            self.invitations = self.sendInvitationListRequest();
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.tableView.reloadData()
+            }
+        }
+
     }
     
     override func viewWillAppear(animated: Bool) {
-        updateUI()
+        self.loadInvitations()
     }
     
-    func updateUI()
-    {
-        if let user = User.current {
-            let sqlDateFormatter = NSDateFormatter()
-            sqlDateFormatter.dateFormat = "yyyy-MM-dd"
-            
-            self.title = user.firstName + " " + user.lastName
-            self.mailLabel.text = user.mail
-            self.sessionIdLabel.text = User.sessionId
-            self.userIdLabel.text = "\(user.id)"
-            self.userTypeLabel.text = user.immigrant! ? "Immigrant" : "Local"
-            self.genderLabel.text = user.gender! ? "Male" : "Female"
-            self.dateOfBirthLabel.text  = sqlDateFormatter.stringFromDate(user.dateOfBirth!)
-            self.dateOfImmigrationLabel.text  = sqlDateFormatter.stringFromDate(user.dateOfImmigration!)
-            self.nationalityLabel.text = user.nationality
-            self.locationLatitudeLabel.text = "\(user.locationLatitude!)"
-            self.locationLongitudeLabel.text = "\(user.locationLongitude!)"
-        }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = self.tableView(self.tableView, cellForRowAtIndexPath: indexPath)
-        
-        if(cell.reuseIdentifier == "logoutCell") {
-            if(!User.logout()) {
-                let alertController = UIAlertController(title: "Logout", message: "Unable to logout user", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-                return
-            }
-            
-            // if logged out
-            User.current = nil
-            
-            // -> UINavigationController -> MainTBC
-            self.parentViewController?.parentViewController?.performSegueWithIdentifier("showLogin", sender: self)
-        }
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -81,27 +69,23 @@ class UserProfileTVC: UITableViewController {
 
     // MARK: - Table view data source
 
-    /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.invitations.count
     }
-    */
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("invitationCell", forIndexPath: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = invitations[indexPath.row].name
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -138,14 +122,17 @@ class UserProfileTVC: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if(segue.identifier == "invitationDetail" && segue.destinationViewController is InvitationDetailTVC) {
+            let selectedRow = self.tableView.indexPathForSelectedRow!.row
+            let invitationDetailTVC = segue.destinationViewController as! InvitationDetailTVC
+            invitationDetailTVC.invitation = self.invitations[selectedRow]
+        }
     }
-    */
 
 }

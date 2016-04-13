@@ -25,9 +25,9 @@
             return $this->responseNode;
         }     
         
-        public function addElement($type, $id, $data)
+        public function addElement($type, $data)
         {
-            $this->responseNode->addItem($type, $id, $data);
+            return $this->responseNode->addElement($type, $data);
         }   
         
         public function addList($name)
@@ -76,6 +76,8 @@
         {            
             $element = $this->ownerDocument->createElement($type, $data);
             $this->appendChild($element);
+            
+            return $element;
         }
                 
         public function addList($type)

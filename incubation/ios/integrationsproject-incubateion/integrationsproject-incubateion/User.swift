@@ -8,122 +8,105 @@
 
 import Foundation
 
-public class ResponseParser: NSObject, NSXMLParserDelegate
-{
-    public var responseValue = false
-    
-    public func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-        
-        if(elementName == "response") {
-            if let success = attributeDict["success"] {
-                self.responseValue = NSString(string: success).boolValue
-                print("RESPONSE: \(self.responseValue)")
-            }
-        }
-    }
-    
-    public func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        
-    }
-    
-    public func parser(parser: NSXMLParser, foundCharacters string: String) {
-        
-    }
-    
-    public func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
-        
-    }
-}
-
 public class User
 {
     public static var current : User?
+    public static var sessionId: String?
+
+    public let id: Int
     
-    public let mail: String
-    public let name: String
-    public let sessionId: String
+    public let firstName: String
+    public let lastName: String
+
+    public var mail: String?
+    
+    public var immigrant: Bool?
+    public var gender: Bool?
+    
+    public var dateOfBirth: NSDate?
+    public var dateOfImmigration: NSDate?
+
+    public var nationality: String?
+    
+    public var locationLatitude: Int?
+    public var locationLongitude: Int?
+    
+    init(id: Int, firstName: String, lastName: String)
+    {
+        self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+    
+    init(sessionId: String, id: Int, firstName: String, lastName: String, mail: String, immigrant: Bool, gender: Bool, dateOfBirth: NSDate, dateOfImmigration: NSDate, nationality: String, locationLatitude: Int, locationLongitude: Int) {
+        self.id = id
+        
+        self.firstName = firstName
+        self.lastName = lastName
+        self.mail = mail;
+        
+        self.immigrant = immigrant
+        self.gender = gender
+        
+        self.dateOfBirth = dateOfBirth
+        self.dateOfImmigration = dateOfImmigration
+        
+        self.nationality = nationality
+        
+        self.locationLatitude = locationLatitude
+        self.locationLongitude = locationLongitude
+        
+        User.sessionId = sessionId;
+    }
     
     public static func login(mail: String, password: String) -> User?
     {
-        var sessionId = ""
-        var responseString = ""
+        let loginRequest = HTTPUserLoginRequest()
+        loginRequest.send(mail, password: password)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "http://vocab-book.com/integrationsprojekt/develop/interface/API.php")!)
-        // TODO use HTTPS? normally HTTP is not even supported (hack in Project -> target -> Info -> App Transport Security Settings)
-        
-        request.HTTPMethod = "POST"
-        
-        let postString = "action=user_login&username=\(mail)&password=\(password)"
+        if(loginRequest.responseValue == false || loginRequest.sessionId.isEmpty) {
+            return nil
+        }
 
-        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let userDetailsRequest = HTTPUserDetailsRequest()
+        userDetailsRequest.send(Int(loginRequest.userId)!)
         
-        var locked = true // TODO very bad hack
+        print("user: \(userDetailsRequest.email), \(userDetailsRequest.dateOfBirth)")
         
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-            guard error == nil && data != nil else {                                                          // check for fundamental networking error
-                print("error=\(error)")
-                locked = false
-                return
-            }
-            
-            if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
-            }
-            
-            responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)! as String
-            print("responseString = \(responseString)")
-            
-            // cookies
-            for cookie in NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies! {
-                print(cookie.name)
-                if(cookie.name == "PHPSESSID") {
-                    sessionId = cookie.value
-                }
-            }
-            
-            locked = false
-        }
-        task.resume();
+        let sqlDateFormatter = NSDateFormatter()
+        sqlDateFormatter.dateFormat = "yyyy-MM-dd"
         
-        while(locked) { // TODO hack, REMOVE!
-            sleep(1)
-        }
-    
-        print("sessionId: \(sessionId)")
-        
-        if(sessionId.isEmpty || responseString.isEmpty) {
-            return nil
+        var dateOfBirth = NSDate.distantPast()
+        if let d = sqlDateFormatter.dateFromString(userDetailsRequest.dateOfBirth) {
+            dateOfBirth = d
         }
         
-        // get the xml response value
-        let data = responseString.dataUsingEncoding(NSUTF8StringEncoding)
-        let xmlParser = NSXMLParser(data: data!)
-        
-        let responseParser = ResponseParser()
-        
-        xmlParser.delegate = responseParser
-        
-        xmlParser.parse()
-        
-        if(responseParser.responseValue == false) {
-            return nil
+        var dateOfImmigration = NSDate.distantPast()
+        if let d = sqlDateFormatter.dateFromString(userDetailsRequest.dateOfImmigration) {
+            dateOfImmigration = d
         }
         
-        current = User(mail: mail, sessionId: sessionId)
+        current = User(sessionId: loginRequest.sessionId, id: Int(loginRequest.userId)!,
+                       firstName: userDetailsRequest.firstName, lastName: userDetailsRequest.lastName,
+                       mail: userDetailsRequest.email,
+                       immigrant: NSString(string: userDetailsRequest.immigrant).boolValue, gender: NSString(string: userDetailsRequest.gender).boolValue,
+                       dateOfBirth: dateOfBirth, dateOfImmigration: dateOfImmigration,
+                       nationality: userDetailsRequest.nationality,
+                       locationLatitude: Int(userDetailsRequest.locationLatitude)!, locationLongitude: Int(userDetailsRequest.locationLongitude)!)
         
         return current
+    }
+    
+    public static func logout() -> Bool
+    {
+        let logoutRequest = HTTPUserLogoutRequest()
+        logoutRequest.send()
+        
+        return logoutRequest.responseValue
     }
     
     public static func loggedIn() -> Bool
     {
         return current != nil;
-    }
-    
-    init(mail: String, sessionId: String)
-    {
-        self.mail = mail;
-        self.name = "Horst"
-        self.sessionId = sessionId;
     }
 }
