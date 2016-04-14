@@ -99,3 +99,38 @@ public class HTTPUserLogoutRequest: HTTPRequest
         return super.sendPost(postData)
     }
 }
+
+public class HTTPUserRegisterRequest: HTTPRequest
+{
+    public var userId = ""
+    public func send(username: String, password: String, firstName: String, lastName: String,
+                     userType: Bool, gender: Bool,
+                     dateOfBirth: NSDate, nationality: String,
+                     email: String, dateOfImmigration: NSDate,
+                     locationLatitude: Int, locationLongitude: Int) -> Bool
+    {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let immigrationDateString = dateFormatter.stringFromDate(dateOfImmigration)
+        let birthDateString = dateFormatter.stringFromDate(dateOfBirth)
+        
+        let postData =
+        "action=user_register&" +
+        
+        "username=\(username)&" +
+        "password=\(password)&" +
+        "firstName=\(firstName)&" +
+        "lastName=\(lastName)&" +
+        "userType=\(userType)&" +
+        "gender=\(gender)&" +
+        "dateOfBirth=\(birthDateString)&" +
+        "nationality=\(nationality)&" +
+        "email=\(email)&" +
+        "dateOfImmigration=\(immigrationDateString)&" +
+        "locationLatitude=\(locationLatitude)&" +
+        "locationLongitude=\(locationLongitude)&"
+        
+        return super.sendPost(postData)
+    }
+}
