@@ -60,9 +60,7 @@ class UserProfileTVC: UITableViewController {
         
         if(cell.reuseIdentifier == "logoutCell") {
             if(!User.logout()) {
-                let alertController = UIAlertController(title: "Logout", message: "Unable to logout user", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.presentAlert("Logout", message: "Unable to logout user", cancelButtonTitle: "OK", animated: true)
                 return
             }
             

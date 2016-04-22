@@ -72,43 +72,32 @@ class UserRegistrationVC: UIViewController, UITextFieldDelegate {
             
             dispatch_async(dispatch_get_main_queue()) {
                 if(registerRequest.responseValue == false) {
-                    let alert = UIAlertController(title: "Register", message: "Error registering", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.presentAlert("Register", message: "Error registering", cancelButtonTitle: "OK", animated: true)
                     return
                 }
-                
-                let alert = UIAlertController(title: "Register", message: "Account successfully created", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Login", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) in
-                    self.sendLoginRequest(nvc)
-                }))
 
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.presentAlert("Register", message: "Account successfully created", cancelButtonTitle: "Login", animated: true, completion: { (UIAlertAction) in
+                    self.sendLoginRequest(nvc)
+                })
             }
         }
     }
     
     @IBAction func registerButtonClicked(sender: AnyObject) {
         if(self.emailTextField.text!.isEmpty || self.password1TextField.text!.isEmpty || self.password2TextField.text!.isEmpty) {
-            let alert = UIAlertController(title: "Register", message: "Please enter email adress and password", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.presentAlert("Register", message: "Please enter email adress and password", cancelButtonTitle: "OK", animated: true)
             return
         }
         
         if(password1TextField.text != password2TextField.text) {
-            let alert = UIAlertController(title: "Register", message: "The passwords do not match", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.presentAlert("Register", message: "The passwords do not match", cancelButtonTitle: "OK", animated: true)
             self.password1TextField.text = ""
             self.password2TextField.text = ""
             return
         }
         
         if(!self.agreementSwitch.on) {
-            let alert = UIAlertController(title: "Register", message: "Please agree to the license agreement", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.presentAlert("Register", message: "Please agree to the license agreement", cancelButtonTitle: "OK", animated: true)
             return
         }
         

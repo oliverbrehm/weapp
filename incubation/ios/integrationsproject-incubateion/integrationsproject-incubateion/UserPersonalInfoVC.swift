@@ -35,9 +35,7 @@ class UserPersonalInfoVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func nextButtonClicked(sender: AnyObject) {
         if(self.firstNameTextField.text!.isEmpty || self.lastNameTextField.text!.isEmpty) {
-            let alert = UIAlertController(title: "Register", message: "Please enter a first and a last name", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.presentAlert("Register", message: "Please enter a first and a last name", cancelButtonTitle: "OK", animated: true)
             return
         }
         

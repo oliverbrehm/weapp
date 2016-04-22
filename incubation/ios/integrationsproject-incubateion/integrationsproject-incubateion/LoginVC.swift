@@ -50,9 +50,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         let loginButton = sender as! UIButton
         
         if(mail.isEmpty || password.isEmpty) {
-            let alert = UIAlertController(title: "Login", message: "Please enter your mail adress and password", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.presentAlert("Login", message: "Please enter your mail adress and password", cancelButtonTitle: "OK", animated: true)
         } else {
             self.activityIndicator.startAnimating()
             loginButton.hidden = true;
@@ -64,9 +62,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 dispatch_async(dispatch_get_main_queue()) {
                     
                     if(user == nil) {
-                        let alert = UIAlertController(title: "Login failed", message: "Invalid mail adress or password", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.presentAlert("Login failed", message: "Invalid mail adress or password", cancelButtonTitle: "OK", animated: true)
                     } else {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
