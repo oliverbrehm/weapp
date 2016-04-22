@@ -52,6 +52,45 @@ public class HTTPInvitationListRequest: HTTPRequest
     }
 }
 
+public class HTTPInvitationCreateRequest: HTTPRequest
+{
+    public var invitationId: String = ""
+    public var name: String = ""
+    public var ownerId: String = ""
+    public var ownerName: String = ""
+    public var invitationDescription: String = ""
+    public var maxParticipants: String = ""
+    public var date: String = ""
+    public var time: String = ""
+    public var locationCity: String = ""
+    public var locationStreet: String = ""
+    public var locationStreetNumber: String = ""
+    public var locationLatitude: String = ""
+    public var locationLongitude: String = ""
+    
+    public var invitations: [InvitationHeader] = []
+    
+    public func send(name : String, detailedDescription : String,
+                     maxParticipants : Int, date: String, time: String,
+                     locationCity : String, locationStreet : String, locationStreetNumber : Int,
+                     locationLatitude : Int, locationLongitude : Int) -> Bool
+    {
+        let postData = "action=invitation_create" +
+            "&name=\(name)" +
+            "&description=\(detailedDescription)" +
+            "&maxParticipants=\(maxParticipants)" +
+            "&date=\(date)" +
+            "&time=\(time)" +
+            "&locationCity=\(locationCity)" +
+            "&locationStreet=\(locationStreet)" +
+            "&locationStreetNumber=\(locationStreetNumber)" +
+            "&locationLatitude=\(locationLatitude)" +
+            "&locationLongitude=\(locationLongitude)"
+        
+        return super.sendPost(postData)
+    }
+}
+
 public class HTTPInvitationDetailRequest: HTTPRequest
 {
     public var invitationId: String = ""

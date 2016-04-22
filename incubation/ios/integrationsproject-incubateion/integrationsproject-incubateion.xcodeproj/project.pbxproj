@@ -26,6 +26,7 @@
 		A77E5BA21CBFB9BF003A7D0C /* UserPersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */; };
 		A77E5BA41CBFBB0A003A7D0C /* UserRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */; };
 		A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD0391CCA6F1A001FFEB4 /* Utility.swift */; };
+		A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPersonalInfoVC.swift; sourceTree = "<group>"; };
 		A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationVC.swift; sourceTree = "<group>"; };
 		A79FD0391CCA6F1A001FFEB4 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateInvitationTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				A74776931CBA92E500144226 /* UserProfileTVC.swift */,
 				A743D85A1CBE861400D14320 /* InvitationListTVC.swift */,
 				A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */,
+				A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				A77E5B9C1CBFA696003A7D0C /* UserTypeSelectionVC.swift in Sources */,
 				A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */,
 				A747768E1CBA891900144226 /* User.swift in Sources */,
+				A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */,
 				A74DA6181CBB86D0008AB1C3 /* HTTPRequest.swift in Sources */,
 				A74776941CBA92E500144226 /* UserProfileTVC.swift in Sources */,
 			);

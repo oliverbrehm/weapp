@@ -49,6 +49,25 @@ public class Invitation
         self.locationLongitude = locationLongitude
     }
     
+    public static func create(name : String, detailedDescription : String,
+                              maxParticipants : Int, nsDate : NSDate,
+                              locationCity : String, locationStreet : String, locationStreetNumber : Int,
+                              locationLatitude : Int, locationLongitude : Int) -> Bool
+    {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.stringFromDate(nsDate)
+        
+        let timeFormatter = NSDateFormatter()
+        timeFormatter.dateFormat = "hh-mm"
+        let time = timeFormatter.stringFromDate(nsDate)
+        
+        let request = HTTPInvitationCreateRequest()
+        request.send(name, detailedDescription: detailedDescription, maxParticipants: maxParticipants, date: date, time: time, locationCity: locationCity, locationStreet: locationStreet, locationStreetNumber: locationStreetNumber, locationLatitude: locationLatitude, locationLongitude: locationLongitude)
+        
+        return request.responseValue
+    }
+    
     public func queryDetails()
     {
         let request = HTTPInvitationDetailRequest()
