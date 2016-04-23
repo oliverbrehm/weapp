@@ -9,52 +9,9 @@
 import UIKit
 
 class InvitationDetailTVC: UITableViewController {
-
-    @IBOutlet weak var ownerLabel: UILabel!
-    @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var streetLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
     
     var invitation: Invitation?
-    
-    private func updateUI()
-    {
-        if let i = self.invitation {
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
-            
-            self.ownerLabel.text = i.ownerName
-            self.descriptionTextView.text = i.description
-            self.cityLabel.text = i.locationCity
-
-            if(i.date != nil) {
-                self.dateLabel.text = dateFormatter.stringFromDate(i.date!)
-            }
-            
-            if(i.locationStreet != nil && i.locationStreetNumber != nil) {
-                self.streetLabel.text = i.locationStreet! + "\(i.locationStreetNumber!)"
-            }
-            
-            if(i.locationLatitude != nil && i.locationLongitude != nil) {
-                self.locationLabel.text = "(\(i.locationLatitude!), \(i.locationLongitude!))"
-            }
-            
-            for cell in self.tableView.visibleCells { // TODO incorrect, only hides cells wich are visible (on top)
-                cell.hidden = false
-            }
-            
-            if(i.createdByUser(User.current)) {
-                let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
-                self.navigationItem.rightBarButtonItem = item
-                
-            } else { // TODO if not already tried to join
-                let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
-                self.navigationItem.rightBarButtonItem = item
-            }
-        }
-    }
+    var participants: [Participant] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +35,25 @@ class InvitationDetailTVC: UITableViewController {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 
                 self.invitation!.queryDetails()
+                self.participants = self.invitation!.getParticipants()
                 
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.updateUI()
+                    if(self.invitation == nil) {
+                        return
+                    }
+                    
+                    self.participants.insert(Participant(userId: self.invitation!.ownerId!, firstName: self.invitation!.ownerName! + " (owner)", numPersons: 1), atIndex: 0)
+                    self.tableView.reloadData()
+                    
+                    if(self.invitation!.createdByUser(User.current)) {
+                        let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
+                        self.navigationItem.rightBarButtonItem = item
+                        
+                    } else { // TODO if not already tried to join
+                        let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
+                        self.navigationItem.rightBarButtonItem = item
+                    }
+                    
                 }
             }
         }
@@ -96,27 +69,86 @@ class InvitationDetailTVC: UITableViewController {
     
     // MARK: - Table view data source
 
-    /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch(section) {
+        case 0: return self.participants.count;
+        default: // 1
+            return 5;
+        }
     }
-    */
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch(section) {
+        case 0: return "Participants";
+        case 1: return "Info";
+        default: return nil;
+        }
+    }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell: UITableViewCell
+        
+        if(indexPath.section == 0) {
+            cell = tableView.dequeueReusableCellWithIdentifier("participantCell", forIndexPath: indexPath)
 
-        // Configure the cell...
+            cell.textLabel?.text = participants[indexPath.row].firstName + "(\(participants[indexPath.row].numPersons))"
+        } else { // 1
+            cell = tableView.dequeueReusableCellWithIdentifier("invitationInfoCell", forIndexPath: indexPath)
+            
+            if(self.invitation == nil) {
+                return cell
+            }
+            
+            let i = self.invitation!
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+            
+            var date = ""
+            if(i.date != nil) {
+                date = dateFormatter.stringFromDate(i.date!)
+            }
+            
+            var street = ""
+            if(i.locationStreet != nil && i.locationStreetNumber != nil) {
+                street = i.locationStreet! + "\(i.locationStreetNumber!)"
+            }
+            
+            var location = ""
+            if(i.locationLatitude != nil && i.locationLongitude != nil) {
+                location = "(\(i.locationLatitude!), \(i.locationLongitude!))"
+            }
+            
+            switch(indexPath.row) {
+            case 0:
+                cell.textLabel?.text = "Description"
+                cell.detailTextLabel?.text = i.description
+                break;
+            case 1:
+                cell.textLabel?.text = "Date"
+                cell.detailTextLabel?.text = date
+                break;
+            case 2:
+                cell.textLabel?.text = "City"
+                cell.detailTextLabel?.text = i.locationCity
+                break;
+            case 3:
+                cell.textLabel?.text = "Street"
+                cell.detailTextLabel?.text = street
+                break;
+            case 4:
+                cell.textLabel?.text = "Location"
+                cell.detailTextLabel?.text = location
+                break;
+            default: break
+            }
+        }
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

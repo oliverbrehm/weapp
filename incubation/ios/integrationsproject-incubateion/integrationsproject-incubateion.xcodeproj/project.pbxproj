@@ -31,7 +31,6 @@
 		A7EC55ED1CCBBEC300A4056B /* CreateJoinRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */; };
 		A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */; };
 		A7EC55F11CCBE87900A4056B /* JoinRequestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */; };
-		A7EC55F31CCBE89600A4056B /* RequestReactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55F21CCBE89600A4056B /* RequestReactionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +60,6 @@
 		A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateJoinRequestVC.swift; sourceTree = "<group>"; };
 		A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequest.swift; sourceTree = "<group>"; };
 		A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequestTVC.swift; sourceTree = "<group>"; };
-		A7EC55F21CCBE89600A4056B /* RequestReactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestReactionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +130,6 @@
 				A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */,
 				A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */,
 				A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */,
-				A7EC55F21CCBE89600A4056B /* RequestReactionCell.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -219,7 +216,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7EC55F31CCBE89600A4056B /* RequestReactionCell.swift in Sources */,
 				A743D8551CBE801B00D14320 /* Invitation.swift in Sources */,
 				A77E5BA41CBFBB0A003A7D0C /* UserRegistrationVC.swift in Sources */,
 				A7EC55F11CCBE87900A4056B /* JoinRequestTVC.swift in Sources */,

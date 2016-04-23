@@ -8,6 +8,20 @@
 
 import Foundation
 
+public class Participant
+{
+    public let userId: Int
+    public let firstName: String
+    public let numPersons: Int
+    
+    init(userId: Int, firstName: String, numPersons: Int)
+    {
+        self.userId = userId
+        self.firstName = firstName
+        self.numPersons = numPersons
+    }
+}
+
 public class Invitation
 {
     private let invitationId: Int
@@ -83,6 +97,14 @@ public class Invitation
         request.send(self.invitationId, userId: user.id, numParticipants: numParticipants)
         
         return request.responseValue
+    }
+    
+    func getParticipants() -> [Participant]
+    {
+        let request = HTTPInvitationGetParticipantsRequest()
+        request.send(self.invitationId)
+        
+        return request.participants
     }
     
     public func queryDetails()

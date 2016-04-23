@@ -98,6 +98,48 @@ public class HTTPInvitationJoinRequest: HTTPRequest
     }
 }
 
+public class HTTPInvitationGetParticipantsRequest: HTTPRequest
+{
+    private var currentUserId = ""
+    private var currentFirstName = ""
+    private var currentNumParticipants = ""
+
+    public var participants: [Participant] = []
+    
+    public func send() -> Bool
+    {
+        let postData = "action=invitation_query"
+        return super.sendPost(postData)
+    }
+    
+    public func send(invitationId: Int) -> Bool
+    {
+        let postData = "action=invitation_get_participants&id=\(invitationId)"
+        return super.sendPost(postData)
+    }
+    
+    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
+        
+        switch(elementName) {
+        case "userId":
+            self.currentUserId = self.currentString
+            break
+        case "firstName":
+            self.currentFirstName = self.currentString
+            break
+        case "numParticipants":
+            self.currentNumParticipants = self.currentString
+            break
+        case "Participant":
+            self.participants.append(Participant(userId: Int(self.currentUserId)!, firstName: self.currentFirstName, numPersons: Int(self.currentNumParticipants)!))
+            break
+            
+        default: break
+        }
+    }
+}
+
 public class HTTPInvitationDetailRequest: HTTPRequest
 {
     public var invitationId: String = ""

@@ -79,6 +79,13 @@
                     Invitation::rejectJoinRequest($_POST['id']);
                 }
                 return true;            
+            } else if($action == "invitation_get_participants") {
+                if(empty($_POST['id'])) {
+                    Invitation::$xmlResponse->sendError("Request id not specified");
+                } else {
+                    Invitation::getParticipants($_POST['id']);
+                }
+                return true;            
             }
             
             return false;
@@ -193,6 +200,28 @@
             } else {
                 Invitation::$xmlResponse->sendMessage("Successfully deleted request.");
             }
+        }
+        
+        public static function getParticipants($invitationId)
+        {
+            // TODO if logged in
+            Invitation::$xmlResponse->addResponse(true);
+            $invitations = Invitation::$xmlResponse->addList("ParticipantList");
+
+            $sql = "SELECT User.UserID, User.Name, InvitationParticipant.NumberOfPersons FROM InvitationParticipant, Invitation, User WHERE Invitation.InvitationID = '".$invitationId."' AND InvitationParticipant.InvitationID=Invitation.InvitationID AND User.UserID=InvitationParticipant.UserID";        
+            $result = mysql_query($sql);
+
+            while($row = mysql_fetch_array($result))
+            {
+                if(isset($row['UserID']) && isset($row['Name']) && isset($row['NumberOfPersons'])) {
+                    $invitation = $invitations->addList("Participant");
+                    $invitation->addElement('userId', $row['UserID']);
+                    $invitation->addElement('firstName', $row['Name']); // TODO actually use first name here, not username
+                    $invitation->addElement('numParticipants', $row['NumberOfPersons']);
+                }
+            }
+
+            Invitation::$xmlResponse->writeOutput();
         }
         
         public static function postComment($invitationId, $comment)
