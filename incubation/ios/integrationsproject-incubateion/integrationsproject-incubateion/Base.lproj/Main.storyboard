@@ -160,7 +160,7 @@ Bla</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="18" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-uY-6X3">
-                                                <rect key="frame" x="71" y="0.0" width="428" height="31"/>
+                                                <rect key="frame" x="67" y="0.0" width="436" height="31"/>
                                                 <connections>
                                                     <action selector="ageSliderValueChanged:" destination="KSC-gr-quu" eventType="valueChanged" id="MMf-9M-8u1"/>
                                                 </connections>
@@ -517,6 +517,9 @@ Bla</string>
                             <outlet property="delegate" destination="Ef6-Ze-xSe" id="APW-KF-vqB"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Loading..." id="SCM-oM-0Vh"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cityLabel" destination="qhZ-Xv-wa3" id="rUv-66-ab1"/>
                         <outlet property="dateLabel" destination="ksr-Do-ZFR" id="rFx-jZ-97A"/>
@@ -524,43 +527,12 @@ Bla</string>
                         <outlet property="locationLabel" destination="gIp-GC-JLU" id="CIr-zQ-uKd"/>
                         <outlet property="ownerLabel" destination="WEu-TO-Hv2" id="f5p-Cn-iNi"/>
                         <outlet property="streetLabel" destination="yCD-Fp-qQv" id="Src-1o-14z"/>
+                        <segue destination="4HU-QX-x2H" kind="show" identifier="editInvitation" id="hlr-DA-zgk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4qp-sW-2SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2430" y="0.0"/>
-        </scene>
-        <!--Invitations-->
-        <scene sceneID="wg7-f3-ORb">
-            <objects>
-                <viewController id="8rJ-Kc-sve" userLabel="Invitations" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
-                        <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="My Invitations" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="190" y="279" width="221" height="42"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Invitations" image="second" id="cPa-gy-q4n"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="0.0" y="872"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="C3Z-Yo-9xh">
@@ -761,7 +733,7 @@ Bla</string>
                     <connections>
                         <segue destination="4tN-iT-FLD" kind="presentation" identifier="showLogin" id="WCV-mT-Ejf"/>
                         <segue destination="RKG-gS-WR1" kind="relationship" relationship="viewControllers" id="SZB-74-BeJ"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="OOP-Jh-TVu" kind="relationship" relationship="viewControllers" id="0VN-Ks-5ku"/>
                         <segue destination="zGD-Zn-CCv" kind="relationship" relationship="viewControllers" id="cTd-qE-9V1"/>
                         <segue destination="lAC-v3-iaH" kind="relationship" relationship="viewControllers" id="1p0-1l-Nd2"/>
                     </connections>
@@ -769,6 +741,38 @@ Bla</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--User InvitationsTVC-->
+        <scene sceneID="U4N-k1-jMR">
+            <objects>
+                <tableViewController id="Rza-2Z-Ikk" customClass="UserInvitationsTVC" customModule="integrationsproject_incubateion" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="sH0-zE-EgB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invitationCell" id="pDo-el-qpc">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pDo-el-qpc" id="G9m-sE-L6M">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Ef6-Ze-xSe" kind="show" identifier="invitationDetail" id="hcb-jL-jQI"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Rza-2Z-Ikk" id="2hO-BJ-3bU"/>
+                            <outlet property="delegate" destination="Rza-2Z-Ikk" id="qzk-ON-MmX"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="5Qz-yY-hJO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ha-hq-LpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="1707"/>
         </scene>
         <!--User-->
         <scene sceneID="IPR-id-9eV">
@@ -1294,15 +1298,26 @@ Bla</string>
                                                         <action selector="createInvitationClicked:" destination="4HU-QX-x2H" eventType="touchUpInside" id="Gki-1N-dZS"/>
                                                     </connections>
                                                 </button>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS6-CV-J4v">
+                                                    <rect key="frame" x="244" y="7" width="112" height="30"/>
+                                                    <state key="normal" title="Delete invitation">
+                                                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteInvitationClicked:" destination="4HU-QX-x2H" eventType="touchUpInside" id="yYN-hl-qAM"/>
+                                                    </connections>
+                                                </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fTO-t5-C2t">
                                                     <rect key="frame" x="290" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="WS6-CV-J4v" firstAttribute="centerX" secondItem="DAz-dC-t0V" secondAttribute="centerX" id="6fi-Al-FxT"/>
                                                 <constraint firstItem="fTO-t5-C2t" firstAttribute="centerX" secondItem="DAz-dC-t0V" secondAttribute="centerX" id="HJ9-Kf-zNf"/>
                                                 <constraint firstItem="dmq-Sk-7bX" firstAttribute="centerY" secondItem="DAz-dC-t0V" secondAttribute="centerY" id="WwD-O0-LHO"/>
                                                 <constraint firstItem="dmq-Sk-7bX" firstAttribute="centerX" secondItem="DAz-dC-t0V" secondAttribute="centerX" id="cay-V6-kVB"/>
                                                 <constraint firstItem="fTO-t5-C2t" firstAttribute="centerY" secondItem="DAz-dC-t0V" secondAttribute="centerY" id="csI-xd-OHK"/>
+                                                <constraint firstItem="WS6-CV-J4v" firstAttribute="centerY" secondItem="DAz-dC-t0V" secondAttribute="centerY" id="oiF-Xk-yt1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1315,11 +1330,19 @@ Bla</string>
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Create Invitation" id="DCA-Y9-Mdm"/>
+                    <navigationItem key="navigationItem" title="Create Invitation" id="DCA-Y9-Mdm">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="AT0-5S-Sj9">
+                            <connections>
+                                <action selector="saveButtonClicked:" destination="4HU-QX-x2H" id="WBf-CE-gvg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="fTO-t5-C2t" id="zkc-Ya-pDT"/>
                         <outlet property="cityLabel" destination="M6a-kE-a2T" id="NpF-Zz-atu"/>
+                        <outlet property="createInvitationButton" destination="dmq-Sk-7bX" id="kww-BS-EcN"/>
                         <outlet property="datePicker" destination="9KQ-Ue-1OJ" id="xMl-Mh-Kcv"/>
+                        <outlet property="deleteButton" destination="WS6-CV-J4v" id="vep-jL-ChD"/>
                         <outlet property="descriptionTextView" destination="Ehf-35-xPM" id="P0M-Ax-Zh5"/>
                         <outlet property="numberOfGuestsLabel" destination="lkN-JR-JGG" id="3GU-av-IZv"/>
                         <outlet property="numberOfGuestsSlider" destination="tuj-32-wrf" id="EfL-Bn-p7V"/>
@@ -1594,7 +1617,7 @@ Bla</string>
         <scene sceneID="KJz-Jq-0hW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zGD-Zn-CCv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="New" image="first" id="1gj-dP-WOc"/>
+                    <tabBarItem key="tabBarItem" title="New" image="second" id="1gj-dP-WOc"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zxg-UE-et3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1609,9 +1632,32 @@ Bla</string>
             </objects>
             <point key="canvasLocation" x="826" y="872"/>
         </scene>
+        <!--Invitations-->
+        <scene sceneID="FBy-zI-ZIe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OOP-Jh-TVu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Invitations" image="second" id="buW-0z-iCP"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UEx-Z6-FMx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Rza-2Z-Ikk" kind="relationship" relationship="rootViewController" id="6c3-iR-cUc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e5v-L8-bef" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="872"/>
+        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hcb-jL-jQI"/>
+        <segue reference="aLC-Ef-Pzd"/>
+    </inferredMetricsTieBreakers>
 </document>

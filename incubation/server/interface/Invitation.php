@@ -45,15 +45,8 @@
                     Invitation::queryComments($_POST['id']);
                 }                
                 return true;
-            } else if($action == "invitation_get_all") {
-                Invitation::queryAll();
-                return true;
-            } else if($action == "invitation_get_user") {
-                if(empty($_POST['user_id'])) {
-                    Invitation::$xmlResponse->sendError("User id not specified");
-                } else {
-                    Invitation::queryByUser($_POST['user_id']);
-                }
+            } else if($action == "invitation_query") {
+                Invitation::query();
                 return true;
             } else if($action == "invitation_get_details") {
                 if(empty($_POST['id'])) {
@@ -119,39 +112,26 @@
         }
 
         /// returns a list of invitation headers containg id and name
-        public static function queryAll()
+        public static function query()
         {
             // TODO if logged in
             Invitation::$xmlResponse->addResponse(true);
             $invitations = Invitation::$xmlResponse->addList("invitationList");
 
-            $result = mysql_query("SELECT InvitationID, Name FROM Invitation");
-
-            while($row = mysql_fetch_array($result))
-            {
-                if(isset($row['InvitationID']) && isset($row['Name'])) {
-                    $invitation = $invitations->addList("invitation");
-                    $invitation->addElement('id', $row['InvitationID']);
-                    $invitation->addElement('name', $row['Name']);
-                }
+            $sql = "SELECT InvitationID, Name FROM Invitation";
+            $addedWhere = false;
+            
+            if(!empty($_POST['userID'])) {
+                if(!$addedWhere) { $sql .= " WHERE "; $addedWhere = true; } else { $sql .= " AND "; }
+                $sql .= "UserID='".$_POST['userID']."'";
             }
-
-            Invitation::$xmlResponse->writeOutput();
-        }
-        
-        public static function queryByUser($userId)
-        {
-            // TODO if logged in
-            Invitation::$xmlResponse->addResponse(true);
-            $invitations = Invitation::$xmlResponse->addList("invitationList");
-
-            $result = mysql_query("SELECT InvitationID, Name FROM Invitation WHERE UserID='".$userId."'");
+            
+            $result = mysql_query($sql);
 
             while($row = mysql_fetch_array($result))
             {
                 if(isset($row['InvitationID']) && isset($row['Name'])) {
                     $invitation = $invitations->addList("invitation");
-                    
                     $invitation->addElement('id', $row['InvitationID']);
                     $invitation->addElement('name', $row['Name']);
                 }

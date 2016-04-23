@@ -22,9 +22,13 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var createInvitationButton: UIButton!
     
     var city = ""
     var postalCode = ""
+    
+    var invitation: Invitation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +39,16 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        // if my invitation
+        if(self.invitation != nil) {
+            self.createInvitationButton.hidden = true
+            self.deleteButton.hidden = false
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
     }
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
@@ -109,6 +123,13 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
             
     }
     
+    @IBAction func deleteInvitationClicked(sender: UIButton) {
+        print("delete")
+    }
+    
+    @IBAction func saveButtonClicked(sender: AnyObject) {
+        print("save")
+    }
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)

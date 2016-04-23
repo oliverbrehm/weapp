@@ -226,7 +226,7 @@
                 $comment = new Comment($message, $authorId, $authorName, $time);
                 
                 $comments->append($comment);
-            }
+            } 
 
             return $comments;
         }

@@ -49,6 +49,15 @@ public class Invitation
         self.locationLongitude = locationLongitude
     }
     
+    public func createdByUser(user: User?) -> Bool
+    {
+        if(user == nil || self.ownerId == nil) {
+            return false
+        }
+        
+        return user!.id == self.ownerId!
+    }
+    
     public static func create(name : String, detailedDescription : String,
                               maxParticipants : Int, nsDate : NSDate,
                               locationCity : String, locationStreet : String, locationStreetNumber : Int,

@@ -29,7 +29,13 @@ public class HTTPInvitationListRequest: HTTPRequest
     
     public func send() -> Bool
     {
-        let postData = "action=invitation_get_all"
+        let postData = "action=invitation_query"
+        return super.sendPost(postData)
+    }
+    
+    public func send(user: User) -> Bool
+    {
+        let postData = "action=invitation_query&userID=\(user.id)"
         return super.sendPost(postData)
     }
     

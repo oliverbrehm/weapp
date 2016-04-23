@@ -41,11 +41,16 @@ class InvitationDetailTVC: UITableViewController {
                 self.locationLabel.text = "(\(i.locationLatitude!), \(i.locationLongitude!))"
             }
             
-            for cell in self.tableView.visibleCells {
+            for cell in self.tableView.visibleCells { // TODO bug
                 cell.hidden = false
             }
+            
+            if(i.createdByUser(User.current)) {
+                let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
+                self.navigationItem.rightBarButtonItem = item
+                
+            }
         }
-
     }
     
     override func viewDidLoad() {
@@ -78,6 +83,10 @@ class InvitationDetailTVC: UITableViewController {
         }
     }
 
+    func editButtonClicked() {
+        self.performSegueWithIdentifier("editInvitation", sender: self)
+    }
+    
     // MARK: - Table view data source
 
     /*
@@ -137,14 +146,15 @@ class InvitationDetailTVC: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let vc = segue.destinationViewController as? CreateInvitationTVC {
+            vc.invitation = self.invitation
+        }
     }
-    */
 
 }
