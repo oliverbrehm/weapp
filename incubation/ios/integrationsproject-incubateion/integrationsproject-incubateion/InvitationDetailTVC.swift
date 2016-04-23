@@ -41,7 +41,7 @@ class InvitationDetailTVC: UITableViewController {
                 self.locationLabel.text = "(\(i.locationLatitude!), \(i.locationLongitude!))"
             }
             
-            for cell in self.tableView.visibleCells { // TODO bug
+            for cell in self.tableView.visibleCells { // TODO incorrect, only hides cells wich are visible (on top)
                 cell.hidden = false
             }
             
@@ -49,6 +49,9 @@ class InvitationDetailTVC: UITableViewController {
                 let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
                 self.navigationItem.rightBarButtonItem = item
                 
+            } else { // TODO if not already tried to join
+                let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
+                self.navigationItem.rightBarButtonItem = item
             }
         }
     }
@@ -85,6 +88,10 @@ class InvitationDetailTVC: UITableViewController {
 
     func editButtonClicked() {
         self.performSegueWithIdentifier("editInvitation", sender: self)
+    }
+    
+    func joinButtonClicked() {
+        self.performSegueWithIdentifier("joinInvitation", sender: self)
     }
     
     // MARK: - Table view data source
@@ -153,6 +160,8 @@ class InvitationDetailTVC: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let vc = segue.destinationViewController as? CreateInvitationTVC {
+            vc.invitation = self.invitation
+        } else if let vc = segue.destinationViewController as? CreateJoinRequestVC {
             vc.invitation = self.invitation
         }
     }

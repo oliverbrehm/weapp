@@ -77,6 +77,14 @@ public class Invitation
         return request.responseValue
     }
     
+    func createJoinRequest(user: User, numParticipants: Int) -> Bool
+    {
+        let request = HTTPInvitationJoinRequest()
+        request.send(self.invitationId, userId: user.id, numParticipants: numParticipants)
+        
+        return request.responseValue
+    }
+    
     public func queryDetails()
     {
         let request = HTTPInvitationDetailRequest()

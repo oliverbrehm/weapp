@@ -55,7 +55,14 @@
                     Invitation::queryDetails($_POST['id']);
                 }
                 return true;
-            } 
+            } else if($action == "invitation_join_request") {
+                if(empty($_POST['id']) || empty($_POST['userId']) || empty($_POST['numParticipants'])) {
+                    Invitation::$xmlResponse->sendError("Invitation id, user id or number of participants not specified");
+                } else {
+                    Invitation::createJoinRequest($_POST['id'], $_POST['userId'], $_POST['numParticipants']);
+                }
+                return true;
+            }
             
             return false;
         }
@@ -85,6 +92,32 @@
                 else
                 {
                     Invitation::$xmlResponse->sendError("Failed to create invitation.");
+                }
+            }  
+        }
+        
+        public static function createJoinRequest($id, $userId, $numParticipants)
+        {
+            if(empty($_SESSION['username'])) {
+                return;
+            }
+            
+            $checkexistingrequest = mysql_query("SELECT * FROM JoinRequest WHERE InvitationID = '".$id."' AND UserID = '".$userId."'");
+
+            if(mysql_num_rows($checkexistingrequest) >= 1)
+            {
+                Invitation::$xmlResponse->sendError("Request was already created");
+            }
+            else
+            {
+                $createRequest = mysql_query("INSERT INTO JoinRequest (InvitationID, UserID, NumParticipants) VALUES('".$id."', '".$userId."', '".$numParticipants."')");
+                if($createRequest)
+                {
+                    Invitation::$xmlResponse->sendMessage("Request successfully created.");
+                }
+                else
+                {
+                    Invitation::$xmlResponse->sendError("Failed to create request.");
                 }
             }  
         }

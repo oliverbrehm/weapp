@@ -528,11 +528,90 @@ Bla</string>
                         <outlet property="ownerLabel" destination="WEu-TO-Hv2" id="f5p-Cn-iNi"/>
                         <outlet property="streetLabel" destination="yCD-Fp-qQv" id="Src-1o-14z"/>
                         <segue destination="4HU-QX-x2H" kind="show" identifier="editInvitation" id="hlr-DA-zgk"/>
+                        <segue destination="o32-5b-yB1" kind="show" identifier="joinInvitation" id="4C7-OR-JEJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4qp-sW-2SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2430" y="0.0"/>
+        </scene>
+        <!--Create Join RequestVC-->
+        <scene sceneID="gNx-lu-Tn5">
+            <objects>
+                <viewController id="o32-5b-yB1" customClass="CreateJoinRequestVC" customModule="integrationsproject_incubateion" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mVG-3j-lhZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="rZj-6k-aop"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9vo-uX-Woe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Tell the host more about you." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oOs-0r-xnk">
+                                <rect key="frame" x="20" y="64" width="560" height="379"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="16" translatesAutoresizingMaskIntoConstraints="NO" id="zaA-bP-l4v">
+                                <rect key="frame" x="18" y="480" width="548" height="31"/>
+                                <connections>
+                                    <action selector="participantsSliderChanged:" destination="o32-5b-yB1" eventType="valueChanged" id="Jso-0D-0Y9"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TzD-xR-NU3">
+                                <rect key="frame" x="281" y="518" width="38" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="sendButtonClicked:" destination="o32-5b-yB1" eventType="touchUpInside" id="k47-oF-63S"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hup-SZ-ZZ6">
+                                <rect key="frame" x="572" y="489" width="8" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many persons are you bringing?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wb0-2M-PUQ">
+                                <rect key="frame" x="20" y="451" width="283" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ti1-1l-2dQ">
+                                <rect key="frame" x="290" y="523" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ti1-1l-2dQ" firstAttribute="centerX" secondItem="9vo-uX-Woe" secondAttribute="centerX" id="4G6-rm-elq"/>
+                            <constraint firstItem="wb0-2M-PUQ" firstAttribute="top" secondItem="oOs-0r-xnk" secondAttribute="bottom" constant="8" id="4NZ-ST-38m"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oOs-0r-xnk" secondAttribute="trailing" id="5hZ-6G-i3u"/>
+                            <constraint firstItem="oOs-0r-xnk" firstAttribute="leading" secondItem="9vo-uX-Woe" secondAttribute="leadingMargin" id="5zj-up-0Cw"/>
+                            <constraint firstItem="oOs-0r-xnk" firstAttribute="top" secondItem="mVG-3j-lhZ" secondAttribute="bottom" id="8qq-Re-PPz"/>
+                            <constraint firstItem="Hup-SZ-ZZ6" firstAttribute="leading" secondItem="zaA-bP-l4v" secondAttribute="trailing" constant="8" id="H5O-17-vN4"/>
+                            <constraint firstItem="rZj-6k-aop" firstAttribute="top" secondItem="TzD-xR-NU3" secondAttribute="bottom" constant="8" id="H73-tn-nsf"/>
+                            <constraint firstItem="zaA-bP-l4v" firstAttribute="top" secondItem="wb0-2M-PUQ" secondAttribute="bottom" constant="8" id="HXN-ka-qbU"/>
+                            <constraint firstItem="TzD-xR-NU3" firstAttribute="top" secondItem="zaA-bP-l4v" secondAttribute="bottom" constant="8" id="Hj3-9b-7Gv"/>
+                            <constraint firstItem="TzD-xR-NU3" firstAttribute="top" secondItem="Hup-SZ-ZZ6" secondAttribute="bottom" constant="8" id="MZw-02-1ug"/>
+                            <constraint firstItem="zaA-bP-l4v" firstAttribute="leading" secondItem="9vo-uX-Woe" secondAttribute="leadingMargin" id="O9e-bK-rzv"/>
+                            <constraint firstItem="Hup-SZ-ZZ6" firstAttribute="trailing" secondItem="9vo-uX-Woe" secondAttribute="trailingMargin" id="OD6-93-CBc"/>
+                            <constraint firstItem="rZj-6k-aop" firstAttribute="top" secondItem="ti1-1l-2dQ" secondAttribute="bottom" constant="13" id="QZp-gQ-n4b"/>
+                            <constraint firstItem="wb0-2M-PUQ" firstAttribute="leading" secondItem="9vo-uX-Woe" secondAttribute="leadingMargin" id="buL-cJ-lze"/>
+                            <constraint firstItem="TzD-xR-NU3" firstAttribute="centerX" secondItem="9vo-uX-Woe" secondAttribute="centerX" id="gnD-wN-X8O"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="ti1-1l-2dQ" id="jWz-IR-mLO"/>
+                        <outlet property="participantsLabel" destination="Hup-SZ-ZZ6" id="UfQ-m6-Nvz"/>
+                        <outlet property="participantsSlider" destination="zaA-bP-l4v" id="nRe-yb-aZn"/>
+                        <outlet property="textField" destination="oOs-0r-xnk" id="Oxc-Fa-mtS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3r4-rS-7Ei" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3144" y="0.0"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="C3Z-Yo-9xh">
@@ -1658,6 +1737,6 @@ Bla</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hcb-jL-jQI"/>
-        <segue reference="aLC-Ef-Pzd"/>
+        <segue reference="hlr-DA-zgk"/>
     </inferredMetricsTieBreakers>
 </document>

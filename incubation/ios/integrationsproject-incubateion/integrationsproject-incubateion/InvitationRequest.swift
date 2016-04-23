@@ -60,20 +60,6 @@ public class HTTPInvitationListRequest: HTTPRequest
 
 public class HTTPInvitationCreateRequest: HTTPRequest
 {
-    public var invitationId: String = ""
-    public var name: String = ""
-    public var ownerId: String = ""
-    public var ownerName: String = ""
-    public var invitationDescription: String = ""
-    public var maxParticipants: String = ""
-    public var date: String = ""
-    public var time: String = ""
-    public var locationCity: String = ""
-    public var locationStreet: String = ""
-    public var locationStreetNumber: String = ""
-    public var locationLatitude: String = ""
-    public var locationLongitude: String = ""
-    
     public var invitations: [InvitationHeader] = []
     
     public func send(name : String, detailedDescription : String,
@@ -92,6 +78,21 @@ public class HTTPInvitationCreateRequest: HTTPRequest
             "&locationStreetNumber=\(locationStreetNumber)" +
             "&locationLatitude=\(locationLatitude)" +
             "&locationLongitude=\(locationLongitude)"
+        
+        return super.sendPost(postData)
+    }
+}
+
+public class HTTPInvitationJoinRequest: HTTPRequest
+{
+    public var invitations: [InvitationHeader] = []
+    
+    public func send(invitationId: Int, userId: Int, numParticipants: Int) -> Bool
+    {
+        let postData = "action=invitation_join_request" +
+            "&id=\(invitationId)" +
+            "&userId=\(userId)" +
+            "&numParticipants=\(numParticipants)"
         
         return super.sendPost(postData)
     }
