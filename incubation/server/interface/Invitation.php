@@ -48,6 +48,13 @@
             } else if($action == "invitation_query") {
                 Invitation::query();
                 return true;
+            } else if($action == "invitation_query_participating") {
+                if(empty($_POST['userId'])) {
+                    Invitation::$xmlResponse->sendError("UserId not specified");
+                } else {
+                    Invitation::queryParticipating($_POST['userId']);
+                }
+                return true;
             } else if($action == "joinRequest_query") {
                 Invitation::queryJoinRequests();
                 return true;
@@ -127,23 +134,26 @@
             }
             
             $checkexistingrequest = mysql_query("SELECT * FROM JoinRequest WHERE InvitationID = '".$id."' AND UserID = '".$userId."'");
-
-            if(mysql_num_rows($checkexistingrequest) >= 1)
-            {
+            if(mysql_num_rows($checkexistingrequest) >= 1) {
                 Invitation::$xmlResponse->sendError("Request was already created");
+                return;
+            }
+            
+            $checkAlreadyParticipating = mysql_query("SELECT * FROM Invitation, InvitationParticipant WHERE Invitation.InvitationID=InvitationParticipant.InvitationID AND InvitationParticipant.UserID='".$userId."' AND InvitationParticipant.InvitationID = '".$id."'");
+            if(mysql_num_rows($checkAlreadyParticipating) >= 1) {
+                Invitation::$xmlResponse->sendError("User already participates in invitation");
+                return;
+            }
+
+            $createRequest = mysql_query("INSERT INTO JoinRequest (InvitationID, UserID, NumParticipants) VALUES('".$id."', '".$userId."', '".$numParticipants."')");
+            if($createRequest)
+            {
+                Invitation::$xmlResponse->sendMessage("Request successfully created.");
             }
             else
             {
-                $createRequest = mysql_query("INSERT INTO JoinRequest (InvitationID, UserID, NumParticipants) VALUES('".$id."', '".$userId."', '".$numParticipants."')");
-                if($createRequest)
-                {
-                    Invitation::$xmlResponse->sendMessage("Request successfully created.");
-                }
-                else
-                {
-                    Invitation::$xmlResponse->sendError("Failed to create request.");
-                }
-            }  
+                Invitation::$xmlResponse->sendError("Failed to create request.");
+            }
         }
         
         public static function acceptJoinRequest($requestId)
@@ -253,13 +263,34 @@
             Invitation::$xmlResponse->addResponse(true);
             $invitations = Invitation::$xmlResponse->addList("invitationList");
 
-            $sql = "SELECT InvitationID, Name FROM Invitation";
-            $addedWhere = false;
+            $sql = "SELECT InvitationID, Name FROM Invitation WHERE 1"; // TODO InvitationParticipant not needed for normal queries, move participant to own method?
             
             if(!empty($_POST['userID'])) {
-                if(!$addedWhere) { $sql .= " WHERE "; $addedWhere = true; } else { $sql .= " AND "; }
-                $sql .= "UserID='".$_POST['userID']."'";
+                $sql .= " AND UserID='".$_POST['userID']."'";
+            }       
+            
+            $result = mysql_query($sql);
+
+            while($row = mysql_fetch_array($result))
+            {
+                if(isset($row['InvitationID']) && isset($row['Name'])) {
+                    $invitation = $invitations->addList("invitation");
+                    $invitation->addElement('id', $row['InvitationID']);
+                    $invitation->addElement('name', $row['Name']);
+                }
             }
+
+            Invitation::$xmlResponse->writeOutput();
+        }
+        
+        /// returns a list of invitation headers containg id and name
+        public static function queryParticipating($userID)
+        {
+            // TODO if logged in
+            Invitation::$xmlResponse->addResponse(true);
+            $invitations = Invitation::$xmlResponse->addList("invitationList");
+
+            $sql = "SELECT Invitation.InvitationID, Invitation.Name FROM Invitation, InvitationParticipant WHERE InvitationParticipant.InvitationID = Invitation.InvitationID AND InvitationParticipant.UserID='".$userID."'";
             
             $result = mysql_query($sql);
 

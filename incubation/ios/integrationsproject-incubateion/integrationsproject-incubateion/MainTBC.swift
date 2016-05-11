@@ -23,7 +23,13 @@ class MainTBC: UITabBarController {
     
     override func viewDidAppear(animated: Bool) {
         if(!User.loggedIn()) {
-            self.performSegueWithIdentifier("showLogin", sender: self)
+            User.autoLoginAsync({ (user: User?) in
+                if(user == nil) {
+                    self.performSegueWithIdentifier("showLogin", sender: self)
+                } else {
+                    print("user auto logged in")
+                }
+            })
         }
     }
 

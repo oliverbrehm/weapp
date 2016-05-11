@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -160,7 +160,7 @@ Bla</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="18" maxValue="99" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-uY-6X3">
-                                                <rect key="frame" x="67" y="0.0" width="436" height="31"/>
+                                                <rect key="frame" x="63" y="0.0" width="444" height="31"/>
                                                 <connections>
                                                     <action selector="ageSliderValueChanged:" destination="KSC-gr-quu" eventType="valueChanged" id="MMf-9M-8u1"/>
                                                 </connections>
@@ -518,9 +518,9 @@ Bla</string>
                                 <rect key="frame" x="20" y="0.0" width="560" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cBr-LE-nhc">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="193"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="143"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbT-RR-Isk">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbT-RR-Isk">
                                                 <rect key="frame" x="8" y="8" width="544" height="185"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -536,7 +536,7 @@ Bla</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JY0-7f-qF8">
-                                        <rect key="frame" x="0.0" y="203" width="560" height="194"/>
+                                        <rect key="frame" x="0.0" y="153" width="560" height="142"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="olibrehm" borderStyle="roundedRect" placeholder="Mail adress" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="FGq-YV-lLo">
                                                 <rect key="frame" x="8" y="8" width="544" height="30"/>
@@ -565,10 +565,24 @@ Bla</string>
                                             <constraint firstItem="SZJ-9b-8E5" firstAttribute="leading" secondItem="JY0-7f-qF8" secondAttribute="leading" constant="8" id="cdf-Ls-b9V"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7X-hY-zws">
-                                        <rect key="frame" x="0.0" y="407" width="560" height="193"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="cur-va-uL4">
+                                        <rect key="frame" x="0.0" y="305" width="560" height="143"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcW-s8-PcU">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qOa-GT-J8R">
+                                                <rect key="frame" x="0.0" y="56" width="282" height="31"/>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep me logged in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci7-hg-J3V">
+                                                <rect key="frame" x="281" y="61" width="279" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7X-hY-zws">
+                                        <rect key="frame" x="0.0" y="458" width="560" height="142"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcW-s8-PcU">
                                                 <rect key="frame" x="241" y="71" width="79" height="51"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                 <state key="normal" title="Login"/>
@@ -576,7 +590,7 @@ Bla</string>
                                                     <action selector="loginButtonPressed:" destination="Xy9-GZ-Pac" eventType="touchUpInside" id="fdB-sq-G2W"/>
                                                 </connections>
                                             </button>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vLi-qX-eIR">
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="vLi-qX-eIR">
                                                 <rect key="frame" x="262" y="78" width="37" height="37"/>
                                             </activityIndicatorView>
                                         </subviews>
@@ -610,6 +624,7 @@ Bla</string>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="vLi-qX-eIR" id="B8Q-iw-An9"/>
+                        <outlet property="autologinSwitch" destination="qOa-GT-J8R" id="RiY-lp-8oT"/>
                         <outlet property="loginButton" destination="qcW-s8-PcU" id="LXH-6c-bUU"/>
                         <outlet property="mailTextField" destination="FGq-YV-lLo" id="A8Y-ZZ-X16"/>
                         <outlet property="passwordTextField" destination="SZJ-9b-8E5" id="Fd4-F8-IqR"/>
@@ -789,7 +804,7 @@ Bla</string>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gtO-He-P4P">
                                             <rect key="frame" x="8" y="8" width="584" height="49"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yn5-iF-beH">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yn5-iF-beH">
                                                     <rect key="frame" x="0.0" y="0.0" width="292" height="49"/>
                                                     <color key="backgroundColor" red="0.0019610153399999999" green="0.69062500000000004" blue="0.003042693852" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -801,7 +816,7 @@ Bla</string>
                                                         <action selector="acceptButtonClicked:" destination="X15-5i-GX0" eventType="touchUpInside" id="wqr-7W-oJk"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geM-TX-v7T">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geM-TX-v7T">
                                                     <rect key="frame" x="292" y="0.0" width="292" height="49"/>
                                                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>

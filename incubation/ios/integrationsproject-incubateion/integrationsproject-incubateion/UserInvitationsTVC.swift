@@ -10,6 +10,7 @@ import UIKit
 
 class UserInvitationsTVC: UITableViewController {
     private var invitations: [Invitation] = []
+    private var participatingInvitations: [Invitation] = []
     private var joinRequests: [JoinRequest] = []
     
     override func viewDidLoad() {
@@ -27,6 +28,29 @@ class UserInvitationsTVC: UITableViewController {
     private func sendInvitationListRequest() -> [Invitation]
     {
         let request = HTTPInvitationListRequest()
+        
+        let user = User.current
+        if(user == nil) {
+            return []
+        }
+        
+        request.send(user!)
+        
+        if(request.responseValue == false) {
+            return [Invitation(invitationId: 0, name: "Error loading invitations...")]
+        }
+        
+        var invitationList: [Invitation] = []
+        for invitationHeader in request.invitations {
+            let invitationId = Int(invitationHeader.id)!
+            invitationList.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
+        }
+        
+        return invitationList
+    }
+    private func sendInvitationParticipatingListRequest() -> [Invitation]
+    {
+        let request = HTTPInvitationParticipatingListRequest()
         
         let user = User.current
         if(user == nil) {
@@ -74,8 +98,9 @@ class UserInvitationsTVC: UITableViewController {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
-            self.invitations = self.sendInvitationListRequest();
-            self.joinRequests = self.sendJoinRequestListRequest();
+            self.invitations = self.sendInvitationListRequest()
+            self.joinRequests = self.sendJoinRequestListRequest()
+            self.participatingInvitations = self.sendInvitationParticipatingListRequest()
             
             dispatch_async(dispatch_get_main_queue()) {
                 self.tableView.reloadData()
@@ -86,6 +111,7 @@ class UserInvitationsTVC: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         self.invitations = []
         self.joinRequests = []
+        self.participatingInvitations = []
         self.tableView.reloadData()
         self.loadInvitations()
     }
@@ -98,7 +124,7 @@ class UserInvitationsTVC: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,6 +132,7 @@ class UserInvitationsTVC: UITableViewController {
         case 0: return ((self.joinRequests.count + self.invitations.count) == 0) ? 1 : 0
         case 1: return self.joinRequests.count
         case 2: return self.invitations.count
+        case 3: return self.participatingInvitations.count
         default: return 0;
         }
     }
@@ -114,6 +141,7 @@ class UserInvitationsTVC: UITableViewController {
         switch section {
         case 1: return "Join requests"
         case 2: return "My invitations"
+        case 3: return "Participating invitations"
         default: return nil
         }
     }
@@ -134,9 +162,12 @@ class UserInvitationsTVC: UITableViewController {
                 }
             }
             cell.textLabel?.text = "\(request.invitationName) (\(request.numParticipants) participants)"
-        } else { // 1
+        } else if(indexPath.section == 2) {
             cell = tableView.dequeueReusableCellWithIdentifier("invitationCell", forIndexPath: indexPath)
             cell.textLabel?.text = invitations[indexPath.row].name
+        } else { // 3
+            cell = tableView.dequeueReusableCellWithIdentifier("invitationCell", forIndexPath: indexPath)
+            cell.textLabel?.text = participatingInvitations[indexPath.row].name
         }
         
         return cell
@@ -180,11 +211,16 @@ class UserInvitationsTVC: UITableViewController {
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let selectedSection = self.tableView.indexPathForSelectedRow!.section
         let selectedRow = self.tableView.indexPathForSelectedRow!.row
 
         if(segue.identifier == "invitationDetail" && segue.destinationViewController is InvitationDetailTVC) {
             let invitationDetailTVC = segue.destinationViewController as! InvitationDetailTVC
-            invitationDetailTVC.invitation = self.invitations[selectedRow]
+            if(selectedSection == 2) { // my invitations
+                invitationDetailTVC.invitation = self.invitations[selectedRow]
+            } else { // 3, my participations
+                invitationDetailTVC.invitation = self.participatingInvitations[selectedRow]
+            }
         } else if(segue.destinationViewController is JoinRequestTVC) {
             let joinRequestTVC = segue.destinationViewController as! JoinRequestTVC
             joinRequestTVC.joinRequest = self.joinRequests[selectedRow]

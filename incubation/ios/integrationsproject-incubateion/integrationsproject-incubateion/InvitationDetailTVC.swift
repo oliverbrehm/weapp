@@ -49,7 +49,7 @@ class InvitationDetailTVC: UITableViewController {
                         let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
                         self.navigationItem.rightBarButtonItem = item
                         
-                    } else { // TODO if not already tried to join
+                    } else { // TODO if not already tried to join (request sent) TODO if not already joined
                         let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
                         self.navigationItem.rightBarButtonItem = item
                     }

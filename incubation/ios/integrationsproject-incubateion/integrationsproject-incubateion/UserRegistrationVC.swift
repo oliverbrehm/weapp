@@ -34,6 +34,12 @@ class UserRegistrationVC: UIViewController, UITextFieldDelegate {
         self.stackView.hidden = true
         self.activityIndicator.startAnimating()
         
+        // default enable auto login
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "autologinEnabled")
+        NSUserDefaults.standardUserDefaults().setObject(nvc.email, forKey: "autologinMail")
+        NSUserDefaults.standardUserDefaults().setObject(nvc.password, forKey: "autologinPassword")
+        print("autologin enabled")
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             User.login(nvc.email, password: nvc.password)
             

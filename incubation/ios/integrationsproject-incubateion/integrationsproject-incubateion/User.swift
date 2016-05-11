@@ -97,6 +97,39 @@ public class User
         return current
     }
     
+    public static func autoLoginAsync(completion: (User?) -> Void) -> Void
+    {
+        if(!NSUserDefaults.standardUserDefaults().boolForKey("autologinEnabled")) {
+            print("autologin net enabled")
+            completion(nil)
+            return
+        }
+        
+        if let mail = NSUserDefaults.standardUserDefaults().stringForKey("autologinMail")
+            ,let password = NSUserDefaults.standardUserDefaults().stringForKey("autologinPassword") {
+            if(mail.isEmpty || password.isEmpty) {
+                print("autologin mail or password unset")
+                completion(nil)
+                return
+            }
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                let user = login(mail, password: password)
+                print("autologin successfull")
+
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(user)
+                    return
+                }
+            }
+            
+            return
+        }
+        
+        print("autologin error retrieving mail or password")
+        completion(nil)
+    }
+    
     public static func logout() -> Bool
     {
         let logoutRequest = HTTPUserLogoutRequest()

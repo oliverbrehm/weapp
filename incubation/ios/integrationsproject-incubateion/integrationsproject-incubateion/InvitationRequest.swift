@@ -58,6 +58,38 @@ public class HTTPInvitationListRequest: HTTPRequest
     }
 }
 
+public class HTTPInvitationParticipatingListRequest: HTTPRequest
+{
+    private var currentInvitationID = ""
+    private var currentInvitationName = ""
+    
+    public var invitations: [InvitationHeader] = []
+    
+    public func send(user: User) -> Bool
+    {
+        let postData = "action=invitation_query_participating&userId=\(user.id)"
+        return super.sendPost(postData)
+    }
+    
+    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
+        
+        switch(elementName) {
+        case "id":
+            self.currentInvitationID = self.currentString
+            break
+        case "name":
+            self.currentInvitationName = self.currentString
+            break
+        case "invitation":
+            self.invitations.append(InvitationHeader(id: self.currentInvitationID, name: self.currentInvitationName))
+            break
+            
+        default: break
+        }
+    }
+}
+
 public class HTTPInvitationCreateRequest: HTTPRequest
 {
     public var invitations: [InvitationHeader] = []

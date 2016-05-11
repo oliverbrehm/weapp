@@ -14,6 +14,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var autologinSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         } else {
             self.activityIndicator.startAnimating()
             loginButton.hidden = true;
+            
+            NSUserDefaults.standardUserDefaults().setBool(self.autologinSwitch.on, forKey: "autologinEnabled")
+            
+            if(self.autologinSwitch.on) {
+                NSUserDefaults.standardUserDefaults().setObject(mail, forKey: "autologinMail")
+                NSUserDefaults.standardUserDefaults().setObject(password, forKey: "autologinPassword")
+                print("autologin enabled")
+            }
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 
