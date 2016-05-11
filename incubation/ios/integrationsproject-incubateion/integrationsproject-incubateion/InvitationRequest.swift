@@ -177,7 +177,8 @@ public class HTTPInvitationDetailRequest: HTTPRequest
     public var invitationId: String = ""
     public var name: String = ""
     public var ownerId: String = ""
-    public var ownerName: String = ""
+    public var ownerFirstName: String = ""
+    public var ownerLastName: String = ""
     public var invitationDescription: String = ""
     public var maxParticipants: String = ""
     public var date: String = ""
@@ -209,8 +210,11 @@ public class HTTPInvitationDetailRequest: HTTPRequest
         case "OwnerId":
             self.ownerId = self.currentString
             break
-        case "OwnerName":
-            self.ownerName = self.currentString
+        case "OwnerFirstName":
+            self.ownerFirstName = self.currentString
+            break
+        case "OwnerLastName":
+            self.ownerLastName = self.currentString
             break
         case "Description":
             self.invitationDescription = self.currentString

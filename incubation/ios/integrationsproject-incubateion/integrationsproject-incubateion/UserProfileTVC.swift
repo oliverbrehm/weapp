@@ -10,7 +10,7 @@ import UIKit
 
 class UserProfileTVC: UITableViewController {
 
-    @IBOutlet weak var mailLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var sessionIdLabel: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
     @IBOutlet weak var userTypeLabel: UILabel!
@@ -42,7 +42,7 @@ class UserProfileTVC: UITableViewController {
             sqlDateFormatter.dateFormat = "yyyy-MM-dd"
             
             self.title = user.firstName + " " + user.lastName
-            self.mailLabel.text = user.mail
+            self.emailLabel.text = user.email
             self.sessionIdLabel.text = User.sessionId
             self.userIdLabel.text = "\(user.id)"
             self.userTypeLabel.text = user.immigrant! ? "Immigrant" : "Local"

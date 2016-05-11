@@ -395,7 +395,7 @@ Bla</string>
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mjw-yL-a2Z">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mjw-yL-a2Z">
                                             <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -538,7 +538,7 @@ Bla</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JY0-7f-qF8">
                                         <rect key="frame" x="0.0" y="153" width="560" height="142"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="olibrehm" borderStyle="roundedRect" placeholder="Mail adress" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="FGq-YV-lLo">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="olibrehm@arcor.de" borderStyle="roundedRect" placeholder="Email adress" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="FGq-YV-lLo">
                                                 <rect key="frame" x="8" y="8" width="544" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -625,8 +625,8 @@ Bla</string>
                     <connections>
                         <outlet property="activityIndicator" destination="vLi-qX-eIR" id="B8Q-iw-An9"/>
                         <outlet property="autologinSwitch" destination="qOa-GT-J8R" id="RiY-lp-8oT"/>
+                        <outlet property="emailTextField" destination="FGq-YV-lLo" id="lMg-MJ-ayK"/>
                         <outlet property="loginButton" destination="qcW-s8-PcU" id="LXH-6c-bUU"/>
-                        <outlet property="mailTextField" destination="FGq-YV-lLo" id="A8Y-ZZ-X16"/>
                         <outlet property="passwordTextField" destination="SZJ-9b-8E5" id="Fd4-F8-IqR"/>
                     </connections>
                 </viewController>
@@ -1146,10 +1146,10 @@ Bla</string>
                     <connections>
                         <outlet property="dateOfBirthLabel" destination="deV-G9-ujy" id="Pmf-OZ-4Wa"/>
                         <outlet property="dateOfImmigrationLabel" destination="f35-LR-Z9s" id="HG6-HO-xuO"/>
+                        <outlet property="emailLabel" destination="gRR-LT-6JA" id="A8X-hy-Tlu"/>
                         <outlet property="genderLabel" destination="vqC-Wf-Etq" id="IPm-zl-g2U"/>
                         <outlet property="locationLatitudeLabel" destination="hev-2G-Gzd" id="LGb-Mp-Med"/>
                         <outlet property="locationLongitudeLabel" destination="35T-XB-lfM" id="pbC-Ch-3lt"/>
-                        <outlet property="mailLabel" destination="gRR-LT-6JA" id="y3m-b0-oJR"/>
                         <outlet property="nationalityLabel" destination="Dz4-R6-3BG" id="bGO-kW-SfC"/>
                         <outlet property="sessionIdLabel" destination="Dpu-r1-RZe" id="fqe-Tr-0h5"/>
                         <outlet property="userIdLabel" destination="vWg-GE-oQ1" id="Nlw-Dc-gtA"/>

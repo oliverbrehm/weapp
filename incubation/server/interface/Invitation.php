@@ -100,7 +100,7 @@
         
         public static function create($name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude)
         {
-            if(empty($_SESSION['username'])) {
+            if(empty($_SESSION['userId'])) {
                 return;
             }
 
@@ -112,9 +112,7 @@
             }
             else
             {
-                $result = mysql_query("SELECT UserID FROM User WHERE Name = '".$_SESSION['username']."'");
-                $row = mysql_fetch_array($result);
-                $user_id = $row['UserID'];
+                $user_id = $_SESSION['userId'];
                 $createInvitationQuery = mysql_query("INSERT INTO Invitation (Name, Description, UserID, MaxParticipants, Date, Time, LocationCity, LocationStreet, LocationStreetNumber, LocationLatitude, LocationLongitude) VALUES('".$name."', '".$description."', '".$user_id."', '".$maxParticipants."', '".$date."', '".$time."', '".$locationCity."', '".$locationStreet."', '".$locationStreetNumber."', '".$locationLatitude."', '".$locationLongitude."')");
                 if($createInvitationQuery)
                 {
@@ -129,7 +127,7 @@
         
         public static function createJoinRequest($id, $userId, $numParticipants)
         {
-            if(empty($_SESSION['username'])) {
+            if(empty($_SESSION['userId'])) {
                 return;
             }
             
@@ -158,7 +156,7 @@
         
         public static function acceptJoinRequest($requestId)
         {
-            if(empty($_SESSION['username'])) {
+            if(empty($_SESSION['userId'])) {
                 return;
             }
             
@@ -199,7 +197,7 @@
         
         public static function rejectJoinRequest($requestId)
         {
-            if(empty($_SESSION['username'])) {
+            if(empty($_SESSION['userId'])) {
                 return;
             }
             
@@ -218,15 +216,16 @@
             Invitation::$xmlResponse->addResponse(true);
             $invitations = Invitation::$xmlResponse->addList("ParticipantList");
 
-            $sql = "SELECT User.UserID, User.Name, InvitationParticipant.NumberOfPersons FROM InvitationParticipant, Invitation, User WHERE Invitation.InvitationID = '".$invitationId."' AND InvitationParticipant.InvitationID=Invitation.InvitationID AND User.UserID=InvitationParticipant.UserID";        
+            $sql = "SELECT User.UserID, User.FirstName, User.LastName, InvitationParticipant.NumberOfPersons FROM InvitationParticipant, Invitation, User WHERE Invitation.InvitationID = '".$invitationId."' AND InvitationParticipant.InvitationID=Invitation.InvitationID AND User.UserID=InvitationParticipant.UserID";        
             $result = mysql_query($sql);
 
             while($row = mysql_fetch_array($result))
             {
-                if(isset($row['UserID']) && isset($row['Name']) && isset($row['NumberOfPersons'])) {
+                if(isset($row['UserID']) && isset($row['FirstName']) && isset($row['LastName']) && isset($row['NumberOfPersons'])) {
                     $invitation = $invitations->addList("Participant");
                     $invitation->addElement('userId', $row['UserID']);
-                    $invitation->addElement('firstName', $row['Name']); // TODO actually use first name here, not username
+                    $invitation->addElement('firstName', $row['FirstName']);
+                    $invitation->addElement('lastName', $row['LastName']);
                     $invitation->addElement('numParticipants', $row['NumberOfPersons']);
                 }
             }
@@ -236,14 +235,11 @@
         
         public static function postComment($invitationId, $comment)
         {
-            if(empty($_SESSION['username'])) {
+            if(empty($_SESSION['userId'])) {
                 return;
             }
 
-            $result = mysql_query("SELECT UserID FROM User WHERE Name = '".$_SESSION['username']."'");
-            $row = mysql_fetch_array($result);
-            
-            $user_id = $row['UserID'];
+            $user_id = $_SESSION['userId'];
 
             $postCommentQuery = mysql_query("INSERT INTO InvitationPost (UserID, InvitationID, Message) VALUES('".$user_id."', '".$invitationId."', '".$comment."')");
             if($postCommentQuery)
@@ -263,7 +259,7 @@
             Invitation::$xmlResponse->addResponse(true);
             $invitations = Invitation::$xmlResponse->addList("invitationList");
 
-            $sql = "SELECT InvitationID, Name FROM Invitation WHERE 1"; // TODO InvitationParticipant not needed for normal queries, move participant to own method?
+            $sql = "SELECT InvitationID, Name FROM Invitation WHERE 1";
             
             if(!empty($_POST['userID'])) {
                 $sql .= " AND UserID='".$_POST['userID']."'";
@@ -389,10 +385,11 @@
                 
                 // TODO combine 2 sql queries to one
                 $ownerId = $row['UserID'];
-                $result = mysql_query("SELECT Name FROM User WHERE UserID='".$ownerId."'");            
+                $result = mysql_query("SELECT FirstName, LastName FROM User WHERE UserID='".$ownerId."'");            
                 // TODO check #rows == 1
                 $user_row = mysql_fetch_array($result);
-                $ownerName = $user_row['Name'];
+                $ownerFirstName = $user_row['FirstName'];
+                $ownerLastName = $user_row['LastName'];
                 
                 Invitation::$xmlResponse->addResponse(true);
                 
@@ -401,7 +398,8 @@
                 $invitation->addElement('InvitationId', $id);
                 $invitation->addElement('Name', $name);
                 $invitation->addElement('OwnerId', $ownerId);
-                $invitation->addElement('OwnerName', $ownerName);
+                $invitation->addElement('OwnerFirstName', $ownerFirstName);
+                $invitation->addElement('OwnerLastName', $ownerLastName);
                 $invitation->addElement('Description', $description);
                 $invitation->addElement('MaxParticipants', $maxParticipants);
                 $invitation->addElement('Date', $date);

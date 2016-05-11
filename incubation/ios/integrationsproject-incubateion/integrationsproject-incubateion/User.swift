@@ -14,11 +14,10 @@ public class User
     public static var sessionId: String?
 
     public let id: Int
-    
+    public var email: String
+
     public let firstName: String
     public let lastName: String
-
-    public var mail: String?
     
     public var immigrant: Bool?
     public var gender: Bool?
@@ -31,19 +30,20 @@ public class User
     public var locationLatitude: Int?
     public var locationLongitude: Int?
     
-    init(id: Int, firstName: String, lastName: String)
+    init(id: Int, email: String, firstName: String, lastName: String)
     {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
+        self.email = email
     }
     
-    init(sessionId: String, id: Int, firstName: String, lastName: String, mail: String, immigrant: Bool, gender: Bool, dateOfBirth: NSDate, dateOfImmigration: NSDate, nationality: String, locationLatitude: Int, locationLongitude: Int) {
+    init(sessionId: String, id: Int, firstName: String, lastName: String, email: String, immigrant: Bool, gender: Bool, dateOfBirth: NSDate, dateOfImmigration: NSDate, nationality: String, locationLatitude: Int, locationLongitude: Int) {
         self.id = id
         
         self.firstName = firstName
         self.lastName = lastName
-        self.mail = mail;
+        self.email = email;
         
         self.immigrant = immigrant
         self.gender = gender
@@ -59,10 +59,10 @@ public class User
         User.sessionId = sessionId;
     }
     
-    public static func login(mail: String, password: String) -> User?
+    public static func login(email: String, password: String) -> User?
     {
         let loginRequest = HTTPUserLoginRequest()
-        loginRequest.send(mail, password: password)
+        loginRequest.send(email, password: password)
         
         if(loginRequest.responseValue == false || loginRequest.sessionId.isEmpty) {
             return nil
@@ -88,7 +88,7 @@ public class User
         
         current = User(sessionId: loginRequest.sessionId, id: Int(loginRequest.userId)!,
                        firstName: userDetailsRequest.firstName, lastName: userDetailsRequest.lastName,
-                       mail: userDetailsRequest.email,
+                       email: userDetailsRequest.email,
                        immigrant: NSString(string: userDetailsRequest.immigrant).boolValue, gender: NSString(string: userDetailsRequest.gender).boolValue,
                        dateOfBirth: dateOfBirth, dateOfImmigration: dateOfImmigration,
                        nationality: userDetailsRequest.nationality,
@@ -105,16 +105,16 @@ public class User
             return
         }
         
-        if let mail = NSUserDefaults.standardUserDefaults().stringForKey("autologinMail")
+        if let email = NSUserDefaults.standardUserDefaults().stringForKey("autologinEmail")
             ,let password = NSUserDefaults.standardUserDefaults().stringForKey("autologinPassword") {
-            if(mail.isEmpty || password.isEmpty) {
+            if(email.isEmpty || password.isEmpty) {
                 print("autologin mail or password unset")
                 completion(nil)
                 return
             }
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                let user = login(mail, password: password)
+                let user = login(email, password: password)
                 print("autologin successfull")
 
                 dispatch_async(dispatch_get_main_queue()) {
@@ -126,7 +126,7 @@ public class User
             return
         }
         
-        print("autologin error retrieving mail or password")
+        print("autologin error retrieving email or password")
         completion(nil)
     }
     

@@ -36,7 +36,7 @@ class UserRegistrationVC: UIViewController, UITextFieldDelegate {
         
         // default enable auto login
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "autologinEnabled")
-        NSUserDefaults.standardUserDefaults().setObject(nvc.email, forKey: "autologinMail")
+        NSUserDefaults.standardUserDefaults().setObject(nvc.email, forKey: "autologinEmail")
         NSUserDefaults.standardUserDefaults().setObject(nvc.password, forKey: "autologinPassword")
         print("autologin enabled")
         
@@ -73,8 +73,8 @@ class UserRegistrationVC: UIViewController, UITextFieldDelegate {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
 
             let registerRequest = HTTPUserRegisterRequest()
-            registerRequest.send(nvc.email, password: nvc.password, firstName: nvc.firstName, lastName: nvc.lastName, userType: nvc.userType, gender: nvc.gender, dateOfBirth: NSDate.distantPast(), nationality: "", email: nvc.email, dateOfImmigration: NSDate.distantPast(), locationLatitude: 0, locationLongitude: 0)
-            // TODO remove request sending to User class
+            registerRequest.send(nvc.email, password: nvc.password, firstName: nvc.firstName, lastName: nvc.lastName, userType: nvc.userType, gender: nvc.gender, dateOfBirth: NSDate.distantPast(), nationality: "", dateOfImmigration: NSDate.distantPast(), locationLatitude: 0, locationLongitude: 0)
+            // TODO move request sending to User class
             
             dispatch_async(dispatch_get_main_queue()) {
                 if(registerRequest.responseValue == false) {

@@ -29,7 +29,8 @@ public class Invitation
     public let name: String
     
     public var ownerId: Int?
-    public var ownerName: String?
+    public var ownerFirstName: String?
+    public var ownerLastName: String?
     public var description: String?
     public var maxParticipants: Int?
     public var date: NSDate?
@@ -45,14 +46,15 @@ public class Invitation
         self.name = name
     }
     
-    init(invitationId: Int, name: String, ownerId: Int, ownerName: String, description: String, maxParticipants: Int, date: NSDate,
+    init(invitationId: Int, name: String, ownerId: Int, ownerFirstName: String, ownerLastName: String, description: String, maxParticipants: Int, date: NSDate,
          locationCity: String, locationStreet: String, locationStreetNumber: Int, locationLatitude: Int, locationLongitude: Int)
     {
         self.invitationId = invitationId
         self.name = name
         
         self.ownerId = ownerId
-        self.ownerName = ownerName
+        self.ownerFirstName = ownerFirstName
+        self.ownerLastName = ownerLastName
         self.description = description
         self.maxParticipants = maxParticipants
         self.date = date
@@ -120,7 +122,8 @@ public class Invitation
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         self.ownerId = Int(request.ownerId)
-        self.ownerName = request.ownerName
+        self.ownerFirstName = request.ownerFirstName
+        self.ownerLastName = request.ownerLastName
         self.description = request.invitationDescription
         self.maxParticipants = Int(request.maxParticipants)
         self.date = dateFormatter.dateFromString(request.date) // TODO include time

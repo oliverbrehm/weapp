@@ -33,9 +33,6 @@ public class HTTPUserDetailsRequest: HTTPRequest
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         switch(elementName) {
-        case "Name":
-            self.name = self.currentString
-            break
         case "FirstName":
             self.firstName = self.currentString
             break
@@ -75,9 +72,9 @@ public class HTTPUserDetailsRequest: HTTPRequest
 public class HTTPUserLoginRequest: HTTPRequest
 {
     public var userId = ""
-    public func send(mail: String, password: String) -> Bool
+    public func send(email: String, password: String) -> Bool
     {
-        let postData = "action=user_login&username=\(mail)&password=\(password)"
+        let postData = "action=user_login&email=\(email)&password=\(password)"
         return super.sendPost(postData)
     }
     
@@ -103,10 +100,10 @@ public class HTTPUserLogoutRequest: HTTPRequest
 public class HTTPUserRegisterRequest: HTTPRequest
 {
     public var userId = ""
-    public func send(username: String, password: String, firstName: String, lastName: String,
+    public func send(email: String, password: String, firstName: String, lastName: String,
                      userType: Bool, gender: Bool,
                      dateOfBirth: NSDate, nationality: String,
-                     email: String, dateOfImmigration: NSDate,
+                     dateOfImmigration: NSDate,
                      locationLatitude: Int, locationLongitude: Int) -> Bool
     {
         let dateFormatter = NSDateFormatter()
@@ -118,7 +115,7 @@ public class HTTPUserRegisterRequest: HTTPRequest
         let postData =
         "action=user_register&" +
         
-        "username=\(username)&" +
+        "email=\(email)&" +
         "password=\(password)&" +
         "firstName=\(firstName)&" +
         "lastName=\(lastName)&" +
@@ -126,7 +123,6 @@ public class HTTPUserRegisterRequest: HTTPRequest
         "gender=\(gender)&" +
         "dateOfBirth=\(birthDateString)&" +
         "nationality=\(nationality)&" +
-        "email=\(email)&" +
         "dateOfImmigration=\(immigrationDateString)&" +
         "locationLatitude=\(locationLatitude)&" +
         "locationLongitude=\(locationLongitude)&"

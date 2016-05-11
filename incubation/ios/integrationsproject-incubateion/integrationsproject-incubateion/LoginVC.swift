@@ -10,7 +10,7 @@ import UIKit
 
 class LoginVC: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var mailTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: UIButton!
@@ -23,7 +23,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.mailTextField.resignFirstResponder()
+        self.emailTextField.resignFirstResponder()
         self.passwordTextField.resignFirstResponder()
     }
 
@@ -33,7 +33,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if(textField === mailTextField) {
+        if(textField === emailTextField) {
             passwordTextField.becomeFirstResponder()
         } else if(textField == passwordTextField) {
             self.loginButtonPressed(self.loginButton)
@@ -42,16 +42,16 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginButtonPressed(sender: AnyObject) {
-        self.mailTextField.resignFirstResponder()
+        self.emailTextField.resignFirstResponder()
         self.passwordTextField.resignFirstResponder()
         
-        let mail = self.mailTextField.text!
+        let email = self.emailTextField.text!
         let password = self.passwordTextField.text!
         
         let loginButton = sender as! UIButton
         
-        if(mail.isEmpty || password.isEmpty) {
-            self.presentAlert("Login", message: "Please enter your mail adress and password", cancelButtonTitle: "OK", animated: true)
+        if(email.isEmpty || password.isEmpty) {
+            self.presentAlert("Login", message: "Please enter your email adress and password", cancelButtonTitle: "OK", animated: true)
         } else {
             self.activityIndicator.startAnimating()
             loginButton.hidden = true;
@@ -59,19 +59,19 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             NSUserDefaults.standardUserDefaults().setBool(self.autologinSwitch.on, forKey: "autologinEnabled")
             
             if(self.autologinSwitch.on) {
-                NSUserDefaults.standardUserDefaults().setObject(mail, forKey: "autologinMail")
+                NSUserDefaults.standardUserDefaults().setObject(email, forKey: "autologinEmail")
                 NSUserDefaults.standardUserDefaults().setObject(password, forKey: "autologinPassword")
                 print("autologin enabled")
             }
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 
-                let user = User.login(mail, password: password)
+                let user = User.login(email, password: password)
                 
                 dispatch_async(dispatch_get_main_queue()) {
                     
                     if(user == nil) {
-                        self.presentAlert("Login failed", message: "Invalid mail adress or password", cancelButtonTitle: "OK", animated: true)
+                        self.presentAlert("Login failed", message: "Invalid email adress or password", cancelButtonTitle: "OK", animated: true)
                     } else {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }

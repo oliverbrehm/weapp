@@ -42,7 +42,7 @@ class InvitationDetailTVC: UITableViewController {
                         return
                     }
                     
-                    self.participants.insert(Participant(userId: self.invitation!.ownerId!, firstName: self.invitation!.ownerName! + " (owner)", numPersons: 1), atIndex: 0)
+                    self.participants.insert(Participant(userId: self.invitation!.ownerId!, firstName: self.invitation!.ownerFirstName! + " (owner)", numPersons: 1), atIndex: 0)
                     self.tableView.reloadData()
                     
                     if(self.invitation!.createdByUser(User.current)) {
