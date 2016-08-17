@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_overview"
+            android:icon="@drawable/ic_menu_element"
+            android:title="Überblick" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_menu_element"
+            android:title="Nachrichten" />
+        <item
+            android:id="@+id/nav_activities"
+            android:icon="@drawable/ic_menu_element"
+            android:title="Meine Aktivitäten" />
+        <item
+            android:id="@+id/nav_profiles"
+            android:icon="@drawable/ic_menu_element"
+            android:title="Profile" />
+    </group>
+
+</menu>
