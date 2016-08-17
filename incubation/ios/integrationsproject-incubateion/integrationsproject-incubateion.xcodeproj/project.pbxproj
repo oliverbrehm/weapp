@@ -7,23 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A743D8551CBE801B00D14320 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
+		A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8581CBE805A00D14320 /* InvitationRequest.swift */; };
+		A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85A1CBE861400D14320 /* InvitationListTVC.swift */; };
+		A743D85D1CBE8BE900D14320 /* InvitationDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */; };
+		A747768B1CBA868D00144226 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A747768A1CBA868D00144226 /* LoginVC.swift */; };
+		A747768E1CBA891900144226 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A747768D1CBA891900144226 /* User.swift */; };
+		A74776921CBA8CAE00144226 /* MainTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74776911CBA8CAE00144226 /* MainTBC.swift */; };
+		A74776941CBA92E500144226 /* UserProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74776931CBA92E500144226 /* UserProfileTVC.swift */; };
+		A74DA6181CBB86D0008AB1C3 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */; };
+		A74DA61A1CBBA670008AB1C3 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA6191CBBA670008AB1C3 /* UserRequest.swift */; };
 		A74F5B281C5676A9006C03CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F5B271C5676A9006C03CC /* AppDelegate.swift */; };
-		A74F5B2A1C5676A9006C03CC /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F5B291C5676A9006C03CC /* FirstViewController.swift */; };
-		A74F5B2C1C5676A9006C03CC /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F5B2B1C5676A9006C03CC /* SecondViewController.swift */; };
 		A74F5B2F1C5676A9006C03CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B2D1C5676A9006C03CC /* Main.storyboard */; };
 		A74F5B311C5676A9006C03CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B301C5676A9006C03CC /* Assets.xcassets */; };
 		A74F5B341C5676A9006C03CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */; };
+		A77E5B9C1CBFA696003A7D0C /* UserTypeSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5B9B1CBFA696003A7D0C /* UserTypeSelectionVC.swift */; };
+		A77E5BA01CBFB87A003A7D0C /* RegistrationNVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */; };
+		A77E5BA21CBFB9BF003A7D0C /* UserPersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */; };
+		A77E5BA41CBFBB0A003A7D0C /* UserRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */; };
+		A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD0391CCA6F1A001FFEB4 /* Utility.swift */; };
+		A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */; };
+		A7EC55EB1CCBB2AB00A4056B /* UserInvitationsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */; };
+		A7EC55ED1CCBBEC300A4056B /* CreateJoinRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */; };
+		A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */; };
+		A7EC55F11CCBE87900A4056B /* JoinRequestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A743D8541CBE801B00D14320 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
+		A743D8581CBE805A00D14320 /* InvitationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationRequest.swift; sourceTree = "<group>"; };
+		A743D85A1CBE861400D14320 /* InvitationListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationListTVC.swift; sourceTree = "<group>"; };
+		A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationDetailTVC.swift; sourceTree = "<group>"; };
+		A747768A1CBA868D00144226 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		A747768D1CBA891900144226 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A74776911CBA8CAE00144226 /* MainTBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTBC.swift; sourceTree = "<group>"; };
+		A74776931CBA92E500144226 /* UserProfileTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTVC.swift; sourceTree = "<group>"; };
+		A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		A74DA6191CBBA670008AB1C3 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		A74F5B241C5676A9006C03CC /* integrationsproject-incubateion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "integrationsproject-incubateion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74F5B271C5676A9006C03CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A74F5B291C5676A9006C03CC /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		A74F5B2B1C5676A9006C03CC /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		A74F5B2E1C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A74F5B301C5676A9006C03CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A74F5B331C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A74F5B351C5676A9006C03CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A77E5B9B1CBFA696003A7D0C /* UserTypeSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTypeSelectionVC.swift; sourceTree = "<group>"; };
+		A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNVC.swift; sourceTree = "<group>"; };
+		A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPersonalInfoVC.swift; sourceTree = "<group>"; };
+		A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationVC.swift; sourceTree = "<group>"; };
+		A79FD0391CCA6F1A001FFEB4 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateInvitationTVC.swift; sourceTree = "<group>"; };
+		A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInvitationsTVC.swift; sourceTree = "<group>"; };
+		A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateJoinRequestVC.swift; sourceTree = "<group>"; };
+		A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequest.swift; sourceTree = "<group>"; };
+		A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequestTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +73,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A747768C1CBA890C00144226 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A747768D1CBA891900144226 /* User.swift */,
+				A743D8541CBE801B00D14320 /* Invitation.swift */,
+				A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */,
+				A74DA6191CBBA670008AB1C3 /* UserRequest.swift */,
+				A743D8581CBE805A00D14320 /* InvitationRequest.swift */,
+				A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		A74F5B1B1C5676A9006C03CC = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +105,44 @@
 		A74F5B261C5676A9006C03CC /* integrationsproject-incubateion */ = {
 			isa = PBXGroup;
 			children = (
+				A77E5B9D1CBFB829003A7D0C /* ViewControllers */,
+				A747768C1CBA890C00144226 /* Model */,
 				A74F5B271C5676A9006C03CC /* AppDelegate.swift */,
-				A74F5B291C5676A9006C03CC /* FirstViewController.swift */,
-				A74F5B2B1C5676A9006C03CC /* SecondViewController.swift */,
 				A74F5B2D1C5676A9006C03CC /* Main.storyboard */,
 				A74F5B301C5676A9006C03CC /* Assets.xcassets */,
 				A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */,
 				A74F5B351C5676A9006C03CC /* Info.plist */,
+				A79FD0391CCA6F1A001FFEB4 /* Utility.swift */,
 			);
 			path = "integrationsproject-incubateion";
+			sourceTree = "<group>";
+		};
+		A77E5B9D1CBFB829003A7D0C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A77E5B9E1CBFB84F003A7D0C /* Registration */,
+				A747768A1CBA868D00144226 /* LoginVC.swift */,
+				A74776911CBA8CAE00144226 /* MainTBC.swift */,
+				A74776931CBA92E500144226 /* UserProfileTVC.swift */,
+				A743D85A1CBE861400D14320 /* InvitationListTVC.swift */,
+				A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */,
+				A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */,
+				A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */,
+				A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */,
+				A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A77E5B9E1CBFB84F003A7D0C /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				A77E5B9B1CBFA696003A7D0C /* UserTypeSelectionVC.swift */,
+				A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */,
+				A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */,
+				A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */,
+			);
+			name = Registration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +216,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A74F5B2C1C5676A9006C03CC /* SecondViewController.swift in Sources */,
+				A743D8551CBE801B00D14320 /* Invitation.swift in Sources */,
+				A77E5BA41CBFBB0A003A7D0C /* UserRegistrationVC.swift in Sources */,
+				A7EC55F11CCBE87900A4056B /* JoinRequestTVC.swift in Sources */,
 				A74F5B281C5676A9006C03CC /* AppDelegate.swift in Sources */,
-				A74F5B2A1C5676A9006C03CC /* FirstViewController.swift in Sources */,
+				A74DA61A1CBBA670008AB1C3 /* UserRequest.swift in Sources */,
+				A77E5BA01CBFB87A003A7D0C /* RegistrationNVC.swift in Sources */,
+				A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */,
+				A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */,
+				A77E5BA21CBFB9BF003A7D0C /* UserPersonalInfoVC.swift in Sources */,
+				A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */,
+				A743D85D1CBE8BE900D14320 /* InvitationDetailTVC.swift in Sources */,
+				A74776921CBA8CAE00144226 /* MainTBC.swift in Sources */,
+				A747768B1CBA868D00144226 /* LoginVC.swift in Sources */,
+				A7EC55ED1CCBBEC300A4056B /* CreateJoinRequestVC.swift in Sources */,
+				A7EC55EB1CCBB2AB00A4056B /* UserInvitationsTVC.swift in Sources */,
+				A77E5B9C1CBFA696003A7D0C /* UserTypeSelectionVC.swift in Sources */,
+				A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */,
+				A747768E1CBA891900144226 /* User.swift in Sources */,
+				A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */,
+				A74DA6181CBB86D0008AB1C3 /* HTTPRequest.swift in Sources */,
+				A74776941CBA92E500144226 /* UserProfileTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +386,7 @@
 				A74F5B3A1C5676A9006C03CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

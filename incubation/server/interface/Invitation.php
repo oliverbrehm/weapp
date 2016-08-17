@@ -45,15 +45,18 @@
                     Invitation::queryComments($_POST['id']);
                 }                
                 return true;
-            } else if($action == "invitation_get_all") {
-                Invitation::queryAll();
+            } else if($action == "invitation_query") {
+                Invitation::query();
                 return true;
-            } else if($action == "invitation_get_user") {
-                if(empty($_POST['user_id'])) {
-                    Invitation::$xmlResponse->sendError("User id not specified");
+            } else if($action == "invitation_query_participating") {
+                if(empty($_POST['userId'])) {
+                    Invitation::$xmlResponse->sendError("UserId not specified");
                 } else {
-                    Invitation::queryByUser($_POST['user_id']);
+                    Invitation::queryParticipating($_POST['userId']);
                 }
+                return true;
+            } else if($action == "joinRequest_query") {
+                Invitation::queryJoinRequests();
                 return true;
             } else if($action == "invitation_get_details") {
                 if(empty($_POST['id'])) {
@@ -62,14 +65,42 @@
                     Invitation::queryDetails($_POST['id']);
                 }
                 return true;
-            } 
+            } else if($action == "invitation_join_request") {
+                if(empty($_POST['id']) || empty($_POST['userId']) || empty($_POST['numParticipants'])) {
+                    Invitation::$xmlResponse->sendError("Invitation id, user id or number of participants not specified");
+                } else {
+                    Invitation::createJoinRequest($_POST['id'], $_POST['userId'], $_POST['numParticipants']);
+                }
+                return true;
+            } else if($action == "joinRequest_accept") {
+                if(empty($_POST['id'])) {
+                    Invitation::$xmlResponse->sendError("Request id not specified");
+                } else {
+                    Invitation::acceptJoinRequest($_POST['id']);
+                }
+                return true;            
+            } else if($action == "joinRequest_reject") {
+                if(empty($_POST['id'])) {
+                    Invitation::$xmlResponse->sendError("Request id not specified");
+                } else {
+                    Invitation::rejectJoinRequest($_POST['id']);
+                }
+                return true;            
+            } else if($action == "invitation_get_participants") {
+                if(empty($_POST['id'])) {
+                    Invitation::$xmlResponse->sendError("Request id not specified");
+                } else {
+                    Invitation::getParticipants($_POST['id']);
+                }
+                return true;            
+            }
             
             return false;
         }
         
         public static function create($name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude)
         {
-            if(empty($_SESSION['username'])) {
+            if(empty($_SESSION['userId'])) {
                 return;
             }
 
@@ -81,9 +112,7 @@
             }
             else
             {
-                $result = mysql_query("SELECT UserID FROM User WHERE Name = '".$_SESSION['username']."'");
-                $row = mysql_fetch_array($result);
-                $user_id = $row['UserID'];
+                $user_id = $_SESSION['userId'];
                 $createInvitationQuery = mysql_query("INSERT INTO Invitation (Name, Description, UserID, MaxParticipants, Date, Time, LocationCity, LocationStreet, LocationStreetNumber, LocationLatitude, LocationLongitude) VALUES('".$name."', '".$description."', '".$user_id."', '".$maxParticipants."', '".$date."', '".$time."', '".$locationCity."', '".$locationStreet."', '".$locationStreetNumber."', '".$locationLatitude."', '".$locationLongitude."')");
                 if($createInvitationQuery)
                 {
@@ -96,16 +125,121 @@
             }  
         }
         
-        public static function postComment($invitationId, $comment)
+        public static function createJoinRequest($id, $userId, $numParticipants)
         {
-            if(empty($_SESSION['username'])) {
+            if(empty($_SESSION['userId'])) {
+                return;
+            }
+            
+            $checkexistingrequest = mysql_query("SELECT * FROM JoinRequest WHERE InvitationID = '".$id."' AND UserID = '".$userId."'");
+            if(mysql_num_rows($checkexistingrequest) >= 1) {
+                Invitation::$xmlResponse->sendError("Request was already created");
+                return;
+            }
+            
+            $checkAlreadyParticipating = mysql_query("SELECT * FROM Invitation, InvitationParticipant WHERE Invitation.InvitationID=InvitationParticipant.InvitationID AND InvitationParticipant.UserID='".$userId."' AND InvitationParticipant.InvitationID = '".$id."'");
+            if(mysql_num_rows($checkAlreadyParticipating) >= 1) {
+                Invitation::$xmlResponse->sendError("User already participates in invitation");
                 return;
             }
 
-            $result = mysql_query("SELECT UserID FROM User WHERE Name = '".$_SESSION['username']."'");
-            $row = mysql_fetch_array($result);
+            $createRequest = mysql_query("INSERT INTO JoinRequest (InvitationID, UserID, NumParticipants) VALUES('".$id."', '".$userId."', '".$numParticipants."')");
+            if($createRequest)
+            {
+                Invitation::$xmlResponse->sendMessage("Request successfully created.");
+            }
+            else
+            {
+                Invitation::$xmlResponse->sendError("Failed to create request.");
+            }
+        }
+        
+        public static function acceptJoinRequest($requestId)
+        {
+            if(empty($_SESSION['userId'])) {
+                return;
+            }
             
-            $user_id = $row['UserID'];
+            // get the request
+            $joinRequest = mysql_query("SELECT UserID, InvitationID, NumParticipants FROM JoinRequest WHERE RequestID='".$requestId."'");
+            if(!$joinRequest) {
+                Invitation::$xmlResponse->sendError("Failed to get join request.");
+                return;
+            }
+            
+            $row = mysql_fetch_array($joinRequest);
+            if(!$row) {
+                Invitation::$xmlResponse->sendError("Failed to get join request data.");
+                return;
+            }
+            
+            $userId = $row['UserID'];
+            $invitationId = $row['InvitationID'];
+            $numParticipants = $row['NumParticipants'];
+            
+            $sql = "INSERT INTO InvitationParticipant (UserID, InvitationID, NumberOfPersons) VALUES ('".$userId."','".$invitationId."','".$numParticipants."')";
+            $participantRequest = mysql_query($sql);
+
+            if(!$participantRequest) {
+                Invitation::$xmlResponse->sendError("Failed to create participation entry.");
+                return;
+            }
+            
+            $deleteRequest = mysql_query("DELETE FROM JoinRequest WHERE RequestID = '".$requestId."'");
+
+            if(!$deleteRequest) {
+                Invitation::$xmlResponse->sendError("Failed to remove the request after joining.");
+                return;
+            }
+            
+            Invitation::$xmlResponse->sendMessage("Participation successfully created.");
+        }
+        
+        public static function rejectJoinRequest($requestId)
+        {
+            if(empty($_SESSION['userId'])) {
+                return;
+            }
+            
+            // get the request
+            $deleteRequest = mysql_query("DELETE FROM JoinRequest WHERE RequestID = '".$requestId."'");
+            if(!$deleteRequest) {
+                Invitation::$xmlResponse->sendError("Failed to delete request.");
+            } else {
+                Invitation::$xmlResponse->sendMessage("Successfully deleted request.");
+            }
+        }
+        
+        public static function getParticipants($invitationId)
+        {
+            // TODO if logged in
+            Invitation::$xmlResponse->addResponse(true);
+            $invitations = Invitation::$xmlResponse->addList("ParticipantList");
+
+            $sql = "SELECT User.UserID, User.FirstName, User.LastName, InvitationParticipant.NumberOfPersons FROM InvitationParticipant, Invitation, User WHERE Invitation.InvitationID = '".$invitationId."' AND InvitationParticipant.InvitationID=Invitation.InvitationID AND User.UserID=InvitationParticipant.UserID";        
+            $result = mysql_query($sql);
+
+            while($row = mysql_fetch_array($result))
+            {
+                if(isset($row['UserID']) && isset($row['FirstName']) && isset($row['LastName']) && isset($row['NumberOfPersons'])) {
+                    $invitation = $invitations->addList("Participant");
+                    $invitation->addElement('userId', $row['UserID']);
+                    $invitation->addElement('firstName', $row['FirstName']);
+                    $invitation->addElement('lastName', $row['LastName']);
+                    $invitation->addElement('numParticipants', $row['NumberOfPersons']);
+                }
+            }
+
+            Invitation::$xmlResponse->writeOutput();
+        }
+        
+        public static function postComment($invitationId, $comment)
+        {
+            if(empty($_SESSION['userId'])) {
+                return;
+            }
+
+            $user_id = $_SESSION['userId'];
 
             $postCommentQuery = mysql_query("INSERT INTO InvitationPost (UserID, InvitationID, Message) VALUES('".$user_id."', '".$invitationId."', '".$comment."')");
             if($postCommentQuery)
@@ -119,13 +253,19 @@
         }
 
         /// returns a list of invitation headers containg id and name
-        public static function queryAll()
+        public static function query()
         {
             // TODO if logged in
             Invitation::$xmlResponse->addResponse(true);
             $invitations = Invitation::$xmlResponse->addList("invitationList");
 
-            $result = mysql_query("SELECT InvitationID, Name FROM Invitation");
+            $sql = "SELECT InvitationID, Name FROM Invitation WHERE 1";
+            
+            if(!empty($_POST['userID'])) {
+                $sql .= " AND UserID='".$_POST['userID']."'";
+            }       
+            
+            $result = mysql_query($sql);
 
             while($row = mysql_fetch_array($result))
             {
@@ -139,21 +279,53 @@
             Invitation::$xmlResponse->writeOutput();
         }
         
-        public static function queryByUser($userId)
+        /// returns a list of invitation headers containg id and name
+        public static function queryParticipating($userID)
         {
             // TODO if logged in
             Invitation::$xmlResponse->addResponse(true);
             $invitations = Invitation::$xmlResponse->addList("invitationList");
 
-            $result = mysql_query("SELECT InvitationID, Name FROM Invitation WHERE UserID='".$userId."'");
+            $sql = "SELECT Invitation.InvitationID, Invitation.Name FROM Invitation, InvitationParticipant WHERE InvitationParticipant.InvitationID = Invitation.InvitationID AND InvitationParticipant.UserID='".$userID."'";
+            
+            $result = mysql_query($sql);
 
             while($row = mysql_fetch_array($result))
             {
                 if(isset($row['InvitationID']) && isset($row['Name'])) {
                     $invitation = $invitations->addList("invitation");
-                    
                     $invitation->addElement('id', $row['InvitationID']);
                     $invitation->addElement('name', $row['Name']);
+                }
+            }
+
+            Invitation::$xmlResponse->writeOutput();
+        }
+        
+        public static function queryJoinRequests()
+        {
+            // TODO if logged in
+            Invitation::$xmlResponse->addResponse(true);
+            $invitations = Invitation::$xmlResponse->addList("joinRequestList");
+
+            $sql = "SELECT JR.RequestID, JR.UserID, JR.InvitationID, JR.NumParticipants, I.UserID as ReceiverID, I.InvitationID, I.MaxParticipants, I.Name as InvitationName FROM JoinRequest as JR, Invitation as I WHERE JR.InvitationID=I.InvitationID";
+            
+            if(!empty($_POST['userID'])) {
+                $sql .= " AND (I.UserID='".$_POST['userID']."' OR JR.UserID='".$_POST['userID']."')";
+            }
+                        
+            $result = mysql_query($sql);
+
+            while($row = mysql_fetch_array($result))
+            {
+                if(isset($row['RequestID']) && isset($row['UserID']) && isset($row['InvitationID']) && isset($row['NumParticipants']) && isset($row['MaxParticipants']) && isset($row['InvitationName'])) {
+                    $invitation = $invitations->addList("JoinRequest");
+                    $invitation->addElement('id', $row['RequestID']);
+                    $invitation->addElement('userId', $row['UserID']);
+                    $invitation->addElement('invitationId', $row['InvitationID']);
+                    $invitation->addElement('maxParticipants', $row['MaxParticipants']);
+                    $invitation->addElement('numParticipants', $row['NumParticipants']);
+                    $invitation->addElement('invitationName', $row['InvitationName']);             
                 }
             }
 
@@ -213,10 +385,11 @@
                 
                 // TODO combine 2 sql queries to one
                 $ownerId = $row['UserID'];
-                $result = mysql_query("SELECT Name FROM User WHERE UserID='".$ownerId."'");            
+                $result = mysql_query("SELECT FirstName, LastName FROM User WHERE UserID='".$ownerId."'");            
                 // TODO check #rows == 1
                 $user_row = mysql_fetch_array($result);
-                $ownerName = $user_row['Name'];
+                $ownerFirstName = $user_row['FirstName'];
+                $ownerLastName = $user_row['LastName'];
                 
                 Invitation::$xmlResponse->addResponse(true);
                 
@@ -225,7 +398,8 @@
                 $invitation->addElement('InvitationId', $id);
                 $invitation->addElement('Name', $name);
                 $invitation->addElement('OwnerId', $ownerId);
-                $invitation->addElement('OwnerName', $ownerName);
+                $invitation->addElement('OwnerFirstName', $ownerFirstName);
+                $invitation->addElement('OwnerLastName', $ownerLastName);
                 $invitation->addElement('Description', $description);
                 $invitation->addElement('MaxParticipants', $maxParticipants);
                 $invitation->addElement('Date', $date);

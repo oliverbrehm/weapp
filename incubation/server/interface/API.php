@@ -52,7 +52,7 @@
                 if(!Invitation::processAction($this->action)) {
                     $this->xmlResponse->sendError("Invalid action specified.");
                 }
-            }
+            } 
         }
     }
 
