@@ -1,5 +1,8 @@
 package com.brehm.oliver.potpourri;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.brehm.oliver.potpourri.Network.HTTPRequest;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener
+        implements NavigationView.OnNavigationItemSelectedListener, HTTPRequest.OnRequestFinishedListener
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,13 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        makeRequest();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -78,8 +91,27 @@ public class MainActivity extends AppCompatActivity
             this.setTitle("Profile");
         }
 
+        Toast.makeText(this, "Selection :)", Toast.LENGTH_SHORT);
+        makeRequest();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void makeRequest() {
+        HTTPRequest request = new HTTPRequest(this);
+        request.sendPostRequest("hallo request");
+    }
+
+    private boolean networkConnectionAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
+    @Override
+    public void onRequestFinished(HTTPRequest request) {
+        Toast.makeText(this, "Request finished: " + request.responseString, Toast.LENGTH_SHORT).show();
     }
 }
