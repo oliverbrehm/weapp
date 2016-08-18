@@ -20,7 +20,11 @@ public class AsyncPostRequest extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            String response = postRequest(apiUrl);
+            String postData = "";
+            if(params.length > 0) {
+                postData = params[0];
+            }
+            String response = postRequest(postData);
             return response;
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,19 +39,25 @@ public class AsyncPostRequest extends AsyncTask<String, Void, String> {
         }
     }
 
-    private String postRequest(String urlString) throws IOException {
+    private String postRequest(String postData) throws IOException {
         InputStream inputStream = null;
         String responseString = "";
 
         try {
-            URL url = new URL(urlString);
+            byte[] postDataBytes = postData.getBytes("UTF-8");// URLEncoder.encode(postData, "UTF-8").getBytes("UTF-8");
+
+            URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.connect();
+
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(postDataBytes);
 
             inputStream = conn.getInputStream();
 
-            responseString = inputStreamToString(inputStream);
+            responseString = readInputStream(inputStream);
 
             return null;
         } catch (Exception e) {
@@ -61,7 +71,7 @@ public class AsyncPostRequest extends AsyncTask<String, Void, String> {
         }
     }
 
-    private String inputStreamToString(InputStream inputStream) throws IOException {
+    private String readInputStream(InputStream inputStream) throws IOException {
         BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
