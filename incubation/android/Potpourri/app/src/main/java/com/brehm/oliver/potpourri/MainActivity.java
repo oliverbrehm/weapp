@@ -1,30 +1,35 @@
 package com.brehm.oliver.potpourri;
 
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.brehm.oliver.potpourri.Network.HTTPRequest;
-import com.brehm.oliver.potpourri.Network.HTTPRequestInvitationList;
-import com.brehm.oliver.potpourri.Network.HTTPRequestUserLogin;
+import layout.InvitationListFragment;
+import layout.MessageListFragment;
+import layout.ProfilesFragment;
+import layout.UserInvitationsFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HTTPRequest.OnRequestFinishedListener
+        implements NavigationView.OnNavigationItemSelectedListener
 {
-    RecyclerView invitationListRecyclerView;
-    InvitationListAdapter invitationListAdapter;
+    // content fragments
+    InvitationListFragment invitationListFragment;
+    MessageListFragment messageListFragment;
+    UserInvitationsFragment userInvitationsFragment;
+    ProfilesFragment profilesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +47,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        this.invitationListRecyclerView = (RecyclerView) findViewById(R.id.invitationListRecyclerView);
-        this.invitationListRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-
-        this.invitationListAdapter = new InvitationListAdapter();
-        this.invitationListRecyclerView.setAdapter(invitationListAdapter);
+        this.invitationListFragment = InvitationListFragment.newInstance();
+        this.messageListFragment = MessageListFragment.newInstance();
+        this.userInvitationsFragment = UserInvitationsFragment.newInstance();
+        this.profilesFragment = ProfilesFragment.newInstance();
     }
 
     @Override
@@ -85,7 +89,9 @@ public class MainActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-        makeRequest();
+        InvitationListFragment fragment = new InvitationListFragment();
+        setContentFragment(fragment);
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -96,25 +102,25 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_overview) {
             this.setTitle("Überblick");
+            setContentFragment(this.invitationListFragment);
+
         } else if (id == R.id.nav_messages) {
             this.setTitle("Nachrichten");
+            setContentFragment(this.messageListFragment);
+
         } else if (id == R.id.nav_activities) {
             this.setTitle("Meine Aktivitäten");
+            setContentFragment(this.userInvitationsFragment);
+
         } else if (id == R.id.nav_profiles) {
             this.setTitle("Profile");
-        }
+            setContentFragment(this.profilesFragment);
 
-        Toast.makeText(this, "Selection :)", Toast.LENGTH_SHORT);
-        makeRequest();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void makeRequest() {
-        HTTPRequestUserLogin userLoginRequest = new HTTPRequestUserLogin(this);
-        userLoginRequest.send("olibrehm@arcor.de", "1234");
     }
 
     private boolean networkConnectionAvailable() {
@@ -123,22 +129,11 @@ public class MainActivity extends AppCompatActivity
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    @Override
-    public void onRequestFinished(HTTPRequest request) {
-        if(request.getClass() == HTTPRequestUserLogin.class) {
-            HTTPRequestUserLogin userLoginRequest = (HTTPRequestUserLogin) request;
-            Toast.makeText(this, "Request finished\n"
-                    + "Response: " + userLoginRequest.responseValue + "\n"
-                    + "User ID: " + userLoginRequest.userId, Toast.LENGTH_SHORT).show();
+    public void setContentFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
-            HTTPRequestInvitationList invitationListRequest = new HTTPRequestInvitationList(this);
-            invitationListRequest.send();
-        } else if(request.getClass() == HTTPRequestInvitationList.class) {
-            HTTPRequestInvitationList invitationListRequest = (HTTPRequestInvitationList) request;
-            if(invitationListRequest.invitations != null) {
-                this.invitationListAdapter.invitations = invitationListRequest.invitations;
-                this.invitationListAdapter.notifyDataSetChanged();
-            }
-        }
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
     }
 }
