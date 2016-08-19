@@ -20,7 +20,7 @@ public class HTTPRequestUserLogin extends HTTPRequest {
     public void onPostResponseAvailable(String response) {
         super.onPostResponseAvailable(response);
 
-        if(this.xmlDocument != null) {
+        if(this.xmlDocument != null && this.responseValue == true) {
             Element userIdeNode = (Element) xmlDocument.getElementsByTagName("UserID").item(0);
             this.userId = userIdeNode.getTextContent();
         }

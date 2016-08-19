@@ -24,7 +24,7 @@ public class HTTPRequestInvitationList extends HTTPRequest {
     public void onPostResponseAvailable(String response) {
         super.onPostResponseAvailable(response);
 
-        if(this.xmlDocument != null) {
+        if(this.xmlDocument != null && this.responseValue == true) {
             NodeList invitationNodes = xmlDocument.getElementsByTagName("invitation");
 
             this.invitations = new ArrayList<InvitationHeader>();

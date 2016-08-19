@@ -8,13 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.brehm.oliver.potpourri.InvitationListAdapter;
 import com.brehm.oliver.potpourri.Network.HTTPRequest;
 import com.brehm.oliver.potpourri.Network.HTTPRequestInvitationList;
-import com.brehm.oliver.potpourri.Network.HTTPRequestUserLogin;
 import com.brehm.oliver.potpourri.R;
+import com.brehm.oliver.potpourri.User;
 
 public class InvitationListFragment extends Fragment implements HTTPRequest.OnRequestFinishedListener {
 
@@ -66,7 +65,10 @@ public class InvitationListFragment extends Fragment implements HTTPRequest.OnRe
     public void onStart() {
         super.onStart();
 
-        makeRequest();
+        if(User.loggedIn()) {
+            HTTPRequestInvitationList invitationListRequest = new HTTPRequestInvitationList(this);
+            invitationListRequest.send();
+        }
     }
 
     @Override
@@ -82,25 +84,12 @@ public class InvitationListFragment extends Fragment implements HTTPRequest.OnRe
 
     @Override
     public void onRequestFinished(HTTPRequest request) {
-        if(request.getClass() == HTTPRequestUserLogin.class) {
-            HTTPRequestUserLogin userLoginRequest = (HTTPRequestUserLogin) request;
-            Toast.makeText(context, "Request finished\n"
-                    + "Response: " + userLoginRequest.responseValue + "\n"
-                    + "User ID: " + userLoginRequest.userId, Toast.LENGTH_SHORT).show();
-
-            HTTPRequestInvitationList invitationListRequest = new HTTPRequestInvitationList(this);
-            invitationListRequest.send();
-        } else if(request.getClass() == HTTPRequestInvitationList.class) {
+        if(request.getClass() == HTTPRequestInvitationList.class) {
             HTTPRequestInvitationList invitationListRequest = (HTTPRequestInvitationList) request;
             if(invitationListRequest.invitations != null) {
                 this.invitationListAdapter.invitations = invitationListRequest.invitations;
                 this.invitationListAdapter.notifyDataSetChanged();
             }
         }
-    }
-
-    private void makeRequest() {
-        HTTPRequestUserLogin userLoginRequest = new HTTPRequestUserLogin(this);
-        userLoginRequest.send("olibrehm@arcor.de", "1234");
     }
 }

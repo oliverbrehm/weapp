@@ -6,12 +6,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.brehm.oliver.potpourri.R;
+import com.brehm.oliver.potpourri.User;
 
 public class ProfilesFragment extends Fragment {
 
     Context context;
+
+    TextView mailTextView;
+    TextView userIdTextView;
 
     public ProfilesFragment() {
         // Required empty public constructor
@@ -41,7 +46,18 @@ public class ProfilesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profiles, container, false);
+        View contentView = inflater.inflate(R.layout.fragment_profiles, container, false);
+
+        this.mailTextView = (TextView) contentView.findViewById(R.id.mailTextView);
+        this.userIdTextView = (TextView) contentView.findViewById(R.id.userIdTextView);
+
+        User user = User.currentUser();
+        if(user != null && User.loggedIn()) {
+            mailTextView.setText(user.mail);
+            userIdTextView.setText("" + user.userId);
+        }
+
+        return contentView;
     }
 
     @Override
