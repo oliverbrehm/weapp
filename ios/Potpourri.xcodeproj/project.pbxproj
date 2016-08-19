@@ -44,7 +44,7 @@
 		A74776931CBA92E500144226 /* UserProfileTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTVC.swift; sourceTree = "<group>"; };
 		A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		A74DA6191CBBA670008AB1C3 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
-		A74F5B241C5676A9006C03CC /* integrationsproject-incubateion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "integrationsproject-incubateion.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A74F5B241C5676A9006C03CC /* Potpourri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Potpourri.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74F5B271C5676A9006C03CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A74F5B2E1C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A74F5B301C5676A9006C03CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 		A74F5B1B1C5676A9006C03CC = {
 			isa = PBXGroup;
 			children = (
-				A74F5B261C5676A9006C03CC /* integrationsproject-incubateion */,
+				A74F5B261C5676A9006C03CC /* Potpourri */,
 				A74F5B251C5676A9006C03CC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,12 +97,12 @@
 		A74F5B251C5676A9006C03CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A74F5B241C5676A9006C03CC /* integrationsproject-incubateion.app */,
+				A74F5B241C5676A9006C03CC /* Potpourri.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A74F5B261C5676A9006C03CC /* integrationsproject-incubateion */ = {
+		A74F5B261C5676A9006C03CC /* Potpourri */ = {
 			isa = PBXGroup;
 			children = (
 				A77E5B9D1CBFB829003A7D0C /* ViewControllers */,
@@ -114,7 +114,7 @@
 				A74F5B351C5676A9006C03CC /* Info.plist */,
 				A79FD0391CCA6F1A001FFEB4 /* Utility.swift */,
 			);
-			path = "integrationsproject-incubateion";
+			path = Potpourri;
 			sourceTree = "<group>";
 		};
 		A77E5B9D1CBFB829003A7D0C /* ViewControllers */ = {
@@ -148,9 +148,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A74F5B231C5676A9006C03CC /* integrationsproject-incubateion */ = {
+		A74F5B231C5676A9006C03CC /* Potpourri */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "integrationsproject-incubateion" */;
+			buildConfigurationList = A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "Potpourri" */;
 			buildPhases = (
 				A74F5B201C5676A9006C03CC /* Sources */,
 				A74F5B211C5676A9006C03CC /* Frameworks */,
@@ -160,9 +160,9 @@
 			);
 			dependencies = (
 			);
-			name = "integrationsproject-incubateion";
+			name = Potpourri;
 			productName = "integrationsproject-incubateion";
-			productReference = A74F5B241C5676A9006C03CC /* integrationsproject-incubateion.app */;
+			productReference = A74F5B241C5676A9006C03CC /* Potpourri.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -180,7 +180,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "integrationsproject-incubateion" */;
+			buildConfigurationList = A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "Potpourri" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -193,7 +193,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A74F5B231C5676A9006C03CC /* integrationsproject-incubateion */,
+				A74F5B231C5676A9006C03CC /* Potpourri */,
 			);
 		};
 /* End PBXProject section */
@@ -349,7 +349,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "integrationsproject-incubateion/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Potpourri/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "incubation.integrationsproject-incubateion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -360,7 +360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "integrationsproject-incubateion/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Potpourri/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "incubation.integrationsproject-incubateion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -370,7 +370,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "integrationsproject-incubateion" */ = {
+		A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "Potpourri" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A74F5B361C5676A9006C03CC /* Debug */,
@@ -379,7 +379,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "integrationsproject-incubateion" */ = {
+		A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "Potpourri" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A74F5B391C5676A9006C03CC /* Debug */,
