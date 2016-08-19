@@ -1,8 +1,10 @@
 package com.brehm.oliver.potpourri;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brehm.oliver.potpourri.Network.HTTPRequestInvitationList;
@@ -20,7 +22,7 @@ public class InvitationListAdapter extends RecyclerView.Adapter<InvitationListAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        TextView itemView = new TextView(parent.getContext());
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_invitation_header, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
         return viewHolder;
     }
@@ -36,22 +38,34 @@ public class InvitationListAdapter extends RecyclerView.Adapter<InvitationListAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TextView textView = (TextView) holder.itemView;
-
         if(this.invitations == null) {
-            textView.setText("Loading invitations...");
+            holder.invitationNameTextView.setText("Loading invitations...");
+            holder.invitationUserTextView.setText("");
             return;
         }
 
         HTTPRequestInvitationList.InvitationHeader invitation = this.invitations.get(position);
 
-        textView.setText(invitation.name + "(id = " + invitation.id + ")");
+        holder.bindInvitationToView(invitation);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        protected ImageView invitationImageView;
+        protected TextView invitationNameTextView;
+        protected TextView invitationUserTextView;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView)
+        {
             super(itemView);
+
+            invitationImageView = (ImageView) itemView.findViewById(R.id.invitationImageView);
+            invitationNameTextView = (TextView) itemView.findViewById(R.id.invitationNameTextView);
+            invitationUserTextView = (TextView) itemView.findViewById(R.id.invitationUserTextView);
+        }
+
+        public void bindInvitationToView(HTTPRequestInvitationList.InvitationHeader invitation) {
+            invitationNameTextView.setText(invitation.name);
+            invitationUserTextView.setText(invitation.id);
         }
     }
 }
