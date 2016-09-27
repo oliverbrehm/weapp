@@ -76,7 +76,7 @@ public class User implements HTTPRequest.OnRequestFinishedListener {
             }
 
             this.userId = Integer.parseInt(loginRequest.userId);
-            this.sessionId = "12345"; fOliver
+            this.sessionId = "12345";
 
             if(this.loginListener != null) {
                 this.loginListener.onUserLoggedIn();

@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class HTTPUserDetailsRequest: HTTPRequest
+open class HTTPUserDetailsRequest: HTTPRequest
 {
-    public var user: User?
+    open var user: User?
     
     var name = ""
     var firstName = ""
@@ -24,12 +24,13 @@ public class HTTPUserDetailsRequest: HTTPRequest
     var locationLatitude = ""
     var locationLongitude = ""
     
-    public func send(userId: Int) -> Bool {
+    open func send(_ userId: Int, completion: @escaping ((Bool) -> Void))
+    {
         let postData = "action=user_get_details&user_id=\(userId)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         switch(elementName) {
@@ -69,16 +70,16 @@ public class HTTPUserDetailsRequest: HTTPRequest
     }
 }
 
-public class HTTPUserLoginRequest: HTTPRequest
+open class HTTPUserLoginRequest: HTTPRequest
 {
-    public var userId = ""
-    public func send(email: String, password: String) -> Bool
+    open var userId = ""
+    open func send(_ email: String, password: String, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=user_login&email=\(email)&password=\(password)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         if(elementName == "UserID") {
@@ -87,30 +88,29 @@ public class HTTPUserLoginRequest: HTTPRequest
     }
 }
 
-public class HTTPUserLogoutRequest: HTTPRequest
+open class HTTPUserLogoutRequest: HTTPRequest
 {
-    public var userId = ""
-    public func send() -> Bool
-    {
+    open var userId = ""
+    open func send(completion: @escaping ((Bool) -> Void))    {
         let postData = "action=user_logout"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
 }
 
-public class HTTPUserRegisterRequest: HTTPRequest
+open class HTTPUserRegisterRequest: HTTPRequest
 {
-    public var userId = ""
-    public func send(email: String, password: String, firstName: String, lastName: String,
+    open var userId = ""
+    open func send(_ email: String, password: String, firstName: String, lastName: String,
                      userType: Bool, gender: Bool,
-                     dateOfBirth: NSDate, nationality: String,
-                     dateOfImmigration: NSDate,
-                     locationLatitude: Int, locationLongitude: Int) -> Bool
+                     dateOfBirth: Date, nationality: String,
+                     dateOfImmigration: Date,
+                     locationLatitude: Int, locationLongitude: Int, completion: @escaping ((Bool) -> Void))
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let immigrationDateString = dateFormatter.stringFromDate(dateOfImmigration)
-        let birthDateString = dateFormatter.stringFromDate(dateOfBirth)
+        let immigrationDateString = dateFormatter.string(from: dateOfImmigration)
+        let birthDateString = dateFormatter.string(from: dateOfBirth)
         
         let postData =
         "action=user_register&" +
@@ -127,6 +127,6 @@ public class HTTPUserRegisterRequest: HTTPRequest
         "locationLatitude=\(locationLatitude)&" +
         "locationLongitude=\(locationLongitude)&"
         
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
 }

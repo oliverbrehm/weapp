@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class Participant
+open class Participant
 {
-    public let userId: Int
-    public let firstName: String
-    public let numPersons: Int
+    open let userId: Int
+    open let firstName: String
+    open let numPersons: Int
     
     init(userId: Int, firstName: String, numPersons: Int)
     {
@@ -22,23 +22,23 @@ public class Participant
     }
 }
 
-public class Invitation
+open class Invitation
 {
-    private let invitationId: Int
+    fileprivate let invitationId: Int
     
-    public let name: String
+    open let name: String
     
-    public var ownerId: Int?
-    public var ownerFirstName: String?
-    public var ownerLastName: String?
-    public var description: String?
-    public var maxParticipants: Int?
-    public var date: NSDate?
-    public var locationCity: String?
-    public var locationStreet: String?
-    public var locationStreetNumber: Int?
-    public var locationLatitude: Int?
-    public var locationLongitude: Int?
+    open var ownerId: Int?
+    open var ownerFirstName: String?
+    open var ownerLastName: String?
+    open var description: String?
+    open var maxParticipants: Int?
+    open var date: Date?
+    open var locationCity: String?
+    open var locationStreet: String?
+    open var locationStreetNumber: Int?
+    open var locationLatitude: Int?
+    open var locationLongitude: Int?
     
     init(invitationId: Int, name: String)
     {
@@ -46,7 +46,7 @@ public class Invitation
         self.name = name
     }
     
-    init(invitationId: Int, name: String, ownerId: Int, ownerFirstName: String, ownerLastName: String, description: String, maxParticipants: Int, date: NSDate,
+    init(invitationId: Int, name: String, ownerId: Int, ownerFirstName: String, ownerLastName: String, description: String, maxParticipants: Int, date: Date,
          locationCity: String, locationStreet: String, locationStreetNumber: Int, locationLatitude: Int, locationLongitude: Int)
     {
         self.invitationId = invitationId
@@ -65,7 +65,7 @@ public class Invitation
         self.locationLongitude = locationLongitude
     }
     
-    public func createdByUser(user: User?) -> Bool
+    open func createdByUser(_ user: User?) -> Bool
     {
         if(user == nil || self.ownerId == nil) {
             return false
@@ -74,63 +74,63 @@ public class Invitation
         return user!.id == self.ownerId!
     }
     
-    public static func create(name : String, detailedDescription : String,
-                              maxParticipants : Int, nsDate : NSDate,
+    open static func create(_ name : String, detailedDescription : String,
+                              maxParticipants : Int, nsDate : Date,
                               locationCity : String, locationStreet : String, locationStreetNumber : Int,
-                              locationLatitude : Int, locationLongitude : Int) -> Bool
+                              locationLatitude : Int, locationLongitude : Int, completion: @escaping ((Bool) -> Void))
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.stringFromDate(nsDate)
+        let date = dateFormatter.string(from: nsDate)
         
-        let timeFormatter = NSDateFormatter()
+        let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "hh-mm"
-        let time = timeFormatter.stringFromDate(nsDate)
+        let time = timeFormatter.string(from: nsDate)
         
         let request = HTTPInvitationCreateRequest()
-        request.send(name, detailedDescription: detailedDescription, maxParticipants: maxParticipants, date: date, time: time, locationCity: locationCity, locationStreet: locationStreet, locationStreetNumber: locationStreetNumber, locationLatitude: locationLatitude, locationLongitude: locationLongitude)
-        
-        return request.responseValue
+        request.send(name, detailedDescription: detailedDescription, maxParticipants: maxParticipants, date: date, time: time, locationCity: locationCity, locationStreet: locationStreet, locationStreetNumber: locationStreetNumber, locationLatitude: locationLatitude, locationLongitude: locationLongitude, completion: completion)
     }
     
-    func createJoinRequest(user: User, numParticipants: Int) -> Bool
+    func createJoinRequest(_ user: User, numParticipants: Int, completion: @escaping ((Bool) -> Void))
     {
         let request = HTTPInvitationJoinRequest()
-        request.send(self.invitationId, userId: user.id, numParticipants: numParticipants)
-        
-        return request.responseValue
+        request.send(self.invitationId, userId: user.id, numParticipants: numParticipants, completion: completion)
     }
     
-    func getParticipants() -> [Participant]
+    func getParticipants(completion: @escaping (([Participant]) -> Void))
     {
         let request = HTTPInvitationGetParticipantsRequest()
-        request.send(self.invitationId)
-        
-        return request.participants
+        request.send(self.invitationId) { (success: Bool) in
+            completion(request.participants)
+        }
     }
     
-    public func queryDetails()
+    open func queryDetails(completion: @escaping ((Bool) -> Void))
     {
         let request = HTTPInvitationDetailRequest()
-        request.send(self.invitationId)
+        request.send(self.invitationId) { (success: Bool) in
         
-        if(request.responseValue == false) {
-            return
+            if(request.responseValue == false) {
+                completion(false)
+                return
+            }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            self.ownerId = Int(request.ownerId)
+            self.ownerFirstName = request.ownerFirstName
+            self.ownerLastName = request.ownerLastName
+            self.description = request.invitationDescription
+            self.maxParticipants = Int(request.maxParticipants)
+            self.date = dateFormatter.date(from: request.date) // TODO include time
+            self.locationCity = request.locationCity
+            self.locationStreet = request.locationStreet
+            self.locationStreetNumber = Int(request.locationStreetNumber)
+            self.locationLatitude = Int(request.locationLatitude)
+            self.locationLongitude = Int(request.locationLongitude)
+            
+            completion(true)
         }
-        
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        self.ownerId = Int(request.ownerId)
-        self.ownerFirstName = request.ownerFirstName
-        self.ownerLastName = request.ownerLastName
-        self.description = request.invitationDescription
-        self.maxParticipants = Int(request.maxParticipants)
-        self.date = dateFormatter.dateFromString(request.date) // TODO include time
-        self.locationCity = request.locationCity
-        self.locationStreet = request.locationStreet
-        self.locationStreetNumber = Int(request.locationStreetNumber)
-        self.locationLatitude = Int(request.locationLatitude)
-        self.locationLongitude = Int(request.locationLongitude)
     }
 }

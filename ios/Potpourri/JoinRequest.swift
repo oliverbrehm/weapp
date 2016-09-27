@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class JoinRequest
+open class JoinRequest
 {
     let requestId: Int
     let userId: Int
@@ -27,31 +27,31 @@ public class JoinRequest
     }
 }
 
-public class HTTPJoinRequestListRequest: HTTPRequest
+open class HTTPJoinRequestListRequest: HTTPRequest
 {
-    private var currentRequestId = ""
-    private var currentRequestInvitationId = ""
-    private var currentRequestUserId = ""
-    private var currentRequestNumParticipants = ""
-    private var currentRequestMaxParticipants = ""
-    private var currentRequestInvitationName = ""
+    fileprivate var currentRequestId = ""
+    fileprivate var currentRequestInvitationId = ""
+    fileprivate var currentRequestUserId = ""
+    fileprivate var currentRequestNumParticipants = ""
+    fileprivate var currentRequestMaxParticipants = ""
+    fileprivate var currentRequestInvitationName = ""
 
     
-    public var joinRequests: [JoinRequest] = []
+    open var joinRequests: [JoinRequest] = []
     
-    public func send() -> Bool
+    open func send(completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=joinRequest_query"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public func send(user: User) -> Bool
+    open func send(_ user: User, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=joinRequest_query&userID=\(user.id)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         switch(elementName) {
@@ -82,20 +82,20 @@ public class HTTPJoinRequestListRequest: HTTPRequest
     }
 }
 
-public class HTTPJoinRequestAccept: HTTPRequest
+open class HTTPJoinRequestAccept: HTTPRequest
 {
-    public func send(requestId: Int) -> Bool
+    open func send(_ requestId: Int, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=joinRequest_accept&id=\(requestId)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
 }
 
-public class HTTPJoinRequestReject: HTTPRequest
+open class HTTPJoinRequestReject: HTTPRequest
 {
-    public func send(requestId: Int) -> Bool
+    open func send(_ requestId: Int, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=joinRequest_reject&id=\(requestId)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
 }

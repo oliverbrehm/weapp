@@ -20,26 +20,26 @@ public struct InvitationHeader
     }
 }
 
-public class HTTPInvitationListRequest: HTTPRequest
+open class HTTPInvitationListRequest: HTTPRequest
 {
-    private var currentInvitationID = ""
-    private var currentInvitationName = ""
+    fileprivate var currentInvitationID = ""
+    fileprivate var currentInvitationName = ""
     
-    public var invitations: [InvitationHeader] = []
+    open var invitations: [InvitationHeader] = []
     
-    public func send() -> Bool
+    open func send(completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_query"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public func send(user: User) -> Bool
+    open func send(_ user: User, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_query&userID=\(user.id)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         switch(elementName) {
@@ -58,20 +58,20 @@ public class HTTPInvitationListRequest: HTTPRequest
     }
 }
 
-public class HTTPInvitationParticipatingListRequest: HTTPRequest
+open class HTTPInvitationParticipatingListRequest: HTTPRequest
 {
-    private var currentInvitationID = ""
-    private var currentInvitationName = ""
+    fileprivate var currentInvitationID = ""
+    fileprivate var currentInvitationName = ""
     
-    public var invitations: [InvitationHeader] = []
+    open var invitations: [InvitationHeader] = []
     
-    public func send(user: User) -> Bool
+    open func send(_ user: User, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_query_participating&userId=\(user.id)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         switch(elementName) {
@@ -90,14 +90,14 @@ public class HTTPInvitationParticipatingListRequest: HTTPRequest
     }
 }
 
-public class HTTPInvitationCreateRequest: HTTPRequest
+open class HTTPInvitationCreateRequest: HTTPRequest
 {
-    public var invitations: [InvitationHeader] = []
+    open var invitations: [InvitationHeader] = []
     
-    public func send(name : String, detailedDescription : String,
+    open func send(_ name : String, detailedDescription : String,
                      maxParticipants : Int, date: String, time: String,
                      locationCity : String, locationStreet : String, locationStreetNumber : Int,
-                     locationLatitude : Int, locationLongitude : Int) -> Bool
+                     locationLatitude : Int, locationLongitude : Int, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_create" +
             "&name=\(name)" +
@@ -111,46 +111,46 @@ public class HTTPInvitationCreateRequest: HTTPRequest
             "&locationLatitude=\(locationLatitude)" +
             "&locationLongitude=\(locationLongitude)"
         
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
 }
 
-public class HTTPInvitationJoinRequest: HTTPRequest
+open class HTTPInvitationJoinRequest: HTTPRequest
 {
-    public var invitations: [InvitationHeader] = []
+    open var invitations: [InvitationHeader] = []
     
-    public func send(invitationId: Int, userId: Int, numParticipants: Int) -> Bool
+    open func send(_ invitationId: Int, userId: Int, numParticipants: Int, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_join_request" +
             "&id=\(invitationId)" +
             "&userId=\(userId)" +
             "&numParticipants=\(numParticipants)"
         
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
 }
 
-public class HTTPInvitationGetParticipantsRequest: HTTPRequest
+open class HTTPInvitationGetParticipantsRequest: HTTPRequest
 {
-    private var currentUserId = ""
-    private var currentFirstName = ""
-    private var currentNumParticipants = ""
+    fileprivate var currentUserId = ""
+    fileprivate var currentFirstName = ""
+    fileprivate var currentNumParticipants = ""
 
-    public var participants: [Participant] = []
+    open var participants: [Participant] = []
     
-    public func send() -> Bool
+    open func send(completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_query"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public func send(invitationId: Int) -> Bool
+    open func send(_ invitationId: Int, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_get_participants&id=\(invitationId)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         switch(elementName) {
@@ -172,32 +172,32 @@ public class HTTPInvitationGetParticipantsRequest: HTTPRequest
     }
 }
 
-public class HTTPInvitationDetailRequest: HTTPRequest
+open class HTTPInvitationDetailRequest: HTTPRequest
 {
-    public var invitationId: String = ""
-    public var name: String = ""
-    public var ownerId: String = ""
-    public var ownerFirstName: String = ""
-    public var ownerLastName: String = ""
-    public var invitationDescription: String = ""
-    public var maxParticipants: String = ""
-    public var date: String = ""
-    public var time: String = ""
-    public var locationCity: String = ""
-    public var locationStreet: String = ""
-    public var locationStreetNumber: String = ""
-    public var locationLatitude: String = ""
-    public var locationLongitude: String = ""
+    open var invitationId: String = ""
+    open var name: String = ""
+    open var ownerId: String = ""
+    open var ownerFirstName: String = ""
+    open var ownerLastName: String = ""
+    open var invitationDescription: String = ""
+    open var maxParticipants: String = ""
+    open var date: String = ""
+    open var time: String = ""
+    open var locationCity: String = ""
+    open var locationStreet: String = ""
+    open var locationStreetNumber: String = ""
+    open var locationLatitude: String = ""
+    open var locationLongitude: String = ""
     
-    public var invitations: [InvitationHeader] = []
+    open var invitations: [InvitationHeader] = []
     
-    public func send(id: Int) -> Bool
+    open func send(_ id: Int, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_get_details&id=\(id)"
-        return super.sendPost(postData)
+        super.sendPost(postData, completion: completion)
     }
     
-    public override func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open override func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         super.parser(parser, didEndElement: elementName, namespaceURI: namespaceURI, qualifiedName: qName)
         
         switch(elementName) {

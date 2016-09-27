@@ -31,14 +31,14 @@ class UserProfileTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         updateUI()
     }
     
     func updateUI()
     {
         if let user = User.current {
-            let sqlDateFormatter = NSDateFormatter()
+            let sqlDateFormatter = DateFormatter()
             sqlDateFormatter.dateFormat = "yyyy-MM-dd"
             
             self.title = user.firstName + " " + user.lastName
@@ -47,28 +47,30 @@ class UserProfileTVC: UITableViewController {
             self.userIdLabel.text = "\(user.id)"
             self.userTypeLabel.text = user.immigrant! ? "Immigrant" : "Local"
             self.genderLabel.text = user.gender! ? "Male" : "Female"
-            self.dateOfBirthLabel.text  = sqlDateFormatter.stringFromDate(user.dateOfBirth!)
-            self.dateOfImmigrationLabel.text  = sqlDateFormatter.stringFromDate(user.dateOfImmigration!)
+            self.dateOfBirthLabel.text  = sqlDateFormatter.string(from: user.dateOfBirth!)
+            self.dateOfImmigrationLabel.text  = sqlDateFormatter.string(from: user.dateOfImmigration!)
             self.nationalityLabel.text = user.nationality
             self.locationLatitudeLabel.text = "\(user.locationLatitude!)"
             self.locationLongitudeLabel.text = "\(user.locationLongitude!)"
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = self.tableView(self.tableView, cellForRowAtIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = self.tableView.cellForRow(at: indexPath)
         
-        if(cell.reuseIdentifier == "logoutCell") {
-            if(!User.logout()) {
-                self.presentAlert("Logout", message: "Unable to logout user", cancelButtonTitle: "OK", animated: true)
-                return
+        if(cell?.reuseIdentifier == "logoutCell") {
+            User.logout() { (success: Bool) in
+                if(!success) {
+                    self.presentAlert("Logout", message: "Unable to logout user", cancelButtonTitle: "OK", animated: true)
+                     return
+                } else {
+                    // if logged out
+                    User.current = nil
+                    
+                    // -> UINavigationController -> MainTBC
+                    self.parent?.parent?.performSegue(withIdentifier: "showLogin", sender: self)
+                }
             }
-            
-            // if logged out
-            User.current = nil
-            
-            // -> UINavigationController -> MainTBC
-            self.parentViewController?.parentViewController?.performSegueWithIdentifier("showLogin", sender: self)
         }
     }
 

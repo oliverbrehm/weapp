@@ -28,52 +28,57 @@ class InvitationDetailTVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if(self.invitation != nil) {
             self.title = invitation!.name
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.invitation!.queryDetails() { (success: Bool) in
+                if(!success) {
+                    return
+                }
                 
-                self.invitation!.queryDetails()
-                self.participants = self.invitation!.getParticipants()
+                self.invitation!.getParticipants() { (participants: [Participant]) in
                 
-                dispatch_async(dispatch_get_main_queue()) {
                     if(self.invitation == nil) {
                         return
                     }
                     
-                    self.participants.insert(Participant(userId: self.invitation!.ownerId!, firstName: self.invitation!.ownerFirstName! + " (owner)", numPersons: 1), atIndex: 0)
-                    self.tableView.reloadData()
+                    self.participants = participants
                     
-                    if(self.invitation!.createdByUser(User.current)) {
-                        let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
-                        self.navigationItem.rightBarButtonItem = item
+                    self.participants.insert(Participant(userId: self.invitation!.ownerId!, firstName: self.invitation!.ownerFirstName! + " (owner)", numPersons: 1), at: 0)
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
                         
-                    } else { // TODO if not already tried to join (request sent) TODO if not already joined
-                        let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
-                        self.navigationItem.rightBarButtonItem = item
+                        if(self.invitation!.createdByUser(User.current)) {
+                            let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
+                            self.navigationItem.rightBarButtonItem = item
+                            
+                        } else { // TODO if not already tried to join (request sent) TODO if not already joined
+                            let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
+                            self.navigationItem.rightBarButtonItem = item
+                        }
                     }
-                    
                 }
             }
         }
     }
 
     func editButtonClicked() {
-        self.performSegueWithIdentifier("editInvitation", sender: self)
+        self.performSegue(withIdentifier: "editInvitation", sender: self)
     }
     
     func joinButtonClicked() {
-        self.performSegueWithIdentifier("joinInvitation", sender: self)
+        self.performSegue(withIdentifier: "joinInvitation", sender: self)
     }
     
     // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case 0: return self.participants.count;
         default: // 1
@@ -81,7 +86,7 @@ class InvitationDetailTVC: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
         case 0: return "Participants";
         case 1: return "Info";
@@ -89,27 +94,27 @@ class InvitationDetailTVC: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
         if(indexPath.section == 0) {
-            cell = tableView.dequeueReusableCellWithIdentifier("participantCell", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: "participantCell", for: indexPath)
 
             cell.textLabel?.text = participants[indexPath.row].firstName + "(\(participants[indexPath.row].numPersons))"
         } else { // 1
-            cell = tableView.dequeueReusableCellWithIdentifier("invitationInfoCell", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: "invitationInfoCell", for: indexPath as IndexPath)
             
             if(self.invitation == nil) {
                 return cell
             }
             
             let i = self.invitation!
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
             
             var date = ""
             if(i.date != nil) {
-                date = dateFormatter.stringFromDate(i.date!)
+                date = dateFormatter.string(from: i.date!)
             }
             
             var street = ""
@@ -188,12 +193,12 @@ class InvitationDetailTVC: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if let vc = segue.destinationViewController as? CreateInvitationTVC {
+        if let vc = segue.destination as? CreateInvitationTVC {
             vc.invitation = self.invitation
-        } else if let vc = segue.destinationViewController as? CreateJoinRequestVC {
+        } else if let vc = segue.destination as? CreateJoinRequestVC {
             vc.invitation = self.invitation
         }
     }

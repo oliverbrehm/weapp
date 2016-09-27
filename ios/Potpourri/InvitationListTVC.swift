@@ -9,7 +9,7 @@
 import UIKit
 
 class InvitationListTVC: UITableViewController {
-    private var invitations: [Invitation] = []
+    fileprivate var invitations: [Invitation] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,41 +23,48 @@ class InvitationListTVC: UITableViewController {
 
     }
     
-    private func sendInvitationListRequest() -> [Invitation]
+    fileprivate func sendInvitationListRequest(completion: @escaping (([Invitation]) -> Void))
     {
         let request = HTTPInvitationListRequest()
-        request.send()
         
-        if(request.responseValue == false) {
-            return [Invitation(invitationId: 0, name: "Error loading invitations...")]
+        let user = User.current
+        if(user == nil) {
+            completion([Invitation(invitationId: 0, name: "Error loading invitations...")])
+            return
         }
         
-        var invitationList: [Invitation] = []
-        for invitationHeader in request.invitations {
-            let invitationId = Int(invitationHeader.id)!
-            invitationList.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
+        request.send(user!) { (success: Bool) in
+            if(request.responseValue == false) {
+                completion([Invitation(invitationId: 0, name: "Error loading invitations...")])
+                return
+            }
+            
+            var invitationList: [Invitation] = []
+            for invitationHeader in request.invitations {
+                let invitationId = Int(invitationHeader.id)!
+                invitationList.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
+            }
+            
+            completion(invitationList)
         }
-        
-        return invitationList
     }
 
-    private func loadInvitations()
+    fileprivate func loadInvitations()
     {
         invitations.removeAll()
         invitations.append(Invitation(invitationId: 0, name: "Loading..."))
         self.tableView.reloadData()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        self.sendInvitationListRequest() { (invitations: [Invitation]) in
+            self.invitations = invitations
             
-            self.invitations = self.sendInvitationListRequest();
-            
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.loadInvitations()
     }
     
@@ -68,20 +75,20 @@ class InvitationListTVC: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.invitations.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("invitationCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "invitationCell", for: indexPath)
 
-        cell.textLabel?.text = invitations[indexPath.row].name
+        cell.textLabel?.text = invitations[(indexPath as NSIndexPath).row].name
 
         return cell
     }
@@ -124,12 +131,12 @@ class InvitationListTVC: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if(segue.identifier == "invitationDetail" && segue.destinationViewController is InvitationDetailTVC) {
-            let selectedRow = self.tableView.indexPathForSelectedRow!.row
-            let invitationDetailTVC = segue.destinationViewController as! InvitationDetailTVC
+        if(segue.identifier == "invitationDetail" && segue.destination is InvitationDetailTVC) {
+            let selectedRow = (self.tableView.indexPathForSelectedRow! as NSIndexPath).row
+            let invitationDetailTVC = segue.destination as! InvitationDetailTVC
             invitationDetailTVC.invitation = self.invitations[selectedRow]
         }
     }

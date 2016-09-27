@@ -22,7 +22,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.emailTextField.resignFirstResponder()
         self.passwordTextField.resignFirstResponder()
     }
@@ -32,7 +32,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if(textField === emailTextField) {
             passwordTextField.becomeFirstResponder()
         } else if(textField == passwordTextField) {
@@ -41,7 +41,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    @IBAction func loginButtonPressed(sender: AnyObject) {
+    @IBAction func loginButtonPressed(_ sender: AnyObject) {
         self.emailTextField.resignFirstResponder()
         self.passwordTextField.resignFirstResponder()
         
@@ -54,33 +54,26 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             self.presentAlert("Login", message: "Please enter your email adress and password", cancelButtonTitle: "OK", animated: true)
         } else {
             self.activityIndicator.startAnimating()
-            loginButton.hidden = true;
+            loginButton.isHidden = true;
             
-            NSUserDefaults.standardUserDefaults().setBool(self.autologinSwitch.on, forKey: "autologinEnabled")
+            UserDefaults.standard.set(self.autologinSwitch.isOn, forKey: "autologinEnabled")
             
-            if(self.autologinSwitch.on) {
-                NSUserDefaults.standardUserDefaults().setObject(email, forKey: "autologinEmail")
-                NSUserDefaults.standardUserDefaults().setObject(password, forKey: "autologinPassword")
+            if(self.autologinSwitch.isOn) {
+                UserDefaults.standard.set(email, forKey: "autologinEmail")
+                UserDefaults.standard.set(password, forKey: "autologinPassword")
                 print("autologin enabled")
             }
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                
-                let user = User.login(email, password: password)
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    
-                    if(user == nil) {
-                        self.presentAlert("Login failed", message: "Invalid email adress or password", cancelButtonTitle: "OK", animated: true)
-                    } else {
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    }
-                    
-                    self.activityIndicator.stopAnimating()
-                    loginButton.hidden = false
+            User.login(email, password: password) { (success: Bool) in
+                if(!success) {
+                    self.presentAlert("Login failed", message: "Invalid email adress or password", cancelButtonTitle: "OK", animated: true)
+                } else {
+                    self.dismiss(animated: true)
                 }
+                
+                self.activityIndicator.stopAnimating()
+                loginButton.isHidden = false
             }
-
         }
     }
 

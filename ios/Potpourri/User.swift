@@ -8,27 +8,27 @@
 
 import Foundation
 
-public class User
+open class User
 {
-    public static var current : User?
-    public static var sessionId: String?
+    open static var current : User?
+    open static var sessionId: String?
 
-    public let id: Int
-    public var email: String
+    open let id: Int
+    open var email: String
 
-    public let firstName: String
-    public let lastName: String
+    open let firstName: String
+    open let lastName: String
     
-    public var immigrant: Bool?
-    public var gender: Bool?
+    open var immigrant: Bool?
+    open var gender: Bool?
     
-    public var dateOfBirth: NSDate?
-    public var dateOfImmigration: NSDate?
+    open var dateOfBirth: Date?
+    open var dateOfImmigration: Date?
 
-    public var nationality: String?
+    open var nationality: String?
     
-    public var locationLatitude: Int?
-    public var locationLongitude: Int?
+    open var locationLatitude: Int?
+    open var locationLongitude: Int?
     
     init(id: Int, email: String, firstName: String, lastName: String)
     {
@@ -38,7 +38,7 @@ public class User
         self.email = email
     }
     
-    init(sessionId: String, id: Int, firstName: String, lastName: String, email: String, immigrant: Bool, gender: Bool, dateOfBirth: NSDate, dateOfImmigration: NSDate, nationality: String, locationLatitude: Int, locationLongitude: Int) {
+    init(sessionId: String, id: Int, firstName: String, lastName: String, email: String, immigrant: Bool, gender: Bool, dateOfBirth: Date, dateOfImmigration: Date, nationality: String, locationLatitude: Int, locationLongitude: Int) {
         self.id = id
         
         self.firstName = firstName
@@ -59,86 +59,88 @@ public class User
         User.sessionId = sessionId;
     }
     
-    public static func login(email: String, password: String) -> User?
+    open static func login(_ email: String, password: String, completion: @escaping ((Bool) -> Void))
     {
         let loginRequest = HTTPUserLoginRequest()
-        loginRequest.send(email, password: password)
+        loginRequest.send(email, password: password) { (loginSuccess: Bool) in
         
-        if(loginRequest.responseValue == false || loginRequest.sessionId.isEmpty) {
-            return nil
-        }
-
-        let userDetailsRequest = HTTPUserDetailsRequest()
-        userDetailsRequest.send(Int(loginRequest.userId)!)
-        
-        print("user: \(userDetailsRequest.email), \(userDetailsRequest.dateOfBirth)")
-        
-        let sqlDateFormatter = NSDateFormatter()
-        sqlDateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        var dateOfBirth = NSDate.distantPast()
-        if let d = sqlDateFormatter.dateFromString(userDetailsRequest.dateOfBirth) {
-            dateOfBirth = d
-        }
-        
-        var dateOfImmigration = NSDate.distantPast()
-        if let d = sqlDateFormatter.dateFromString(userDetailsRequest.dateOfImmigration) {
-            dateOfImmigration = d
-        }
-        
-        current = User(sessionId: loginRequest.sessionId, id: Int(loginRequest.userId)!,
-                       firstName: userDetailsRequest.firstName, lastName: userDetailsRequest.lastName,
-                       email: userDetailsRequest.email,
-                       immigrant: NSString(string: userDetailsRequest.immigrant).boolValue, gender: NSString(string: userDetailsRequest.gender).boolValue,
-                       dateOfBirth: dateOfBirth, dateOfImmigration: dateOfImmigration,
-                       nationality: userDetailsRequest.nationality,
-                       locationLatitude: Int(userDetailsRequest.locationLatitude)!, locationLongitude: Int(userDetailsRequest.locationLongitude)!)
-        
-        return current
-    }
-    
-    public static func autoLoginAsync(completion: (User?) -> Void) -> Void
-    {
-        if(!NSUserDefaults.standardUserDefaults().boolForKey("autologinEnabled")) {
-            print("autologin net enabled")
-            completion(nil)
-            return
-        }
-        
-        if let email = NSUserDefaults.standardUserDefaults().stringForKey("autologinEmail")
-            ,let password = NSUserDefaults.standardUserDefaults().stringForKey("autologinPassword") {
-            if(email.isEmpty || password.isEmpty) {
-                print("autologin mail or password unset")
-                completion(nil)
+            if(loginRequest.responseValue == false || loginRequest.sessionId.isEmpty) {
+                completion(false)
                 return
             }
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                let user = login(email, password: password)
-                print("autologin successfull")
+            print("USER ID: \(loginRequest.userId)")
 
-                dispatch_async(dispatch_get_main_queue()) {
-                    completion(user)
-                    return
+            // login ok, retrieve user information
+            let userDetailsRequest = HTTPUserDetailsRequest()
+            userDetailsRequest.send(Int(loginRequest.userId)!) { (userDetailSuccess: Bool) in
+                
+                if(!userDetailSuccess) {
+                    completion(false)
                 }
-            }
             
+                print("user: \(userDetailsRequest.email), \(userDetailsRequest.dateOfBirth)")
+                
+                let sqlDateFormatter = DateFormatter()
+                sqlDateFormatter.dateFormat = "yyyy-MM-dd"
+                
+                var dateOfBirth = Date.distantPast
+                if let d = sqlDateFormatter.date(from: userDetailsRequest.dateOfBirth) {
+                    dateOfBirth = d
+                }
+                
+                var dateOfImmigration = Date.distantPast
+                if let d = sqlDateFormatter.date(from: userDetailsRequest.dateOfImmigration) {
+                    dateOfImmigration = d
+                }
+                
+                current = User(sessionId: loginRequest.sessionId, id: Int(loginRequest.userId)!,
+                               firstName: userDetailsRequest.firstName, lastName: userDetailsRequest.lastName,
+                               email: userDetailsRequest.email,
+                               immigrant: NSString(string: userDetailsRequest.immigrant).boolValue, gender: NSString(string: userDetailsRequest.gender).boolValue,
+                               dateOfBirth: dateOfBirth, dateOfImmigration: dateOfImmigration,
+                               nationality: userDetailsRequest.nationality,
+                               locationLatitude: Int(userDetailsRequest.locationLatitude)!, locationLongitude: Int(userDetailsRequest.locationLongitude)!)
+                
+                completion(true)
+            }
+        }
+    }
+    
+    open static func autoLogin(_ completion: @escaping (Bool) -> Void)
+    {
+        if(!UserDefaults.standard.bool(forKey: "autologinEnabled")) {
+            print("autologin net enabled")
+            completion(false)
             return
         }
         
-        print("autologin error retrieving email or password")
-        completion(nil)
+        if let email = UserDefaults.standard.string(forKey: "autologinEmail")
+            ,let password = UserDefaults.standard.string(forKey: "autologinPassword") {
+            if(email.isEmpty || password.isEmpty) {
+                print("autologin mail or password unset")
+                completion(false)
+            } else {
+                login(email, password: password) { (success: Bool) in
+                    print("autologin successfull")
+
+                    completion(true)
+                }
+            }
+        } else {
+            print("autologin error retrieving email or password")
+            completion(false)
+        }
     }
     
-    public static func logout() -> Bool
+    open static func logout(_ completion: @escaping (Bool) -> Void)
+
     {
         let logoutRequest = HTTPUserLogoutRequest()
-        logoutRequest.send()
-        
-        return logoutRequest.responseValue
+        logoutRequest.send(completion: completion)
     }
     
-    public static func loggedIn() -> Bool
+    open static func loggedIn() -> Bool
     {
         return current != nil;
     }

@@ -10,16 +10,16 @@ import UIKit
 
 extension UIViewController
 {
-    func presentAlert(title: String, message: String, cancelButtonTitle: String, animated: Bool)
+    func presentAlert(_ title: String, message: String, cancelButtonTitle: String, animated: Bool)
     {
         self.presentAlert(title, message: message, cancelButtonTitle: cancelButtonTitle, animated: animated, completion: nil)
     }
     
-    func presentAlert(title: String, message: String, cancelButtonTitle: String, animated: Bool, completion: ((UIAlertAction) -> Void)?)
+    func presentAlert(_ title: String, message: String, cancelButtonTitle: String, animated: Bool, completion: ((UIAlertAction) -> Void)?)
     {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: cancelButtonTitle, style: UIAlertActionStyle.Default, handler: completion))
-        self.presentViewController(alert, animated: animated, completion: nil)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: cancelButtonTitle, style: UIAlertActionStyle.default, handler: completion))
+        self.present(alert, animated: animated, completion: nil)
     }
 
 }

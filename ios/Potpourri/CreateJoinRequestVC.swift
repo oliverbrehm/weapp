@@ -29,11 +29,11 @@ class CreateJoinRequestVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func participantsSliderChanged(sender: UISlider) {
+    @IBAction func participantsSliderChanged(_ sender: UISlider) {
         self.participantsLabel.text = "\(Int(sender.value))"
     }
 
-    @IBAction func sendButtonClicked(sender: UIButton) {
+    @IBAction func sendButtonClicked(_ sender: UIButton) {
         if(invitation == nil || User.current == nil) {
             return
         }
@@ -44,25 +44,19 @@ class CreateJoinRequestVC: UIViewController {
         }
         
         self.activityIndicator.startAnimating()
-        sender.hidden = true;
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            
-            let success = self.invitation!.createJoinRequest(User.current!, numParticipants: Int(self.participantsSlider.value))
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                
+        sender.isHidden = true;
+  
+        self.invitation!.createJoinRequest(User.current!, numParticipants: Int(self.participantsSlider.value)) { (success: Bool) in
                 if(success) {
-                    self.presentAlert("Send request", message: "Request successfully sent", cancelButtonTitle: "OK", animated: true, completion: {(UIAlertAction) in
-                        self.navigationController?.popViewControllerAnimated(true)
-                    })
+                    self.presentAlert("Send request", message: "Request successfully sent", cancelButtonTitle: "OK", animated: true) {(UIAlertAction) in
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 } else {
                     self.presentAlert("Send request", message: "Error sending request", cancelButtonTitle: "OK", animated: true)
                 }
                 
                 self.activityIndicator.stopAnimating()
-                sender.hidden = false
-            }
+                sender.isHidden = false
         }
     }
     

@@ -41,17 +41,17 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         // if my invitation
         if(self.invitation != nil) {
-            self.createInvitationButton.hidden = true
-            self.deleteButton.hidden = false
+            self.createInvitationButton.isHidden = true
+            self.deleteButton.isHidden = false
         } else {
             self.navigationItem.rightBarButtonItem = nil
         }
     }
     
-    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.streetTextField.resignFirstResponder()
         self.streetNumberTextField.resignFirstResponder()
         self.titleTextField.resignFirstResponder()
@@ -63,13 +63,13 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func nuberOfGuestsSliderChanged(sender: AnyObject) {
+    @IBAction func nuberOfGuestsSliderChanged(_ sender: AnyObject) {
         if let slider = sender as? UISlider {
             self.numberOfGuestsLabel.text = "\(Int(slider.value))"
         }
     }
     
-    @IBAction func createInvitationClicked(sender: UIButton) {
+    @IBAction func createInvitationClicked(_ sender: UIButton) {
         // TODO resignFirstResponder()
         
         let name = self.titleTextField.text!
@@ -102,32 +102,28 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
         }
         
         self.activityIndicator.startAnimating()
-        sender.hidden = true;
+        sender.isHidden = true;
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let success = Invitation.create(name, detailedDescription: detailedDescription, maxParticipants: maxParticipants, nsDate: date, locationCity: city, locationStreet: street, locationStreetNumber: streetNumber, locationLatitude: 7, locationLongitude: 8)
+        Invitation.create(name, detailedDescription: detailedDescription, maxParticipants: maxParticipants, nsDate: date, locationCity: city, locationStreet: street, locationStreetNumber: streetNumber, locationLatitude: 7, locationLongitude: 8) { (success: Bool) in
             
-            dispatch_async(dispatch_get_main_queue()) {
-                self.activityIndicator.stopAnimating()
-                sender.hidden = false
-                
-                if(!success) {
-                    self.presentAlert("Creating failed", message: "Error creating the invitation", cancelButtonTitle: "OK", animated: true)
-                } else {
-                    self.presentAlert("Creation succeeded", message: "The invitation \(name) was successfully created", cancelButtonTitle: "OK", animated: true, completion: { (UIAlertAction) in
-                        self.navigationController?.popViewControllerAnimated(true)
-                    })
+            self.activityIndicator.stopAnimating()
+            sender.isHidden = false
+            
+            if(!success) {
+                self.presentAlert("Creating failed", message: "Error creating the invitation", cancelButtonTitle: "OK", animated: true)
+            } else {
+                self.presentAlert("Creation succeeded", message: "The invitation \(name) was successfully created", cancelButtonTitle: "OK", animated: true) { (UIAlertAction) in
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }
-            
     }
     
-    @IBAction func deleteInvitationClicked(sender: UIButton) {
+    @IBAction func deleteInvitationClicked(_ sender: UIButton) {
         print("delete")
     }
     
-    @IBAction func saveButtonClicked(sender: AnyObject) {
+    @IBAction func saveButtonClicked(_ sender: AnyObject) {
         print("save")
     }
     /*

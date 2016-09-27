@@ -24,7 +24,7 @@ class JoinRequestTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if(self.joinRequest == nil) {
             return
         }
@@ -40,11 +40,11 @@ class JoinRequestTVC: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(self.joinRequest == nil || User.current == nil) {
             return 1;
         }
@@ -56,68 +56,55 @@ class JoinRequestTVC: UITableViewController {
         return 2
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
         switch indexPath.row {
         case 0:
-            cell = tableView.dequeueReusableCellWithIdentifier("participantsCell", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: "participantsCell", for: indexPath)
             cell.textLabel?.text = self.participantsLabelText
             break;
         default: // 1
-            cell = tableView.dequeueReusableCellWithIdentifier("reactionCell", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: "reactionCell", for: indexPath)
             break;
         }
-
+        
         return cell
     }
     
-    @IBAction func acceptButtonClicked(sender: UIButton) {
-        sender.hidden = true;
+    @IBAction func acceptButtonClicked(_ sender: UIButton) {
+        sender.isHidden = true;
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            
-            let request = HTTPJoinRequestAccept()
-            request.send(self.joinRequest!.requestId)
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                
-                if(!request.responseValue) {
-                    self.presentAlert("Accepting failed", message: "Please try again", cancelButtonTitle: "OK", animated: true)
-                } else {
-                    self.presentAlert("Join Request", message: "Successfully accepted request", cancelButtonTitle: "OK", animated: true, completion: {(UIAlertView) in
-                        self.navigationController?.popViewControllerAnimated(true)
-                    })
+        let request = HTTPJoinRequestAccept()
+        request.send(self.joinRequest!.requestId) { (success: Bool) in
+            if(!request.responseValue) {
+                self.presentAlert("Accepting failed", message: "Please try again", cancelButtonTitle: "OK", animated: true)
+            } else {
+                self.presentAlert("Join Request", message: "Successfully accepted request", cancelButtonTitle: "OK", animated: true) {(UIAlertView) in
+                    self.navigationController?.popViewController(animated: true)
                 }
-                
-                sender.hidden = false
             }
+            
+            sender.isHidden = false
         }
     }
     
-    @IBAction func rejectButtonClicked(sender: UIButton) {
-        sender.hidden = true;
+    @IBAction func rejectButtonClicked(_ sender: UIButton) {
+        sender.isHidden = true;
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            
-            let request = HTTPJoinRequestReject()
-            request.send(self.joinRequest!.requestId)
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                
-                if(!request.responseValue) {
-                    self.presentAlert("Rejecting failed", message: "Please try again", cancelButtonTitle: "OK", animated: true)
-                } else {
-                    self.presentAlert("Join Request", message: "Successfully rejected request", cancelButtonTitle: "OK", animated: true, completion: {(UIAlertView) in
-                        self.navigationController?.popViewControllerAnimated(true)
-                    })
+        let request = HTTPJoinRequestReject()
+        request.send(self.joinRequest!.requestId) { (success: Bool) in
+            if(!request.responseValue) {
+                self.presentAlert("Rejecting failed", message: "Please try again", cancelButtonTitle: "OK", animated: true)
+            } else {
+                self.presentAlert("Join Request", message: "Successfully rejected request", cancelButtonTitle: "OK", animated: true) {(UIAlertView) in
+                    self.navigationController?.popViewController(animated: true)
                 }
-                
-                sender.hidden = false
             }
+            
+            sender.isHidden = false
         }
     }
-    
 
     /*
     // Override to support conditional editing of the table view.

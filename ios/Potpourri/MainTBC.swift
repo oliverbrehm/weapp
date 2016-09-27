@@ -21,15 +21,15 @@ class MainTBC: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if(!User.loggedIn()) {
-            User.autoLoginAsync({ (user: User?) in
-                if(user == nil) {
-                    self.performSegueWithIdentifier("showLogin", sender: self)
+            User.autoLogin { (success: Bool) in
+                if(!success) {
+                    self.performSegue(withIdentifier: "showLogin", sender: self)
                 } else {
                     print("user auto logged in")
                 }
-            })
+            }
         }
     }
 

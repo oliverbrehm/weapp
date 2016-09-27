@@ -29,34 +29,30 @@ class UserRegistrationVC: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func sendLoginRequest(nvc: RegistrationNVC)
+    func sendLoginRequest(_ nvc: RegistrationNVC)
     {
-        self.stackView.hidden = true
+        self.stackView.isHidden = true
         self.activityIndicator.startAnimating()
         
         // default enable auto login
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "autologinEnabled")
-        NSUserDefaults.standardUserDefaults().setObject(nvc.email, forKey: "autologinEmail")
-        NSUserDefaults.standardUserDefaults().setObject(nvc.password, forKey: "autologinPassword")
+        UserDefaults.standard.set(true, forKey: "autologinEnabled")
+        UserDefaults.standard.set(nvc.email, forKey: "autologinEmail")
+        UserDefaults.standard.set(nvc.password, forKey: "autologinPassword")
         print("autologin enabled")
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            User.login(nvc.email, password: nvc.password)
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
+        User.login(nvc.email, password: nvc.password) { (success: Bool) in
+            self.dismiss(animated: true)
         }
 
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.password1TextField.resignFirstResponder()
         self.password2TextField.resignFirstResponder()
         self.emailTextField.resignFirstResponder()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if(textField === self.emailTextField) {
             self.password1TextField.becomeFirstResponder()
         } else if(textField === self.password1TextField) {
@@ -68,28 +64,24 @@ class UserRegistrationVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func sendRegisterRequest(nvc: RegistrationNVC)
+    func sendRegisterRequest(_ nvc: RegistrationNVC)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        let registerRequest = HTTPUserRegisterRequest()
+        registerRequest.send(nvc.email, password: nvc.password, firstName: nvc.firstName, lastName: nvc.lastName, userType: nvc.userType, gender: nvc.gender, dateOfBirth: Date.distantPast, nationality: "", dateOfImmigration: Date.distantPast, locationLatitude: 0, locationLongitude: 0) { (success: Bool) in
+        // TODO move request sending to User class
+        
+            if(registerRequest.responseValue == false) {
+                self.presentAlert("Register", message: "Error registering", cancelButtonTitle: "OK", animated: true)
+                return
+            }
 
-            let registerRequest = HTTPUserRegisterRequest()
-            registerRequest.send(nvc.email, password: nvc.password, firstName: nvc.firstName, lastName: nvc.lastName, userType: nvc.userType, gender: nvc.gender, dateOfBirth: NSDate.distantPast(), nationality: "", dateOfImmigration: NSDate.distantPast(), locationLatitude: 0, locationLongitude: 0)
-            // TODO move request sending to User class
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                if(registerRequest.responseValue == false) {
-                    self.presentAlert("Register", message: "Error registering", cancelButtonTitle: "OK", animated: true)
-                    return
-                }
-
-                self.presentAlert("Register", message: "Account successfully created", cancelButtonTitle: "Login", animated: true, completion: { (UIAlertAction) in
-                    self.sendLoginRequest(nvc)
-                })
+            self.presentAlert("Register", message: "Account successfully created", cancelButtonTitle: "Login", animated: true) { (UIAlertAction) in
+                self.sendLoginRequest(nvc)
             }
         }
     }
     
-    @IBAction func registerButtonClicked(sender: AnyObject) {
+    @IBAction func registerButtonClicked(_ sender: AnyObject) {
         if(self.emailTextField.text!.isEmpty || self.password1TextField.text!.isEmpty || self.password2TextField.text!.isEmpty) {
             self.presentAlert("Register", message: "Please enter email adress and password", cancelButtonTitle: "OK", animated: true)
             return
@@ -102,12 +94,12 @@ class UserRegistrationVC: UIViewController, UITextFieldDelegate {
             return
         }
         
-        if(!self.agreementSwitch.on) {
+        if(!self.agreementSwitch.isOn) {
             self.presentAlert("Register", message: "Please agree to the license agreement", cancelButtonTitle: "OK", animated: true)
             return
         }
         
-        if let nvc = self.parentViewController as? RegistrationNVC {
+        if let nvc = self.parent as? RegistrationNVC {
             nvc.email = self.emailTextField.text!
             nvc.password = self.password1TextField.text!
             

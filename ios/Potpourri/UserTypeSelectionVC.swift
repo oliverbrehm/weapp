@@ -25,7 +25,7 @@ class UserTypeSelectionVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func typeSelectionSegmentControlValueChanged(sender: AnyObject) {
+    @IBAction func typeSelectionSegmentControlValueChanged(_ sender: AnyObject) {
         if let segmentedControl = sender as? UISegmentedControl {
             if(segmentedControl.selectedSegmentIndex == 0) {
                 // local
@@ -39,8 +39,8 @@ class UserTypeSelectionVC: UIViewController {
         }
     }
 
-    @IBAction func nextButtonClicked(sender: AnyObject) {
-        if let nvc = self.parentViewController as? RegistrationNVC {
+    @IBAction func nextButtonClicked(_ sender: AnyObject) {
+        if let nvc = self.parent as? RegistrationNVC {
             nvc.userType = (self.typeSelectionSegmentedControl.selectedSegmentIndex == 0) ? true : false
         }
     }

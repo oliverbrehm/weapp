@@ -27,19 +27,19 @@ class UserPersonalInfoVC: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func ageSliderValueChanged(sender: AnyObject) {
+    @IBAction func ageSliderValueChanged(_ sender: AnyObject) {
         if let slider = sender as? UISlider {
             self.ageLabel.text = "\(Int(slider.value))"
         }
     }
     
-    @IBAction func nextButtonClicked(sender: AnyObject) {
+    @IBAction func nextButtonClicked(_ sender: AnyObject) {
         if(self.firstNameTextField.text!.isEmpty || self.lastNameTextField.text!.isEmpty) {
             self.presentAlert("Register", message: "Please enter a first and a last name", cancelButtonTitle: "OK", animated: true)
             return
         }
         
-        if let nvc = self.parentViewController as? RegistrationNVC {
+        if let nvc = self.parent as? RegistrationNVC {
             nvc.firstName = self.firstNameTextField.text!
             nvc.lastName = self.lastNameTextField.text!
             nvc.age = Int(self.ageSlider.value)
@@ -47,12 +47,12 @@ class UserPersonalInfoVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.firstNameTextField.resignFirstResponder()
         self.lastNameTextField.resignFirstResponder()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if(textField === self.firstNameTextField) {
             self.lastNameTextField.becomeFirstResponder()
         } else if(textField === self.lastNameTextField) {
