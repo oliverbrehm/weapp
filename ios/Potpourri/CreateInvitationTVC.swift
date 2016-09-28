@@ -126,6 +126,11 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
     @IBAction func saveButtonClicked(_ sender: AnyObject) {
         print("save")
     }
+    
+    @IBAction func cancelButtonClicked(_ sender: AnyObject) {
+        self.navigationController?.dismiss(animated: true)
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)

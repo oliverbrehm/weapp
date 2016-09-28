@@ -9,11 +9,13 @@
 import UIKit
 
 class InvitationListTVC: UITableViewController {
-    fileprivate var invitations: [Invitation] = []
-
+    fileprivate var invitations = InvitationList(city: "", sortingCriteria: .Date)
+    
+    fileprivate var stateCell : TableViewStateCell?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -23,51 +25,46 @@ class InvitationListTVC: UITableViewController {
 
     }
     
-    fileprivate func sendInvitationListRequest(completion: @escaping (([Invitation]) -> Void))
+    func clearData()
     {
-        let request = HTTPInvitationListRequest()
-        
-        let user = User.current
-        if(user == nil) {
-            completion([Invitation(invitationId: 0, name: "Error loading invitations...")])
-            return
-        }
-        
-        request.send(user!) { (success: Bool) in
-            if(request.responseValue == false) {
-                completion([Invitation(invitationId: 0, name: "Error loading invitations...")])
-                return
-            }
-            
-            var invitationList: [Invitation] = []
-            for invitationHeader in request.invitations {
-                let invitationId = Int(invitationHeader.id)!
-                invitationList.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
-            }
-            
-            completion(invitationList)
-        }
-    }
-
-    fileprivate func loadInvitations()
-    {
-        invitations.removeAll()
-        invitations.append(Invitation(invitationId: 0, name: "Loading..."))
+        self.invitations = InvitationList(city: "", sortingCriteria: .Date)
         self.tableView.reloadData()
-        
-        self.sendInvitationListRequest() { (invitations: [Invitation]) in
-            self.invitations = invitations
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.loadInvitations()
     }
+
+    func loadInvitations()
+    {
+        if(!User.loggedIn()) {
+            self.stateCell?.displayMessage(message: "Logging in...")
+            return
+        }
+        
+        if(self.invitations.isEmpty()) {
+            self.stateCell?.setBusy()
+            self.invitations.fetch(number: 20, completion: { (success) in
+                if(!success) {
+                    self.stateCell?.displayMessage(message: "Error loading invitations")
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+        }
+    }
     
+    func userDidLogin()
+    {
+        self.loadInvitations()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,21 +73,51 @@ class InvitationListTVC: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        if(self.invitations.isEmpty()) {
+            return 1 // state cell
+        }
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.invitations.count
+        if(self.invitations.isEmpty()) {
+            return 1 // state cell
+        }
+        
+        if(section == 0) {
+            return 1 // add invitation cell
+        } else if(section == 1) {
+            return self.invitations.count()
+        }
+        
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "invitationCell", for: indexPath)
-
-        cell.textLabel?.text = invitations[(indexPath as NSIndexPath).row].name
-
-        return cell
+        if(self.invitations.isEmpty()) {
+            if(self.stateCell == nil) {
+                self.stateCell = tableView.dequeueReusableCell(withIdentifier: "invitationLoadingCell", for: indexPath) as? TableViewStateCell
+                self.loadInvitations()
+            }
+            
+            return self.stateCell!
+        }
+        
+        if(indexPath.section == 0) { // add invitation cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addInvitationCell", for: indexPath)
+            
+            return cell
+        } else { // invitation cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "invitationCell", for: indexPath) as! InvitationCell
+            
+            cell.titleLabel.text = invitations.invitation(index: (indexPath as NSIndexPath).row).name
+            
+            return cell
+        }
     }
 
     /*
@@ -137,7 +164,7 @@ class InvitationListTVC: UITableViewController {
         if(segue.identifier == "invitationDetail" && segue.destination is InvitationDetailTVC) {
             let selectedRow = (self.tableView.indexPathForSelectedRow! as NSIndexPath).row
             let invitationDetailTVC = segue.destination as! InvitationDetailTVC
-            invitationDetailTVC.invitation = self.invitations[selectedRow]
+            invitationDetailTVC.invitation = self.invitations.invitation(index: selectedRow)
         }
     }
 

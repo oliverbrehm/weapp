@@ -22,6 +22,73 @@ open class Participant
     }
 }
 
+open class InvitationList
+{
+    enum SorginCriteria
+    {
+        case Area
+        case Date
+    }
+    
+    var sortingCriteria = SorginCriteria.Date
+    var city = ""
+    
+    private var invitations : [Invitation] = []
+    
+    init(city: String, sortingCriteria: SorginCriteria) {
+        self.sortingCriteria = sortingCriteria
+        self.city = city
+    }
+    
+    func count() -> Int
+    {
+        return self.invitations.count
+    }
+    
+    func isEmpty() -> Bool
+    {
+        return count() == 0
+    }
+    
+    func invitation(index: Int) -> Invitation
+    {
+        return self.invitations[index]
+    }
+    
+    func fetch(number: Int, completion: @escaping ((Bool) -> Void))
+    {
+        // TODO consider number
+        // TODO consider sorting
+        
+        let request = HTTPInvitationListRequest()
+        
+        let user = User.current
+        if(user == nil) {
+            completion(false)
+            return
+        }
+        
+        request.send(user!) { (success: Bool) in
+            if(request.responseValue == false) {
+                completion(false)
+                return
+            }
+            
+            for invitationHeader in request.invitations {
+                let invitationId = Int(invitationHeader.id)!
+                self.invitations.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
+            }
+            
+            completion(true)
+        }
+    }
+    
+    func refresh(max: Int, completion: @escaping ((Bool) -> Void))
+    {
+        self.invitations.insert(Invitation(invitationId: 0, name: "REFRESH DUMMY"), at: 0)
+    }
+}
+
 open class Invitation
 {
     fileprivate let invitationId: Int

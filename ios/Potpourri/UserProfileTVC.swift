@@ -68,7 +68,9 @@ class UserProfileTVC: UITableViewController {
                     User.current = nil
                     
                     // -> UINavigationController -> MainTBC
-                    self.parent?.parent?.performSegue(withIdentifier: "showLogin", sender: self)
+                    let mainTBC = self.parent?.parent as? MainTBC
+                    mainTBC?.performSegue(withIdentifier: "showLogin", sender: self)
+                    mainTBC?.clearData()
                 }
             }
         }

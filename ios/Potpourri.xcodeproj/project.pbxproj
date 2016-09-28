@@ -21,12 +21,14 @@
 		A74F5B2F1C5676A9006C03CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B2D1C5676A9006C03CC /* Main.storyboard */; };
 		A74F5B311C5676A9006C03CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B301C5676A9006C03CC /* Assets.xcassets */; };
 		A74F5B341C5676A9006C03CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */; };
+		A768EE0E1D9BDC9000C17148 /* TableViewStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768EE0D1D9BDC9000C17148 /* TableViewStateCell.swift */; };
 		A77E5B9C1CBFA696003A7D0C /* UserTypeSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5B9B1CBFA696003A7D0C /* UserTypeSelectionVC.swift */; };
 		A77E5BA01CBFB87A003A7D0C /* RegistrationNVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */; };
 		A77E5BA21CBFB9BF003A7D0C /* UserPersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */; };
 		A77E5BA41CBFBB0A003A7D0C /* UserRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */; };
 		A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD0391CCA6F1A001FFEB4 /* Utility.swift */; };
 		A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */; };
+		A7A9CB6B1D9BE4E3007B76DD /* InvitationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */; };
 		A7EC55EB1CCBB2AB00A4056B /* UserInvitationsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */; };
 		A7EC55ED1CCBBEC300A4056B /* CreateJoinRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */; };
 		A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */; };
@@ -50,12 +52,14 @@
 		A74F5B301C5676A9006C03CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A74F5B331C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A74F5B351C5676A9006C03CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A768EE0D1D9BDC9000C17148 /* TableViewStateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewStateCell.swift; sourceTree = "<group>"; };
 		A77E5B9B1CBFA696003A7D0C /* UserTypeSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTypeSelectionVC.swift; sourceTree = "<group>"; };
 		A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNVC.swift; sourceTree = "<group>"; };
 		A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPersonalInfoVC.swift; sourceTree = "<group>"; };
 		A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationVC.swift; sourceTree = "<group>"; };
 		A79FD0391CCA6F1A001FFEB4 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateInvitationTVC.swift; sourceTree = "<group>"; };
+		A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationCell.swift; sourceTree = "<group>"; };
 		A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInvitationsTVC.swift; sourceTree = "<group>"; };
 		A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateJoinRequestVC.swift; sourceTree = "<group>"; };
 		A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequest.swift; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 				A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */,
 				A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */,
 				A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */,
+				A768EE0D1D9BDC9000C17148 /* TableViewStateCell.swift */,
+				A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -223,6 +229,8 @@
 				A7EC55F11CCBE87900A4056B /* JoinRequestTVC.swift in Sources */,
 				A74F5B281C5676A9006C03CC /* AppDelegate.swift in Sources */,
 				A74DA61A1CBBA670008AB1C3 /* UserRequest.swift in Sources */,
+				A7A9CB6B1D9BE4E3007B76DD /* InvitationCell.swift in Sources */,
+				A768EE0E1D9BDC9000C17148 /* TableViewStateCell.swift in Sources */,
 				A77E5BA01CBFB87A003A7D0C /* RegistrationNVC.swift in Sources */,
 				A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */,
 				A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */,
