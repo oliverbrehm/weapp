@@ -9,7 +9,7 @@
 import UIKit
 
 class InvitationListTVC: UITableViewController {
-    fileprivate var invitations = InvitationList(city: "", sortingCriteria: .Date)
+    fileprivate var invitations = InvitationList(city: "", sortingCriteria: .Date, owner: nil, participatingUser: nil)
     
     fileprivate var stateCell : TableViewStateCell?
     
@@ -27,7 +27,7 @@ class InvitationListTVC: UITableViewController {
     
     func clearData()
     {
-        self.invitations = InvitationList(city: "", sortingCriteria: .Date)
+        self.invitations = InvitationList(city: "", sortingCriteria: .Date, owner: nil, participatingUser: nil)
         self.tableView.reloadData()
     }
     
@@ -44,7 +44,7 @@ class InvitationListTVC: UITableViewController {
         
         if(self.invitations.isEmpty()) {
             self.stateCell?.setBusy()
-            self.invitations.fetch(number: 20, completion: { (success) in
+            self.invitations.fetch(number: 20) { (success) in
                 if(!success) {
                     self.stateCell?.displayMessage(message: "Error loading invitations")
                 }
@@ -52,7 +52,7 @@ class InvitationListTVC: UITableViewController {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-            })
+            }
         }
     }
     

@@ -27,15 +27,13 @@ open class HTTPInvitationListRequest: HTTPRequest
     
     open var invitations: [InvitationHeader] = []
     
-    open func send(completion: @escaping ((Bool) -> Void))
+    open func send(owner: User?, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_query"
-        super.sendPost(postData, completion: completion)
-    }
-    
-    open func send(_ user: User, completion: @escaping ((Bool) -> Void))
-    {
-        let postData = "action=invitation_query&userID=\(user.id)"
+        var postData = "action=invitation_query"
+
+        if(owner != nil) {
+            postData.append("&userID=\(owner!.id)")
+        }
         super.sendPost(postData, completion: completion)
     }
     

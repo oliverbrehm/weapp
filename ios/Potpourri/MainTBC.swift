@@ -11,6 +11,7 @@ import UIKit
 class MainTBC: UITabBarController {
     
     var invitationListTVC : InvitationListTVC?
+    var userInvitationsTVC: UserInvitationsTVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class MainTBC: UITabBarController {
     func clearData()
     {
         self.invitationListTVC?.clearData()
+        self.userInvitationsTVC?.clearData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -35,6 +37,8 @@ class MainTBC: UITabBarController {
                 let vc = (viewController as! UINavigationController).visibleViewController
                 if(vc is InvitationListTVC) {
                     self.invitationListTVC = vc as? InvitationListTVC
+                } else if(vc is UserInvitationsTVC) {
+                    self.userInvitationsTVC = vc as? UserInvitationsTVC
                 }
             }
         }

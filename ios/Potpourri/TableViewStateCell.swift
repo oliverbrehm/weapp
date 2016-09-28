@@ -28,6 +28,7 @@ class TableViewStateCell: UITableViewCell {
     
     func setBusy()
     {
+        self.activityIndicator.isHidden = false
         self.activityIndicator.startAnimating()
         self.messageLabel.isHidden = true
     }
@@ -35,6 +36,7 @@ class TableViewStateCell: UITableViewCell {
     func displayMessage(message: String)
     {
         self.activityIndicator.stopAnimating()
+        self.activityIndicator.isHidden = true
         self.messageLabel.isHidden = false
         self.messageLabel.text = message
     }

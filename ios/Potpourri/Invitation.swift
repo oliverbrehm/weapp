@@ -32,12 +32,16 @@ open class InvitationList
     
     var sortingCriteria = SorginCriteria.Date
     var city = ""
+    var owner: User?
+    var participatingUser: User?
     
     private var invitations : [Invitation] = []
     
-    init(city: String, sortingCriteria: SorginCriteria) {
+    init(city: String, sortingCriteria: SorginCriteria, owner: User?, participatingUser: User?) {
         self.sortingCriteria = sortingCriteria
         self.city = city
+        self.owner = owner
+        self.participatingUser = participatingUser
     }
     
     func count() -> Int
@@ -60,27 +64,42 @@ open class InvitationList
         // TODO consider number
         // TODO consider sorting
         
-        let request = HTTPInvitationListRequest()
-        
-        let user = User.current
-        if(user == nil) {
-            completion(false)
-            return
+        if(self.participatingUser != nil) {
+            let request = HTTPInvitationParticipatingListRequest() // TODO combine to one request with HTTPInvitationListRequest
+
+            request.send(self.participatingUser!) { (success: Bool) in
+                if(request.responseValue == false) {
+                    completion(false)
+                    return
+                }
+                
+                for invitationHeader in request.invitations {
+                    let invitationId = Int(invitationHeader.id)!
+                    self.invitations.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
+                }
+                
+                completion(true)
+            }
+
+        } else {
+            let request = HTTPInvitationListRequest()
+            
+            request.send(owner: self.owner) { (success: Bool) in
+                if(request.responseValue == false) {
+                    completion(false)
+                    return
+                }
+                
+                for invitationHeader in request.invitations {
+                    let invitationId = Int(invitationHeader.id)!
+                    self.invitations.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
+                }
+                
+                completion(true)
+            }
         }
         
-        request.send(user!) { (success: Bool) in
-            if(request.responseValue == false) {
-                completion(false)
-                return
-            }
-            
-            for invitationHeader in request.invitations {
-                let invitationId = Int(invitationHeader.id)!
-                self.invitations.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
-            }
-            
-            completion(true)
-        }
+
     }
     
     func refresh(max: Int, completion: @escaping ((Bool) -> Void))

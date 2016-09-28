@@ -394,7 +394,7 @@ Bla</string>
                             <outlet property="delegate" destination="RbD-OH-6S9" id="cxC-Dy-5oX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Bdz-Ve-y6A"/>
+                    <navigationItem key="navigationItem" title="Discover" id="Bdz-Ve-y6A"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKg-h9-MMN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -461,8 +461,8 @@ Bla</string>
                     <navigationItem key="navigationItem" title="Loading..." id="SCM-oM-0Vh"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="4HU-QX-x2H" kind="show" identifier="editInvitation" id="hlr-DA-zgk"/>
                         <segue destination="o32-5b-yB1" kind="show" identifier="joinInvitation" id="4C7-OR-JEJ"/>
+                        <segue destination="zGD-Zn-CCv" kind="presentation" identifier="editInvitation" id="XGE-Wx-AXi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4qp-sW-2SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -759,7 +759,7 @@ Bla</string>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--User InvitationsTVC-->
+        <!--Invitations-->
         <scene sceneID="U4N-k1-jMR">
             <objects>
                 <tableViewController id="Rza-2Z-Ikk" customClass="UserInvitationsTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
@@ -768,25 +768,8 @@ Bla</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="utE-NF-vnA" style="IBUITableViewCellStyleDefault" id="Yyv-pg-XiK">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yyv-pg-XiK" id="JLS-Gx-2H4">
-                                    <frame key="frameInset" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="utE-NF-vnA">
-                                            <frame key="frameInset" minX="15" width="345" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="joinRequestCell" id="cnv-m2-1lv">
-                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cnv-m2-1lv" id="Qbd-qm-tAx">
                                     <frame key="frameInset" width="375" height="44"/>
@@ -797,7 +780,7 @@ Bla</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invitationCell" id="pDo-el-qpc">
-                                <rect key="frame" x="0.0" y="180" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pDo-el-qpc" id="G9m-sE-L6M">
                                     <frame key="frameInset" width="375" height="44"/>
@@ -807,13 +790,39 @@ Bla</string>
                                     <segue destination="Ef6-Ze-xSe" kind="show" identifier="invitationDetail" id="hcb-jL-jQI"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" id="B8C-i7-0mR" customClass="TableViewStateCell" customModule="Potpourri" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="180" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B8C-i7-0mR" id="da8-yc-ajd">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dKz-x8-GZ6"/>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLP-yA-MvL">
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="XLP-yA-MvL" firstAttribute="centerY" secondItem="da8-yc-ajd" secondAttribute="centerY" id="6TB-xv-q3o"/>
+                                        <constraint firstItem="dKz-x8-GZ6" firstAttribute="centerX" secondItem="da8-yc-ajd" secondAttribute="centerX" id="Jhb-Vr-GIU"/>
+                                        <constraint firstItem="XLP-yA-MvL" firstAttribute="centerX" secondItem="da8-yc-ajd" secondAttribute="centerX" id="OMo-Xg-Aqq"/>
+                                        <constraint firstItem="dKz-x8-GZ6" firstAttribute="centerY" secondItem="da8-yc-ajd" secondAttribute="centerY" id="Pb4-av-Jai"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="activityIndicator" destination="dKz-x8-GZ6" id="mgT-kJ-d0A"/>
+                                    <outlet property="messageLabel" destination="XLP-yA-MvL" id="SNb-SZ-nOx"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Rza-2Z-Ikk" id="2hO-BJ-3bU"/>
                             <outlet property="delegate" destination="Rza-2Z-Ikk" id="qzk-ON-MmX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5Qz-yY-hJO"/>
+                    <navigationItem key="navigationItem" title="Invitations" id="5Qz-yY-hJO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ha-hq-LpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1744,7 +1753,7 @@ Bla</string>
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hDj-fK-3IV"/>
-        <segue reference="2FH-q4-0TH"/>
+        <segue reference="hcb-jL-jQI"/>
+        <segue reference="XGE-Wx-AXi"/>
     </inferredMetricsTieBreakers>
 </document>
