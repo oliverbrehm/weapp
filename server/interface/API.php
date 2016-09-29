@@ -3,15 +3,15 @@
     require_once('XMLMessage.php');
     require_once('User.php');
     require_once('Invitation.php');
-
+    
     class APIResponse
     {
         protected $action;
         protected $xmlResponse;
         
         public function __construct() {
-            error_reporting(-1);
-            ini_set('display_errors', 'On');   
+            error_reporting(E_ALL ^ E_WARNING);
+            ini_set('display_errors', 'Off');   
             
             if(session_id() == '' || !isset($_SESSION)) {
                 session_start();

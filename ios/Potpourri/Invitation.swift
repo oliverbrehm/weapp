@@ -110,7 +110,7 @@ open class InvitationList
 
 open class Invitation
 {
-    fileprivate let invitationId: Int
+    open let invitationId: Int
     
     open let name: String
     
@@ -218,5 +218,11 @@ open class Invitation
             
             completion(true)
         }
+    }
+    
+    open func postMessage(user: User, message: String, completion: @escaping ((Bool) -> Void))
+    {
+        let request = HTTPPostMessageRequest()
+        request.send(invitationId: self.invitationId, message: message, completion: completion)
     }
 }

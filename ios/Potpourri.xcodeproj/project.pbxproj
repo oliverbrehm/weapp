@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A71BDA901D9CFA7C008D6984 /* README in Resources */ = {isa = PBXBuildFile; fileRef = A71BDA8F1D9CFA7C008D6984 /* README */; };
+		A71BDA921D9D06F8008D6984 /* MessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA911D9D06F8008D6984 /* MessageRequest.swift */; };
+		A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
 		A743D8551CBE801B00D14320 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
 		A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8581CBE805A00D14320 /* InvitationRequest.swift */; };
 		A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85A1CBE861400D14320 /* InvitationListTVC.swift */; };
@@ -38,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		A71BDA8F1D9CFA7C008D6984 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		A71BDA911D9D06F8008D6984 /* MessageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRequest.swift; sourceTree = "<group>"; };
+		A71BDA931D9D0A6D008D6984 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A743D8541CBE801B00D14320 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
 		A743D8581CBE805A00D14320 /* InvitationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationRequest.swift; sourceTree = "<group>"; };
 		A743D85A1CBE861400D14320 /* InvitationListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationListTVC.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				A74DA6191CBBA670008AB1C3 /* UserRequest.swift */,
 				A743D8581CBE805A00D14320 /* InvitationRequest.swift */,
 				A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */,
+				A71BDA911D9D06F8008D6984 /* MessageRequest.swift */,
+				A71BDA931D9D0A6D008D6984 /* Message.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -235,6 +241,7 @@
 				A74DA61A1CBBA670008AB1C3 /* UserRequest.swift in Sources */,
 				A7A9CB6B1D9BE4E3007B76DD /* InvitationCell.swift in Sources */,
 				A768EE0E1D9BDC9000C17148 /* TableViewStateCell.swift in Sources */,
+				A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */,
 				A77E5BA01CBFB87A003A7D0C /* RegistrationNVC.swift in Sources */,
 				A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */,
 				A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */,
@@ -248,6 +255,7 @@
 				A77E5B9C1CBFA696003A7D0C /* UserTypeSelectionVC.swift in Sources */,
 				A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */,
 				A747768E1CBA891900144226 /* User.swift in Sources */,
+				A71BDA921D9D06F8008D6984 /* MessageRequest.swift in Sources */,
 				A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */,
 				A74DA6181CBB86D0008AB1C3 /* HTTPRequest.swift in Sources */,
 				A74776941CBA92E500144226 /* UserProfileTVC.swift in Sources */,

@@ -42,6 +42,27 @@ class InvitationDetailTVC: UITableViewController {
                     return
                 }
                 
+                // TODO REMOVE --------
+                let messageList = MessageList(invitationId: self.invitation!.invitationId)
+                messageList.fetch(max: 100, completion: { (success: Bool) in
+                    DispatchQueue.main.async {
+                        if(success) {
+                            var message = ""
+                            if(messageList.count() > 0) {
+                                for i in 0 ... messageList.count() - 1 {
+                                    message.append(messageList.message(index: i).text)
+                                    message.append("\n")
+                                }
+                            }
+
+                            self.presentAlert("Invitation Messages", message: message, cancelButtonTitle: "OK", animated: true)
+                        } else {
+                            self.presentAlert("Error", message: "Failed to load invitation messages", cancelButtonTitle: "OK", animated: true)
+                        }
+                    }
+                })
+                // --------------------
+                
                 self.invitation!.getParticipants() { (participants: [Participant]) in
                 
                     if(self.invitation == nil) {
@@ -62,6 +83,22 @@ class InvitationDetailTVC: UITableViewController {
                         } else { // TODO if not already tried to join (request sent) TODO if not already joined
                             let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
                             self.navigationItem.rightBarButtonItem = item
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.section == 0 && indexPath.row == 0) {
+            if(self.invitation != nil && User.current != nil) {
+                self.invitation!.postMessage(user: User.current!, message: "test message") { (success : Bool) in
+                    DispatchQueue.main.async {
+                        if(success) {
+                            self.presentAlert("Success", message: "Message created", cancelButtonTitle: "OK", animated: true)
+                        } else {
+                            self.presentAlert("Error", message: "Failed to create message", cancelButtonTitle: "OK", animated: true)
                         }
                     }
                 }
