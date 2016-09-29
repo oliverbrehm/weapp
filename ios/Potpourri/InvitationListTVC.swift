@@ -16,6 +16,13 @@ class InvitationListTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.backgroundColor = UIColor.orange
+        self.refreshControl?.tintColor = UIColor.white
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull down to refresh")
+        self.refreshControl?.addTarget(self, action: #selector(InvitationListTVC.refresh(_:)), for: UIControlEvents.valueChanged)
+
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -23,6 +30,14 @@ class InvitationListTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
 
+    }
+    
+    func refresh(_ sender:AnyObject)
+    {
+        self.clearData()
+        self.loadInvitations()
+        
+        self.tableView.reloadData()
     }
     
     func clearData()
@@ -51,6 +66,7 @@ class InvitationListTVC: UITableViewController {
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
                 }
             }
         }

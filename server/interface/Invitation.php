@@ -241,6 +241,7 @@
 
             $user_id = $_SESSION['userId'];
 
+            // TODO insert timestamp (current time)
             $postCommentQuery = mysql_query("INSERT INTO InvitationPost (UserID, InvitationID, Message) VALUES('".$user_id."', '".$invitationId."', '".$comment."')");
             if($postCommentQuery)
             {
@@ -345,7 +346,7 @@
                 if(isset($row['UserID']) && isset($row['Message']) && isset($row['Time'])) {
                     $comment = $comments->addList("comment");
                     $userId = $row['UserID'];
-                    $username = "";
+                    $username = ""; // TODO
                     // get user name
                     $result_user = mysql_query("SELECT Name FROM User WHERE UserID='".$userId."'");
                     while($row_user = mysql_fetch_array($result_user)) {

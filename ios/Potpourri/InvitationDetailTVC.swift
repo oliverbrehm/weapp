@@ -41,28 +41,7 @@ class InvitationDetailTVC: UITableViewController {
                     }
                     return
                 }
-                
-                // TODO REMOVE --------
-                let messageList = MessageList(invitationId: self.invitation!.invitationId)
-                messageList.fetch(max: 100, completion: { (success: Bool) in
-                    DispatchQueue.main.async {
-                        if(success) {
-                            var message = ""
-                            if(messageList.count() > 0) {
-                                for i in 0 ... messageList.count() - 1 {
-                                    message.append(messageList.message(index: i).text)
-                                    message.append("\n")
-                                }
-                            }
-
-                            self.presentAlert("Invitation Messages", message: message, cancelButtonTitle: "OK", animated: true)
-                        } else {
-                            self.presentAlert("Error", message: "Failed to load invitation messages", cancelButtonTitle: "OK", animated: true)
-                        }
-                    }
-                })
-                // --------------------
-                
+              
                 self.invitation!.getParticipants() { (participants: [Participant]) in
                 
                     if(self.invitation == nil) {
@@ -89,22 +68,6 @@ class InvitationDetailTVC: UITableViewController {
             }
         }
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.section == 0 && indexPath.row == 0) {
-            if(self.invitation != nil && User.current != nil) {
-                self.invitation!.postMessage(user: User.current!, message: "test message") { (success : Bool) in
-                    DispatchQueue.main.async {
-                        if(success) {
-                            self.presentAlert("Success", message: "Message created", cancelButtonTitle: "OK", animated: true)
-                        } else {
-                            self.presentAlert("Error", message: "Failed to create message", cancelButtonTitle: "OK", animated: true)
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     func editButtonClicked() {
         self.performSegue(withIdentifier: "editInvitation", sender: self)
@@ -117,21 +80,26 @@ class InvitationDetailTVC: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
-        case 0: return self.participants.count;
-        default: // 1
-            return 5;
+        case 0: return 2; // info: description, date
+        case 1: return 3; // messages: show all, second most recent, most recent
+        case 2: return self.participants.count;
+        case 3: return 3; // address: city, street, location
+        default:
+            return 0;
         }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
-        case 0: return "Participants";
-        case 1: return "Info";
+        case 0: return "Info"
+        case 1: return "Messages"
+        case 2: return "Participants";
+        case 3: return "Address";
         default: return nil;
         }
     }
@@ -139,59 +107,84 @@ class InvitationDetailTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
-        if(indexPath.section == 0) {
-            cell = tableView.dequeueReusableCell(withIdentifier: "participantCell", for: indexPath)
-
-            cell.textLabel?.text = participants[indexPath.row].firstName + "(\(participants[indexPath.row].numPersons))"
-        } else { // 1
+        if(indexPath.section == 0) { // info
             cell = tableView.dequeueReusableCell(withIdentifier: "invitationInfoCell", for: indexPath as IndexPath)
             
             if(self.invitation == nil) {
                 return cell
             }
             
-            let i = self.invitation!
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
             
             var date = ""
-            if(i.date != nil) {
-                date = dateFormatter.string(from: i.date!)
-            }
-            
-            var street = ""
-            if(i.locationStreet != nil && i.locationStreetNumber != nil) {
-                street = i.locationStreet! + "\(i.locationStreetNumber!)"
-            }
-            
-            var location = ""
-            if(i.locationLatitude != nil && i.locationLongitude != nil) {
-                location = "(\(i.locationLatitude!), \(i.locationLongitude!))"
+            if(self.invitation!.date != nil) {
+                date = dateFormatter.string(from: self.invitation!.date!)
             }
             
             switch(indexPath.row) {
             case 0:
                 cell.textLabel?.text = "Description"
-                cell.detailTextLabel?.text = i.description
+                cell.detailTextLabel?.text = self.invitation!.description
                 break;
             case 1:
                 cell.textLabel?.text = "Date"
                 cell.detailTextLabel?.text = date
                 break;
+            default: break
+            }
+        } else if(indexPath.section == 1) { // messages
+            switch(indexPath.row) {
+            case 0:
+                cell = tableView.dequeueReusableCell(withIdentifier: "showMessagesCell", for: indexPath)
+                
+                break
+            case 1:
+                cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath)
+                cell.textLabel?.text = "TODO most recent message 2..."
+                
+                break
             case 2:
+                cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath)
+                cell.textLabel?.text = "TODO most recent message 1..."
+                
+                break
+            default:
+                cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath)
+                break
+            }
+        } else if (indexPath.section == 2) { // participants
+            cell = tableView.dequeueReusableCell(withIdentifier: "participantCell", for: indexPath)
+            cell.textLabel?.text = participants[indexPath.row].firstName + "(\(participants[indexPath.row].numPersons))"
+        } else { //if(indexPath.section == 3) { // address
+            cell = tableView.dequeueReusableCell(withIdentifier: "invitationInfoCell", for: indexPath as IndexPath)
+
+            var street = ""
+            if(self.invitation!.locationStreet != nil && self.invitation!.locationStreetNumber != nil) {
+                street = self.invitation!.locationStreet! + "\(self.invitation!.locationStreetNumber!)"
+            }
+            
+            var location = ""
+            if(self.invitation!.locationLatitude != nil && self.invitation!.locationLongitude != nil) {
+                location = "(\(self.invitation!.locationLatitude!), \(self.invitation!.locationLongitude!))"
+            }
+            
+            switch(indexPath.row) {
+            case 0:
                 cell.textLabel?.text = "City"
-                cell.detailTextLabel?.text = i.locationCity
+                cell.detailTextLabel?.text = self.invitation!.locationCity
                 break;
-            case 3:
+            case 1:
                 cell.textLabel?.text = "Street"
                 cell.detailTextLabel?.text = street
                 break;
-            case 4:
+            case 2:
                 cell.textLabel?.text = "Location"
                 cell.detailTextLabel?.text = location
                 break;
             default: break
             }
+
         }
 
         return cell
@@ -247,6 +240,8 @@ class InvitationDetailTVC: UITableViewController {
             (destination as! CreateInvitationTVC).invitation = self.invitation
         } else if(destination is CreateJoinRequestVC) {
             (destination as! CreateJoinRequestVC).invitation = self.invitation
+        } else if(destination is InvitationMessageTVC) {
+            (destination as! InvitationMessageTVC).invitation = self.invitation
         }
     }
 

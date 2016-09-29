@@ -20,11 +20,27 @@ class UserInvitationsTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.backgroundColor = UIColor.orange
+        self.refreshControl?.tintColor = UIColor.white
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull down to refresh")
+        self.refreshControl?.addTarget(self, action: #selector(InvitationListTVC.refresh(_:)), for: UIControlEvents.valueChanged)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func refresh(_ sender:AnyObject)
+    {
+        self.clearData()
+        self.loadInvitations()
+        
+        self.tableView.reloadData()
+        
+        self.refreshControl?.endRefreshing()
     }
     
     func clearData()
@@ -36,6 +52,20 @@ class UserInvitationsTVC: UITableViewController {
     
     fileprivate func loadInvitations()
     {
+        if(self.invitations == nil) {
+            self.invitations = InvitationList(city: "", sortingCriteria: .Date, owner: User.current, participatingUser: nil)
+        }
+        
+        if(self.participatingInvitations == nil) {
+            self.participatingInvitations = InvitationList(city: "", sortingCriteria: .Date, owner: nil, participatingUser: User.current)
+        }
+        
+        if(self.joinRequests == nil) {
+            self.joinRequests = JoinRequestList()
+        }
+        
+        self.tableView.reloadData()
+        
         if(self.invitations!.isEmpty()) {
             self.invitationStateCell?.setBusy()
             
@@ -86,19 +116,6 @@ class UserInvitationsTVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if(self.invitations == nil) {
-            self.invitations = InvitationList(city: "", sortingCriteria: .Date, owner: User.current, participatingUser: nil)
-        }
-        
-        if(self.participatingInvitations == nil) {
-            self.participatingInvitations = InvitationList(city: "", sortingCriteria: .Date, owner: nil, participatingUser: User.current)
-        }
-        
-        if(self.joinRequests == nil) {
-            self.joinRequests = JoinRequestList()
-        }
-        
-        self.tableView.reloadData()
         self.loadInvitations()
     }
     

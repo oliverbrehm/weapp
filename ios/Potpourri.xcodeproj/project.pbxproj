@@ -10,6 +10,8 @@
 		A71BDA901D9CFA7C008D6984 /* README in Resources */ = {isa = PBXBuildFile; fileRef = A71BDA8F1D9CFA7C008D6984 /* README */; };
 		A71BDA921D9D06F8008D6984 /* MessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA911D9D06F8008D6984 /* MessageRequest.swift */; };
 		A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
+		A71BDA961D9D288E008D6984 /* InvitationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */; };
+		A71BDA981D9D2E9D008D6984 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA971D9D2E9D008D6984 /* MessageCell.swift */; };
 		A743D8551CBE801B00D14320 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
 		A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8581CBE805A00D14320 /* InvitationRequest.swift */; };
 		A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85A1CBE861400D14320 /* InvitationListTVC.swift */; };
@@ -29,6 +31,7 @@
 		A77E5BA01CBFB87A003A7D0C /* RegistrationNVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */; };
 		A77E5BA21CBFB9BF003A7D0C /* UserPersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */; };
 		A77E5BA41CBFBB0A003A7D0C /* UserRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */; };
+		A7892FA61D9D438800D1B851 /* MessageEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7892FA51D9D438800D1B851 /* MessageEditCell.swift */; };
 		A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD0391CCA6F1A001FFEB4 /* Utility.swift */; };
 		A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */; };
 		A7A9CB6B1D9BE4E3007B76DD /* InvitationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */; };
@@ -42,6 +45,8 @@
 		A71BDA8F1D9CFA7C008D6984 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		A71BDA911D9D06F8008D6984 /* MessageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageRequest.swift; sourceTree = "<group>"; };
 		A71BDA931D9D0A6D008D6984 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationMessageTVC.swift; sourceTree = "<group>"; };
+		A71BDA971D9D2E9D008D6984 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		A743D8541CBE801B00D14320 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
 		A743D8581CBE805A00D14320 /* InvitationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationRequest.swift; sourceTree = "<group>"; };
 		A743D85A1CBE861400D14320 /* InvitationListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationListTVC.swift; sourceTree = "<group>"; };
@@ -63,6 +68,7 @@
 		A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNVC.swift; sourceTree = "<group>"; };
 		A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPersonalInfoVC.swift; sourceTree = "<group>"; };
 		A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationVC.swift; sourceTree = "<group>"; };
+		A7892FA51D9D438800D1B851 /* MessageEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageEditCell.swift; sourceTree = "<group>"; };
 		A79FD0391CCA6F1A001FFEB4 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateInvitationTVC.swift; sourceTree = "<group>"; };
 		A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationCell.swift; sourceTree = "<group>"; };
@@ -145,6 +151,9 @@
 				A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */,
 				A768EE0D1D9BDC9000C17148 /* TableViewStateCell.swift */,
 				A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */,
+				A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */,
+				A71BDA971D9D2E9D008D6984 /* MessageCell.swift */,
+				A7892FA51D9D438800D1B851 /* MessageEditCell.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -241,6 +250,7 @@
 				A74DA61A1CBBA670008AB1C3 /* UserRequest.swift in Sources */,
 				A7A9CB6B1D9BE4E3007B76DD /* InvitationCell.swift in Sources */,
 				A768EE0E1D9BDC9000C17148 /* TableViewStateCell.swift in Sources */,
+				A7892FA61D9D438800D1B851 /* MessageEditCell.swift in Sources */,
 				A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */,
 				A77E5BA01CBFB87A003A7D0C /* RegistrationNVC.swift in Sources */,
 				A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */,
@@ -250,6 +260,7 @@
 				A743D85D1CBE8BE900D14320 /* InvitationDetailTVC.swift in Sources */,
 				A74776921CBA8CAE00144226 /* MainTBC.swift in Sources */,
 				A747768B1CBA868D00144226 /* LoginVC.swift in Sources */,
+				A71BDA961D9D288E008D6984 /* InvitationMessageTVC.swift in Sources */,
 				A7EC55ED1CCBBEC300A4056B /* CreateJoinRequestVC.swift in Sources */,
 				A7EC55EB1CCBB2AB00A4056B /* UserInvitationsTVC.swift in Sources */,
 				A77E5B9C1CBFA696003A7D0C /* UserTypeSelectionVC.swift in Sources */,
@@ -259,6 +270,7 @@
 				A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */,
 				A74DA6181CBB86D0008AB1C3 /* HTTPRequest.swift in Sources */,
 				A74776941CBA92E500144226 /* UserProfileTVC.swift in Sources */,
+				A71BDA981D9D2E9D008D6984 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
