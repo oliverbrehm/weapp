@@ -46,6 +46,17 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
         if(self.invitation != nil) {
             self.createInvitationButton.isHidden = true
             self.deleteButton.isHidden = false
+            
+            let invitation = self.invitation!
+
+            // display invitation details
+            self.titleTextField.text = invitation.name
+            self.descriptionTextView.text = invitation.description
+            self.numberOfGuestsSlider.value = Float(invitation.maxParticipants!)
+            self.datePicker.date = invitation.date!
+            self.cityLabel.text = invitation.locationCity
+            self.streetTextField.text = invitation.locationStreet
+            self.streetNumberTextField.text = String(describing: invitation.locationStreetNumber)
         } else {
             self.navigationItem.rightBarButtonItem = nil
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A71BDA901D9CFA7C008D6984 /* README in Resources */ = {isa = PBXBuildFile; fileRef = A71BDA8F1D9CFA7C008D6984 /* README */; };
 		A743D8551CBE801B00D14320 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
 		A743D8591CBE805A00D14320 /* InvitationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8581CBE805A00D14320 /* InvitationRequest.swift */; };
 		A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85A1CBE861400D14320 /* InvitationListTVC.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A71BDA8F1D9CFA7C008D6984 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		A743D8541CBE801B00D14320 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
 		A743D8581CBE805A00D14320 /* InvitationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationRequest.swift; sourceTree = "<group>"; };
 		A743D85A1CBE861400D14320 /* InvitationListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationListTVC.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		A74F5B1B1C5676A9006C03CC = {
 			isa = PBXGroup;
 			children = (
+				A71BDA8F1D9CFA7C008D6984 /* README */,
 				A74F5B261C5676A9006C03CC /* Potpourri */,
 				A74F5B251C5676A9006C03CC /* Products */,
 			);
@@ -211,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A71BDA901D9CFA7C008D6984 /* README in Resources */,
 				A74F5B341C5676A9006C03CC /* LaunchScreen.storyboard in Resources */,
 				A74F5B311C5676A9006C03CC /* Assets.xcassets in Resources */,
 				A74F5B2F1C5676A9006C03CC /* Main.storyboard in Resources */,

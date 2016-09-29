@@ -34,6 +34,11 @@ class InvitationDetailTVC: UITableViewController {
             
             self.invitation!.queryDetails() { (success: Bool) in
                 if(!success) {
+                    DispatchQueue.main.async {
+                        self.presentAlert("Error loading invitation", message: "The invitation details could not be loaded", cancelButtonTitle: "OK", animated: true) { (alertAction: UIAlertAction?) in
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                    }
                     return
                 }
                 
@@ -196,10 +201,15 @@ class InvitationDetailTVC: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if let vc = segue.destination as? CreateInvitationTVC {
-            vc.invitation = self.invitation
-        } else if let vc = segue.destination as? CreateJoinRequestVC {
-            vc.invitation = self.invitation
+        var destination : UIViewController? = segue.destination
+        if(destination is UINavigationController) {
+            destination = (destination as! UINavigationController).visibleViewController
+        }
+        
+        if(destination is CreateInvitationTVC) {
+            (destination as! CreateInvitationTVC).invitation = self.invitation
+        } else if(destination is CreateJoinRequestVC) {
+            (destination as! CreateJoinRequestVC).invitation = self.invitation
         }
     }
 
