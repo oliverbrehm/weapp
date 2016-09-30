@@ -128,6 +128,41 @@ open class HTTPInvitationJoinRequest: HTTPRequest
     }
 }
 
+open class HTTPInvitationUpdateRequest: HTTPRequest
+{
+    open func send(invitationId: Int, name : String, detailedDescription : String,
+                   maxParticipants : Int, date: String, time: String,
+                   locationCity : String, locationStreet : String, locationStreetNumber : Int,
+                   locationLatitude : Int, locationLongitude : Int, completion: @escaping ((Bool) -> Void))
+    {
+        let postData = "action=invitation_update" +
+            "&id=\(invitationId)" +
+            "&name=\(name)" +
+            "&description=\(detailedDescription)" +
+            "&maxParticipants=\(maxParticipants)" +
+            "&date=\(date)" +
+            "&time=\(time)" +
+            "&locationCity=\(locationCity)" +
+            "&locationStreet=\(locationStreet)" +
+            "&locationStreetNumber=\(locationStreetNumber)" +
+            "&locationLatitude=\(locationLatitude)" +
+            "&locationLongitude=\(locationLongitude)"
+        
+        super.sendPost(postData, completion: completion)
+    }
+}
+
+open class HTTPInvitationDeleteRequest: HTTPRequest
+{
+    open func send(_ invitationId: Int, completion: @escaping ((Bool) -> Void))
+    {
+        let postData = "action=invitation_delete" +
+            "&id=\(invitationId)"
+        
+        super.sendPost(postData, completion: completion)
+    }
+}
+
 open class HTTPInvitationGetParticipantsRequest: HTTPRequest
 {
     fileprivate var currentUserId = ""

@@ -250,6 +250,7 @@ class InvitationDetailTVC: UITableViewController {
         
         if(destination is CreateInvitationTVC) {
             (destination as! CreateInvitationTVC).invitation = self.invitation
+            (destination as! CreateInvitationTVC).invitationDetailTVC = self
         } else if(destination is CreateJoinRequestVC) {
             (destination as! CreateJoinRequestVC).invitation = self.invitation
         } else if(destination is InvitationMessageTVC) {

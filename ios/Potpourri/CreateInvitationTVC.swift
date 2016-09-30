@@ -25,6 +25,8 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var createInvitationButton: UIButton!
     
+    var invitationDetailTVC : InvitationDetailTVC?
+    
     var city = ""
     var postalCode = ""
     
@@ -131,11 +133,73 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
     }
     
     @IBAction func deleteInvitationClicked(_ sender: UIButton) {
-        print("delete")
+        if(self.invitation != nil) {
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action: UIAlertAction) in
+                self.invitation?.delete() { (success : Bool) in
+                    DispatchQueue.main.async {
+                        if(success) {
+                            self.invitationDetailTVC?.invitation = nil
+                            self.dismiss(animated: true) {
+                                self.invitationDetailTVC?.navigationController?.popToRootViewController(animated: true)
+                            }
+                        } else {
+                            self.presentAlert("Error", message: "Unable to delete invitation", cancelButtonTitle: "OK", animated: true)
+                        }
+                    }
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            let alert = UIAlertController(title: "Confirm delete", message: "Really delete this invitation?", preferredStyle: .actionSheet)
+            alert.addAction(cancelAction)
+            alert.addAction(deleteAction)
+            self.present(alert, animated: true)
+        }
     }
     
     @IBAction func saveButtonClicked(_ sender: AnyObject) {
-        print("save")
+        if(self.invitation != nil) {
+            // TODO duplicate code
+            let name = self.titleTextField.text!
+            let detailedDescription = self.descriptionTextView.text!
+            let maxParticipants = Int(self.numberOfGuestsSlider.value)
+            let date = self.datePicker.date
+            let city = self.cityLabel.text!
+            let street = self.streetTextField.text!
+            let streetNumberOpt = Int(self.streetNumberTextField.text!)
+            let streetNumber = streetNumberOpt == nil ? 0 : streetNumberOpt!
+            
+            if(name.isEmpty) {
+                self.presentAlert("Create invitation", message: "Please enter a title", cancelButtonTitle: "OK", animated: true)
+                return
+            }
+            
+            if(city.isEmpty) {
+                self.presentAlert("Create invitation", message: "Please enter a city", cancelButtonTitle: "OK", animated: true)
+                return
+            }
+            
+            if(street.isEmpty || streetNumberOpt == nil) {
+                self.presentAlert("Create invitation", message: "Please enter street name and number", cancelButtonTitle: "OK", animated: true)
+                return
+            }
+            
+            if(detailedDescription.isEmpty) {
+                self.presentAlert("Create invitation", message: "Please enter a description", cancelButtonTitle: "OK", animated: true)
+                return
+            }
+            
+            self.invitation?.update(name, detailedDescription: detailedDescription, maxParticipants: maxParticipants, nsDate: date, locationCity: city, locationStreet: street, locationStreetNumber: streetNumber, locationLatitude: 7, locationLongitude: 8) { (success : Bool) in
+                DispatchQueue.main.async {
+                    if(success) {
+                        self.dismiss(animated: true)
+                    } else {
+                        self.presentAlert("Error", message: "Unable to update invitation", cancelButtonTitle: "OK", animated: true)
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func cancelButtonClicked(_ sender: AnyObject) {

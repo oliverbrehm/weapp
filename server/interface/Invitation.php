@@ -88,11 +88,36 @@
                 return true;            
             } else if($action == "invitation_get_participants") {
                 if(empty($_POST['id'])) {
-                    Invitation::$xmlResponse->sendError("Request id not specified");
+                    Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
                     Invitation::getParticipants($_POST['id']);
                 }
                 return true;            
+            } else if($action == "invitation_delete") {
+                if(empty($_POST['id'])) {
+                    Invitation::$xmlResponse->sendError("Invitation id not specified");
+                } else {
+                    Invitation::delete($_POST['id']);
+                }
+                return true;    
+            } else if($action == "invitation_update") {
+                if(empty($_POST['id'])) {
+                    Invitation::$xmlResponse->sendError("Invitation id not specified");
+                } else {
+                    $name = $_POST['name'];
+                    $description = $_POST['description'];
+                    $maxParticipants = $_POST['maxParticipants'];
+                    $date = $_POST['date'];
+                    $time = $_POST['time'];
+                    $locationCity = $_POST['locationCity'];
+                    $locationStreet = $_POST['locationStreet'];
+                    $locationStreetNumber = $_POST['locationStreetNumber'];
+                    $locationLatitude = $_POST['locationLatitude'];
+                    $locationLongitude = $_POST['locationLongitude'];
+            
+                    Invitation::update($_POST['id'], $name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude);
+                }
+                return true;    
             }
             
             return false;
@@ -101,6 +126,7 @@
         public static function create($name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude)
         {
             if(empty($_SESSION['userId'])) {
+                Invitation::$xmlResponse->sendError("User not logged in");
                 return;
             }
 
@@ -123,6 +149,28 @@
                     Invitation::$xmlResponse->sendError("Failed to create invitation.");
                 }
             }  
+        }
+        
+        public static function update($id, $name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude)
+        {
+            if(empty($_SESSION['userId'])) {
+                Invitation::$xmlResponse->sendError("User not logged in");
+                return;
+            }
+            
+            mysql_query("UPDATE Invitation SET Name = '".$name."', Description = '".$description."', UserID = '".$user_id."', MaxParticipants = '".$maxParticipants."', Date = '".$date."', Time = '".$time."', LocationCity = '".$locationCity."', LocationStreet = '".$locationStreet."', LocationStreetNumber = '".$locationStreetNumber."', LocationLatitude = '".$locationLatitude."', LocationLongitude = '".$locationLongitude."' WHERE InvitationID = ".$id);
+            Invitation::$xmlResponse->sendMessage("Invitation successfully updated");
+        }
+        
+        public static function delete($id) 
+        {
+            if(empty($_SESSION['userId'])) {
+                Invitation::$xmlResponse->sendError("User not logged in");
+                return;
+            }
+            
+            mysql_query("DELETE FROM Invitation WHERE InvitationID = ".$id);
+            Invitation::$xmlResponse->sendMessage("Invitation successfully deleted");
         }
         
         public static function createJoinRequest($id, $userId, $numParticipants)

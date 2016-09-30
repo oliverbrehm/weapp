@@ -114,6 +114,7 @@ open class Invitation
     open var participants: [User] = []
     open var messages : MessageList?
 
+    var runningQuery = false
     
     init(invitationId: Int, name: String)
     {
@@ -167,32 +168,84 @@ open class Invitation
     
     func createJoinRequest(_ user: User, numParticipants: Int, completion: @escaping ((Bool) -> Void))
     {
+        if(self.runningQuery) { completion(false); return }
+        self.runningQuery = true
+        
         let request = HTTPInvitationJoinRequest()
-        request.send(self.invitationId, userId: user.id, numParticipants: numParticipants, completion: completion)
+        request.send(self.invitationId, userId: user.id, numParticipants: numParticipants) { (success: Bool) in
+            self.runningQuery = false; completion(success)
+        }
     }
     
     func queryParticipants(completion: @escaping (Bool) -> Void)
     {
+        if(self.runningQuery) { completion(false); return }
+        self.runningQuery = true
+        
         let request = HTTPInvitationGetParticipantsRequest()
         request.send(self.invitationId) { (success: Bool) in
-            completion(true)
+            self.runningQuery = false
+            completion(success)
         }
     }
     
     func queryMessages(completion: @escaping (Bool) -> Void)
     {
+        if(self.runningQuery) { completion(false); return }
+        self.runningQuery = true
+        
         // TODO add option to query only a few (eg 2) recent messages
         self.messages = MessageList(invitationId: self.invitationId)
-        self.messages!.fetch(max: 100, completion: completion)
+        self.messages!.fetch(max: 100) { (success: Bool) in
+            self.runningQuery = false; completion(success)
+        }
+    }
+    
+    func delete(completion: @escaping (Bool) -> Void)
+    {
+        if(self.runningQuery) { completion(false); return }
+        self.runningQuery = true
+        
+        let request = HTTPInvitationDeleteRequest()
+        request.send(self.invitationId) { (success : Bool) in
+            self.runningQuery = false; completion(success)
+        }
+    }
+    
+    func update(_ name : String, detailedDescription : String,
+                maxParticipants : Int, nsDate : Date,
+                locationCity : String, locationStreet : String, locationStreetNumber : Int,
+                locationLatitude : Int, locationLongitude : Int, completion: @escaping (Bool) -> Void)
+    {
+        if(self.runningQuery) { completion(false); return }
+        self.runningQuery = true
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.string(from: nsDate)
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "hh-mm"
+        let time = timeFormatter.string(from: nsDate)
+        
+        let request = HTTPInvitationUpdateRequest()
+        request.send(invitationId: self.invitationId, name: name, detailedDescription: detailedDescription, maxParticipants: maxParticipants, date: date, time: time, locationCity: locationCity, locationStreet: locationStreet, locationStreetNumber: locationStreetNumber, locationLatitude: locationLatitude, locationLongitude: locationLongitude) { (success : Bool) in
+            self.runningQuery = false; completion(success)
+        }
+        
+        self.runningQuery = false; completion(true)
     }
     
     open func queryDetails(completion: @escaping ((Bool) -> Void))
     {
+        if(self.runningQuery) { completion(false); return }
+        self.runningQuery = true
+        
         let request = HTTPInvitationDetailRequest()
         request.send(self.invitationId) { (success: Bool) in
         
             if(request.responseValue == false) {
-                completion(false)
+                self.runningQuery = false; completion(false)
                 return
             }
             
@@ -210,13 +263,19 @@ open class Invitation
             self.locationLatitude = Int(request.locationLatitude)
             self.locationLongitude = Int(request.locationLongitude)
             
-            completion(true)
+            self.runningQuery = false; completion(true)
         }
     }
     
     open func postMessage(user: User, message: String, completion: @escaping ((Bool) -> Void))
     {
+        if(self.runningQuery) { completion(false); return }
+        self.runningQuery = true
+        
         let request = HTTPPostMessageRequest()
-        request.send(invitationId: self.invitationId, message: message, completion: completion)
+        request.send(invitationId: self.invitationId, message: message) { (success : Bool) -> Void in
+            self.runningQuery = false
+            completion(success)
+        }
     }
 }
