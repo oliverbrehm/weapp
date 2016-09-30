@@ -134,7 +134,7 @@ open class HTTPInvitationGetParticipantsRequest: HTTPRequest
     fileprivate var currentFirstName = ""
     fileprivate var currentNumParticipants = ""
 
-    open var participants: [Participant] = []
+    open var participants: [User] = []
     
     open func send(completion: @escaping ((Bool) -> Void))
     {
@@ -162,7 +162,7 @@ open class HTTPInvitationGetParticipantsRequest: HTTPRequest
             self.currentNumParticipants = self.currentString
             break
         case "Participant":
-            self.participants.append(Participant(userId: Int(self.currentUserId)!, firstName: self.currentFirstName, numPersons: Int(self.currentNumParticipants)!))
+            self.participants.append(User(id: Int(self.currentUserId)!, firstName: self.currentFirstName))
             break
             
         default: break

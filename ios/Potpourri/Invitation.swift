@@ -8,20 +8,6 @@
 
 import Foundation
 
-open class Participant
-{
-    open let userId: Int
-    open let firstName: String
-    open let numPersons: Int
-    
-    init(userId: Int, firstName: String, numPersons: Int)
-    {
-        self.userId = userId
-        self.firstName = firstName
-        self.numPersons = numPersons
-    }
-}
-
 open class InvitationList
 {
     enum SorginCriteria
@@ -114,9 +100,8 @@ open class Invitation
     
     open let name: String
     
-    open var ownerId: Int?
-    open var ownerFirstName: String?
-    open var ownerLastName: String?
+    open var owner: User?
+    
     open var description: String?
     open var maxParticipants: Int?
     open var date: Date?
@@ -126,21 +111,24 @@ open class Invitation
     open var locationLatitude: Int?
     open var locationLongitude: Int?
     
+    open var participants: [User] = []
+    open var messages : MessageList?
+
+    
     init(invitationId: Int, name: String)
     {
         self.invitationId = invitationId
         self.name = name
     }
     
-    init(invitationId: Int, name: String, ownerId: Int, ownerFirstName: String, ownerLastName: String, description: String, maxParticipants: Int, date: Date,
+    init(invitationId: Int, name: String, ownerId: Int, ownerFirstName: String, description: String, maxParticipants: Int, date: Date,
          locationCity: String, locationStreet: String, locationStreetNumber: Int, locationLatitude: Int, locationLongitude: Int)
     {
         self.invitationId = invitationId
         self.name = name
         
-        self.ownerId = ownerId
-        self.ownerFirstName = ownerFirstName
-        self.ownerLastName = ownerLastName
+        self.owner = User(id: ownerId, firstName: ownerFirstName)
+        
         self.description = description
         self.maxParticipants = maxParticipants
         self.date = date
@@ -153,11 +141,11 @@ open class Invitation
     
     open func createdByUser(_ user: User?) -> Bool
     {
-        if(user == nil || self.ownerId == nil) {
+        if(user == nil || self.owner == nil) {
             return false
         }
         
-        return user!.id == self.ownerId!
+        return user!.id == self.owner!.id
     }
     
     open static func create(_ name : String, detailedDescription : String,
@@ -183,12 +171,19 @@ open class Invitation
         request.send(self.invitationId, userId: user.id, numParticipants: numParticipants, completion: completion)
     }
     
-    func getParticipants(completion: @escaping (([Participant]) -> Void))
+    func queryParticipants(completion: @escaping (Bool) -> Void)
     {
         let request = HTTPInvitationGetParticipantsRequest()
         request.send(self.invitationId) { (success: Bool) in
-            completion(request.participants)
+            completion(true)
         }
+    }
+    
+    func queryMessages(completion: @escaping (Bool) -> Void)
+    {
+        // TODO add option to query only a few (eg 2) recent messages
+        self.messages = MessageList(invitationId: self.invitationId)
+        self.messages!.fetch(max: 100, completion: completion)
     }
     
     open func queryDetails(completion: @escaping ((Bool) -> Void))
@@ -204,9 +199,8 @@ open class Invitation
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             
-            self.ownerId = Int(request.ownerId)
-            self.ownerFirstName = request.ownerFirstName
-            self.ownerLastName = request.ownerLastName
+            self.owner = User(id: (Int(request.ownerId))!, firstName: request.ownerFirstName)
+
             self.description = request.invitationDescription
             self.maxParticipants = Int(request.maxParticipants)
             self.date = dateFormatter.date(from: request.date) // TODO include time

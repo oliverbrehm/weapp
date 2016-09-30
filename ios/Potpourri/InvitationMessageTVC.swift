@@ -10,7 +10,6 @@ import UIKit
 
 class InvitationMessageTVC: UITableViewController, UITextViewDelegate {
     public var invitation : Invitation?
-    fileprivate var messages : MessageList?
     
     fileprivate var stateCell : TableViewStateCell?
     fileprivate var editCell : MessageEditCell?
@@ -22,9 +21,7 @@ class InvitationMessageTVC: UITableViewController, UITextViewDelegate {
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()     
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,14 +33,14 @@ class InvitationMessageTVC: UITableViewController, UITextViewDelegate {
         if(self.invitation != nil) {
             self.title = self.invitation!.name
             
-            self.messages = MessageList(invitationId: self.invitation!.invitationId)
-            self.messages!.fetch(max: 100) { (success: Bool) in
+            self.invitation!.queryMessages() { (success : Bool) in
                 DispatchQueue.main.async {
                     if(success) {
                         self.tableView.reloadData()
                     } else {
-                        self.presentAlert("Error", message: "Failed to load invitation messages", cancelButtonTitle: "OK", animated: true)
-                        self.navigationController?.popViewController(animated: true)
+                        self.presentAlert("Error", message: "Failed to load invitation messages", cancelButtonTitle: "OK", animated: true) { (Void) -> Void in
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     }
                 }
             }
@@ -63,10 +60,10 @@ class InvitationMessageTVC: UITableViewController, UITextViewDelegate {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0) {
-            if(self.messages == nil) {
+            if(self.invitation == nil) {
                 return 0
             }
-            return self.messages!.count()
+            return self.invitation!.messages!.count()
         } else if(section == 1) {
             return 1 // state cell (refresh)
         } else if(section == 2) {
@@ -96,16 +93,16 @@ class InvitationMessageTVC: UITableViewController, UITextViewDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.section == 0) { // add invitation cell
-            let message = self.messages?.message(index: indexPath.row)
+            let message = self.invitation!.messages!.message(index: indexPath.row)
             let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as! MessageCell
             
-            cell.authorLabel.text = (message?.ownerName)! + ":" // TODO ownerName is empty (-> server problem!)
-            cell.messageTextField.text = message?.text
+            cell.authorLabel.text = message.ownerName + ":" // TODO ownerName is empty (-> server problem!)
+            cell.messageTextField.text = message.text
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
             
-            cell.timestampLabel.text = dateFormatter.string(from: (message?.time)!)
+            cell.timestampLabel.text = dateFormatter.string(from: message.time)
             
             if(indexPath.row % 2 == 0) {
                 cell.backgroundColor = UIColor.orange
@@ -118,11 +115,8 @@ class InvitationMessageTVC: UITableViewController, UITextViewDelegate {
             if(self.stateCell == nil) {
                 self.stateCell = tableView.dequeueReusableCell(withIdentifier: "stateCell", for: indexPath) as? TableViewStateCell
             }
-            
-            // scroll to bottom
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: UITableViewScrollPosition.bottom, animated: true)
-            
-            if(self.messages != nil && self.messages!.isEmpty()) {
+
+            if(self.invitation != nil && self.invitation!.messages!.isEmpty()) {
                 self.stateCell?.displayMessage(message: "No messages. Refresh...")
             } else {
                 self.stateCell?.displayMessage(message: "Refresh...")

@@ -27,7 +27,6 @@ class MainTBC: UITabBarController {
     func clearData()
     {
         self.invitationListTVC?.clearData()
-        self.userInvitationsTVC?.clearData()
     }
     
     override func viewDidAppear(_ animated: Bool) {

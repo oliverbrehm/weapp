@@ -41,9 +41,9 @@ class UserProfileTVC: UITableViewController {
             let sqlDateFormatter = DateFormatter()
             sqlDateFormatter.dateFormat = "yyyy-MM-dd"
             
-            self.title = user.firstName + " " + user.lastName
+            self.title = user.firstName! + " " + user.lastName!
             self.emailLabel.text = user.email
-            self.sessionIdLabel.text = User.sessionId
+            self.sessionIdLabel.text = user.sessionId
             self.userIdLabel.text = "\(user.id)"
             self.userTypeLabel.text = user.immigrant! ? "Immigrant" : "Local"
             self.genderLabel.text = user.gender! ? "Male" : "Female"

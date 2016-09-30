@@ -29,8 +29,10 @@ open class JoinRequest
 
 open class JoinRequestList
 {
-    init() {
-        
+    public let user: User
+    
+    init(for user: User) {
+        self.user = user
     }
     
     private var joinRequests: [JoinRequest] = []

@@ -137,38 +137,56 @@
         
         public static function queryDetails($id) 
         {
-            $result = mysql_query("SELECT *, CAST(Immigrant AS unsigned integer) AS ImmigrantUI, CAST(Gender AS unsigned integer) AS GenderUI FROM User WHERE UserID='".$id."'");
+            if(empty($_SESSION['userId'])) {
+                User::$xmlResponse->sendError("User no logged in.");             
+                return;
+            }
+            
+            $currentUser = $_SESSION['userId'];
+            
+            $querySelect = "*";
+            if($id != $currentUser) { // diffrent user, query only public details
+                $querySelect = "FirstName, LastName, ImmigrantUI, GenderUI, Nationality, DateOfImmigration";
+            }
+            
+            $result = mysql_query("SELECT ".$querySelect.", CAST(Immigrant AS unsigned integer) AS ImmigrantUI, CAST(Gender AS unsigned integer) AS GenderUI FROM User WHERE UserID='".$id."'");
 
             // TODO check #rows == 1
             $row = mysql_fetch_array($result);
 
             if(isset($row['Email'])) {
-                $email = $row['Email'];
                 $firstName = $row['FirstName'];
                 $lastName = $row['LastName'];
                 $userType = $row['ImmigrantUI'];
                 $gender = $row['GenderUI'];
-                $dateOfBirth = $row['DateOfBirth'];
                 $nationality = $row['Nationality'];
                 $dateOfImmigration = $row['DateOfImmigration'];
-                $locationLatitude = $row['LocationLatitude'];
-                $locationLongitude = $row['LocationLongitude'];
+                
+                if($id == $currentUser) {
+                    $email = $row['Email'];
+                    $dateOfBirth = $row['DateOfBirth'];
+                    $locationLatitude = $row['LocationLatitude'];
+                    $locationLongitude = $row['LocationLongitude'];
+                }
                 
                 User::$xmlResponse->addResponse(true);
                 
                 $user = User::$xmlResponse->addList("user");
 
                 $user->addElement('UserID', $id);
-                $user->addElement('Email', $email);
                 $user->addElement('FirstName', $firstName);
                 $user->addElement('LastName', $lastName);
                 $user->addElement('Immigrant', $userType);
                 $user->addElement('Gender', $gender);
-                $user->addElement('DateOfBirth', $dateOfBirth);
                 $user->addElement('Nationality', $nationality);
                 $user->addElement('DateOfImmigration', $dateOfImmigration);
-                $user->addElement('LocationLatitude', $locationLatitude);
-                $user->addElement('LocationLongitude', $locationLongitude);
+                
+                if($id == $currentUser) {
+                    $user->addElement('Email', $email);
+                    $user->addElement('DateOfBirth', $dateOfBirth);
+                    $user->addElement('LocationLatitude', $locationLatitude);
+                    $user->addElement('LocationLongitude', $locationLongitude);  
+                }
 
                 User::$xmlResponse->writeOutput();
             } 

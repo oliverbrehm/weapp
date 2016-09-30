@@ -3,7 +3,9 @@ ios app prototype
 TASKS
 
 - update or delete invitations in edit mode
+
+- user pages (wall, profile...?)
+
 - display recent messages (no matter which invitation) to user
 - display notification message to user on the day the invitation takes place
 - promt for "how was it" if invitation not completed and date in the past, set "completed" bit in invitation, display in completed list
-- user pages (wall, profile...?)

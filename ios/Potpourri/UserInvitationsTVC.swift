@@ -9,9 +9,6 @@
 import UIKit
 
 class UserInvitationsTVC: UITableViewController {
-    fileprivate var invitations : InvitationList?
-    fileprivate var participatingInvitations : InvitationList?
-    fileprivate var joinRequests : JoinRequestList?
     
     var invitationStateCell : TableViewStateCell?
     var participatingInvitationStateCell : TableViewStateCell?
@@ -35,44 +32,19 @@ class UserInvitationsTVC: UITableViewController {
     
     func refresh(_ sender:AnyObject)
     {
-        self.clearData()
         self.loadInvitations()
-        
-        self.tableView.reloadData()
-        
         self.refreshControl?.endRefreshing()
     }
-    
-    func clearData()
-    {
-        self.invitations = nil
-        self.participatingInvitations = nil
-        self.joinRequests = nil
-    }
-    
+  
     fileprivate func loadInvitations()
     {
-        if(self.invitations == nil) {
-            self.invitations = InvitationList(city: "", sortingCriteria: .Date, owner: User.current, participatingUser: nil)
-        }
-        
-        if(self.participatingInvitations == nil) {
-            self.participatingInvitations = InvitationList(city: "", sortingCriteria: .Date, owner: nil, participatingUser: User.current)
-        }
-        
-        if(self.joinRequests == nil) {
-            self.joinRequests = JoinRequestList()
-        }
-        
-        self.tableView.reloadData()
-        
-        if(self.invitations!.isEmpty()) {
+        if let user = User.current {
+            // load user invitations
             self.invitationStateCell?.setBusy()
-            
-            self.invitations!.fetch(number: 100) { (success: Bool) in
+            user.queryInvitations() { (success: Bool) in
                 if(!success) {
                     self.invitationStateCell?.displayMessage(message: "Error loading invitations")
-                } else if(self.invitations!.isEmpty()) { // success but nothing to display
+                } else if(user.invitations!.isEmpty()) { // success but nothing to display
                     self.invitationStateCell?.displayMessage(message: "No invitations")
                 }
                 
@@ -80,15 +52,13 @@ class UserInvitationsTVC: UITableViewController {
                     self.tableView.reloadData()
                 }
             }
-        }
-        
-        if(self.joinRequests!.isEmpty()) {
-            self.joinRequestStateCell?.setBusy()
             
-            self.joinRequests!.fetch(max: 100) { (success: Bool) in
+            // load user join requests
+            self.joinRequestStateCell?.setBusy()
+            user.queryJoinRequests() { (success: Bool) in
                 if(!success) {
                     self.joinRequestStateCell?.displayMessage(message: "Error loading join requests")
-                } else if(self.joinRequests!.isEmpty()) {
+                } else if(user.joinRequests!.isEmpty()) {
                     self.joinRequestStateCell?.displayMessage(message: "No join requests")
                 }
                 
@@ -96,15 +66,13 @@ class UserInvitationsTVC: UITableViewController {
                     self.tableView.reloadData()
                 }
             }
-        }
-        
-        if(self.participatingInvitations!.isEmpty()) {
-            self.participatingInvitationStateCell?.setBusy()
             
-            self.participatingInvitations!.fetch(number: 100) { (success: Bool) in
+            // load user participations
+            self.participatingInvitationStateCell?.setBusy()
+            user.queryParticipations() { (success: Bool) in
                 if(!success) {
                     self.participatingInvitationStateCell?.displayMessage(message: "Error loading invitations")
-                } else if(self.participatingInvitations!.isEmpty()) {
+                } else if(user.participations!.isEmpty()) {
                     self.participatingInvitationStateCell?.displayMessage(message: "No invitations")
                 }
                 
@@ -131,11 +99,17 @@ class UserInvitationsTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(User.current == nil) {
+            return 1
+        }
+        
+        let user = User.current!
+        
         switch(section) {
-        case 0: return (self.joinRequests!.isEmpty() ? 1 : self.joinRequests!.count())
-        case 1: return (self.invitations!.isEmpty() ? 1 : self.invitations!.count())
-        case 2: return (self.participatingInvitations!.isEmpty() ? 1 : self.participatingInvitations!.count())
-        default: return 0;
+        case 0: return (user.joinRequests == nil || user.joinRequests!.isEmpty() ? 1 : user.joinRequests!.count())
+        case 1: return (user.invitations == nil || user.invitations!.isEmpty() ? 1 : user.invitations!.count())
+        case 2: return (user.participations == nil || user.participations!.isEmpty() ? 1 : user.participations!.count())
+        default: return 1;
         }
     }
     
@@ -149,18 +123,26 @@ class UserInvitationsTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if(User.current == nil) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as! TableViewStateCell
+            cell.displayMessage(message: "User not logged in...")
+            return cell
+        }
+        
+        let user = User.current!
+        
         let cell: UITableViewCell
         
         switch(indexPath.section) {
         case 0:
-            if(self.joinRequests!.isEmpty()) {
+            if(user.joinRequests!.isEmpty()) {
                 if(self.joinRequestStateCell == nil) {
                     self.joinRequestStateCell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as? TableViewStateCell
                 }
                 cell = self.joinRequestStateCell!
             } else {
                 cell = tableView.dequeueReusableCell(withIdentifier: "joinRequestCell", for: indexPath)
-                let request = self.joinRequests!.joinRequest(index:(indexPath as NSIndexPath).row)
+                let request = user.joinRequests!.joinRequest(index:(indexPath as NSIndexPath).row)
                 if(User.current != nil) {
                     if(User.current!.id == request.userId) {
                         cell.backgroundColor = UIColor.green.withAlphaComponent(0.4)
@@ -173,26 +155,26 @@ class UserInvitationsTVC: UITableViewController {
             
             break
         case 1:
-            if(self.invitations!.isEmpty()) {
+            if(user.invitations!.isEmpty()) {
                 if(self.invitationStateCell == nil) {
                     self.invitationStateCell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as? TableViewStateCell
                 }
                 cell = self.invitationStateCell!
             } else {
                 cell = tableView.dequeueReusableCell(withIdentifier: "invitationCell", for: indexPath)
-                cell.textLabel?.text = invitations!.invitation(index: (indexPath as NSIndexPath).row).name
+                cell.textLabel?.text = user.invitations!.invitation(index: (indexPath as NSIndexPath).row).name
             }
             
             break
         case 2:
-            if(self.participatingInvitations!.isEmpty()) {
+            if(user.participations!.isEmpty()) {
                 if(self.participatingInvitationStateCell == nil) {
                     self.participatingInvitationStateCell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as? TableViewStateCell
                 }
                 cell = self.participatingInvitationStateCell!
             } else {
                 cell = tableView.dequeueReusableCell(withIdentifier: "invitationCell", for: indexPath)
-                cell.textLabel?.text = participatingInvitations!.invitation(index: (indexPath as NSIndexPath).row).name
+                cell.textLabel?.text = user.participations!.invitation(index: (indexPath as NSIndexPath).row).name
             }
             
             break
@@ -242,19 +224,25 @@ class UserInvitationsTVC: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(User.current == nil) {
+            return
+        }
+        
+        let user = User.current!
+        
         let selectedSection = (self.tableView.indexPathForSelectedRow! as NSIndexPath).section
         let selectedRow = (self.tableView.indexPathForSelectedRow! as NSIndexPath).row
 
         if(segue.identifier == "invitationDetail" && segue.destination is InvitationDetailTVC) {
             let invitationDetailTVC = segue.destination as! InvitationDetailTVC
             if(selectedSection == 1) { // my invitations
-                invitationDetailTVC.invitation = self.invitations!.invitation(index: selectedRow)
+                invitationDetailTVC.invitation = user.invitations!.invitation(index: selectedRow)
             } else { // 2, my participations
-                invitationDetailTVC.invitation = self.participatingInvitations!.invitation(index: selectedRow)
+                invitationDetailTVC.invitation = user.participations!.invitation(index: selectedRow)
             }
         } else if(segue.destination is JoinRequestTVC) {
             let joinRequestTVC = segue.destination as! JoinRequestTVC
-            joinRequestTVC.joinRequest = self.joinRequests!.joinRequest(index: selectedRow)
+            joinRequestTVC.joinRequest = user.joinRequests!.joinRequest(index: selectedRow)
         }
     }
 }

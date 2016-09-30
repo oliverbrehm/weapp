@@ -11,13 +11,13 @@ import Foundation
 open class User
 {
     open static var current : User?
-    open static var sessionId: String?
-
+    
+    open let sessionId: String
     open let id: Int
-    open var email: String
-
-    open let firstName: String
-    open let lastName: String
+    
+    open var email: String?
+    open var firstName: String?
+    open var lastName: String?
     
     open var immigrant: Bool?
     open var gender: Bool?
@@ -30,33 +30,23 @@ open class User
     open var locationLatitude: Int?
     open var locationLongitude: Int?
     
-    init(id: Int, email: String, firstName: String, lastName: String)
+    open var invitations : InvitationList?
+    open var participations : InvitationList?
+    open var joinRequests : JoinRequestList?
+    
+    // use for arbitrary users, id and display name
+    init(id: Int, firstName: String)
     {
         self.id = id
         self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
+        self.sessionId = ""
     }
     
-    init(sessionId: String, id: Int, firstName: String, lastName: String, email: String, immigrant: Bool, gender: Bool, dateOfBirth: Date, dateOfImmigration: Date, nationality: String, locationLatitude: Int, locationLongitude: Int) {
+    // use for logged in user
+    init(id: Int, sessionId: String)
+    {
         self.id = id
-        
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email;
-        
-        self.immigrant = immigrant
-        self.gender = gender
-        
-        self.dateOfBirth = dateOfBirth
-        self.dateOfImmigration = dateOfImmigration
-        
-        self.nationality = nationality
-        
-        self.locationLatitude = locationLatitude
-        self.locationLongitude = locationLongitude
-        
-        User.sessionId = sessionId;
+        self.sessionId = sessionId
     }
     
     open static func login(_ email: String, password: String, completion: @escaping ((Bool) -> Void))
@@ -71,39 +61,10 @@ open class User
             
             print("USER ID: \(loginRequest.userId)")
 
+            User.current = User(id: Int(loginRequest.userId)!, sessionId: loginRequest.sessionId)
+
             // login ok, retrieve user information
-            let userDetailsRequest = HTTPUserDetailsRequest()
-            userDetailsRequest.send(Int(loginRequest.userId)!) { (userDetailSuccess: Bool) in
-                
-                if(!userDetailSuccess) {
-                    completion(false)
-                }
-            
-                print("user: \(userDetailsRequest.email), \(userDetailsRequest.dateOfBirth)")
-                
-                let sqlDateFormatter = DateFormatter()
-                sqlDateFormatter.dateFormat = "yyyy-MM-dd"
-                
-                var dateOfBirth = Date.distantPast
-                if let d = sqlDateFormatter.date(from: userDetailsRequest.dateOfBirth) {
-                    dateOfBirth = d
-                }
-                
-                var dateOfImmigration = Date.distantPast
-                if let d = sqlDateFormatter.date(from: userDetailsRequest.dateOfImmigration) {
-                    dateOfImmigration = d
-                }
-                
-                current = User(sessionId: loginRequest.sessionId, id: Int(loginRequest.userId)!,
-                               firstName: userDetailsRequest.firstName, lastName: userDetailsRequest.lastName,
-                               email: userDetailsRequest.email,
-                               immigrant: NSString(string: userDetailsRequest.immigrant).boolValue, gender: NSString(string: userDetailsRequest.gender).boolValue,
-                               dateOfBirth: dateOfBirth, dateOfImmigration: dateOfImmigration,
-                               nationality: userDetailsRequest.nationality,
-                               locationLatitude: Int(userDetailsRequest.locationLatitude)!, locationLongitude: Int(userDetailsRequest.locationLongitude)!)
-                
-                completion(true)
-            }
+            User.current?.queryDetails(completion: completion)
         }
     }
     
@@ -121,11 +82,7 @@ open class User
                 print("autologin mail or password unset")
                 completion(false)
             } else {
-                login(email, password: password) { (success: Bool) in
-                    print("autologin successfull")
-
-                    completion(true)
-                }
+                login(email, password: password, completion: completion)
             }
         } else {
             print("autologin error retrieving email or password")
@@ -143,5 +100,65 @@ open class User
     open static func loggedIn() -> Bool
     {
         return current != nil;
+    }
+    
+    open func queryDetails(completion: @escaping (Bool) -> Void)
+    {
+        let userDetailsRequest = HTTPUserDetailsRequest()
+        userDetailsRequest.send(self.id) { (success: Bool) in
+            
+            if(!success) {
+                completion(false)
+            }
+            
+            print("user: \(userDetailsRequest.email), \(userDetailsRequest.dateOfBirth)")
+            
+            let sqlDateFormatter = DateFormatter()
+            sqlDateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            var dateOfBirth = Date.distantPast
+            if let d = sqlDateFormatter.date(from: userDetailsRequest.dateOfBirth) {
+                dateOfBirth = d
+            }
+            
+            var dateOfImmigration = Date.distantPast
+            if let d = sqlDateFormatter.date(from: userDetailsRequest.dateOfImmigration) {
+                dateOfImmigration = d
+            }
+            
+
+            self.firstName = userDetailsRequest.firstName
+            self.lastName = userDetailsRequest.lastName
+            self.email = userDetailsRequest.email
+            self.immigrant = NSString(string: userDetailsRequest.immigrant).boolValue
+            self.gender = NSString(string: userDetailsRequest.gender).boolValue
+            self.dateOfBirth = dateOfBirth
+            self.dateOfImmigration = dateOfImmigration
+            self.nationality = userDetailsRequest.nationality
+            self.locationLatitude = Int(userDetailsRequest.locationLatitude)
+            self.locationLongitude = Int(userDetailsRequest.locationLongitude)
+            
+            completion(true)
+        }
+        
+        completion(true)
+    }
+    
+    open func queryInvitations(completion: @escaping (Bool) -> Void)
+    {
+        self.invitations = InvitationList(city: "", sortingCriteria: .Date, owner: self, participatingUser: nil)
+        self.invitations?.fetch(number: 100, completion: completion)
+    }
+    
+    open func queryParticipations(completion: @escaping (Bool) -> Void)
+    {
+        self.participations = InvitationList(city: "", sortingCriteria: .Date, owner: nil, participatingUser: self)
+        self.participations?.fetch(number: 100, completion: completion)
+    }
+    
+    open func queryJoinRequests(completion: @escaping (Bool) -> Void)
+    {
+        self.joinRequests = JoinRequestList(for: self)
+        self.joinRequests?.fetch(max: 100, completion: completion)
     }
 }

@@ -11,7 +11,6 @@ import UIKit
 class InvitationDetailTVC: UITableViewController {
     
     var invitation: Invitation?
-    var participants: [Participant] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +40,18 @@ class InvitationDetailTVC: UITableViewController {
                     }
                     return
                 }
-              
-                self.invitation!.getParticipants() { (participants: [Participant]) in
                 
-                    if(self.invitation == nil) {
-                        return
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+                self.invitation!.queryMessages() { (success : Bool) in
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
                     }
-                    
-                    self.participants = participants
-                    
-                    self.participants.insert(Participant(userId: self.invitation!.ownerId!, firstName: self.invitation!.ownerFirstName! + " (owner)", numPersons: 1), at: 0)
+                }
+              
+                self.invitation!.queryParticipants() { (success: Bool) in
                     
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -84,10 +85,14 @@ class InvitationDetailTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(self.invitation == nil) {
+            return 0
+        }
+        
         switch(section) {
         case 0: return 2; // info: description, date
-        case 1: return 3; // messages: show all, second most recent, most recent
-        case 2: return self.participants.count;
+        case 1: return self.invitation!.messages == nil ? 1 : 1 + min(2, self.invitation!.messages!.count()); // messages: show all, second most recent, most recent
+        case 2: return self.invitation!.participants.count;
         case 3: return 3; // address: city, street, location
         default:
             return 0;
@@ -141,12 +146,16 @@ class InvitationDetailTVC: UITableViewController {
                 break
             case 1:
                 cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath)
-                cell.textLabel?.text = "TODO most recent message 2..."
+                
+                let messages = self.invitation!.messages!
+                cell.textLabel?.text = messages.message(index: messages.count() - 2).text
                 
                 break
             case 2:
                 cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath)
-                cell.textLabel?.text = "TODO most recent message 1..."
+                
+                let messages = self.invitation!.messages!
+                cell.textLabel?.text = messages.message(index: messages.count() - 1).text
                 
                 break
             default:
@@ -155,13 +164,16 @@ class InvitationDetailTVC: UITableViewController {
             }
         } else if (indexPath.section == 2) { // participants
             cell = tableView.dequeueReusableCell(withIdentifier: "participantCell", for: indexPath)
-            cell.textLabel?.text = participants[indexPath.row].firstName + "(\(participants[indexPath.row].numPersons))"
+            
+            let participant = self.invitation!.participants[indexPath.row]
+            
+            cell.textLabel?.text = participant.firstName
         } else { //if(indexPath.section == 3) { // address
             cell = tableView.dequeueReusableCell(withIdentifier: "invitationInfoCell", for: indexPath as IndexPath)
 
             var street = ""
             if(self.invitation!.locationStreet != nil && self.invitation!.locationStreetNumber != nil) {
-                street = self.invitation!.locationStreet! + "\(self.invitation!.locationStreetNumber!)"
+                street = self.invitation!.locationStreet! + " \(self.invitation!.locationStreetNumber!)"
             }
             
             var location = ""
