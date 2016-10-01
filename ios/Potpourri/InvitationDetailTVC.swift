@@ -28,6 +28,8 @@ class InvitationDetailTVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+        
         if(self.invitation != nil) {
             self.title = invitation!.name
             
@@ -49,20 +51,21 @@ class InvitationDetailTVC: UITableViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                }
-              
-                self.invitation!.queryParticipants() { (success: Bool) in
                     
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                    self.invitation!.queryParticipants() { (success: Bool) in
                         
-                        if(self.invitation!.createdByUser(User.current)) {
-                            let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
-                            self.navigationItem.rightBarButtonItem = item
+                        DispatchQueue.main.async {
+                            if(self.invitation!.createdByUser(User.current)) {
+                                let item = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.plain, target: self, action: #selector(InvitationDetailTVC.editButtonClicked))
+                                self.navigationItem.rightBarButtonItem = item
+                                
+                            } else { // TODO if not already tried to join (request sent) TODO if not already joined
+                                let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
+                                self.navigationItem.rightBarButtonItem = item
+                            }
                             
-                        } else { // TODO if not already tried to join (request sent) TODO if not already joined
-                            let item = UIBarButtonItem(title: "Join", style: UIBarButtonItemStyle.plain, target: self, action: #selector(InvitationDetailTVC.joinButtonClicked))
-                            self.navigationItem.rightBarButtonItem = item
+                            self.tableView.reloadData()
+                            
                         }
                     }
                 }
@@ -148,14 +151,14 @@ class InvitationDetailTVC: UITableViewController {
                 cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath)
                 
                 let messages = self.invitation!.messages!
-                cell.textLabel?.text = messages.message(index: messages.count() - 2).text
+                cell.textLabel?.text = messages.message(index: messages.count() - 1).text
                 
                 break
             case 2:
                 cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath)
                 
                 let messages = self.invitation!.messages!
-                cell.textLabel?.text = messages.message(index: messages.count() - 1).text
+                cell.textLabel?.text = messages.message(index: messages.count() - 2).text
                 
                 break
             default:
@@ -202,6 +205,16 @@ class InvitationDetailTVC: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.section == 2) { // Participants
+            // present user page
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "UserProfileTVC") as! UserProfileTVC
+            vc.user = self.invitation?.participants[indexPath.row]
+            self.navigationController?.show(vc, sender: nil)
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

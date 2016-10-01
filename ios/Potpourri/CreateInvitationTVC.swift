@@ -54,8 +54,15 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
             // display invitation details
             self.titleTextField.text = invitation.name
             self.descriptionTextView.text = invitation.description
-            self.numberOfGuestsSlider.value = Float(invitation.maxParticipants!)
-            self.datePicker.date = invitation.date!
+            
+            if(invitation.maxParticipants != nil) {
+                self.numberOfGuestsSlider.value = Float(invitation.maxParticipants!)
+            }
+            
+            if(invitation.date != nil) {
+                self.datePicker.date = invitation.date!
+            }
+            
             self.cityLabel.text = invitation.locationCity
             self.streetTextField.text = invitation.locationStreet
             self.streetNumberTextField.text = String(describing: invitation.locationStreetNumber)

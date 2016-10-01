@@ -23,6 +23,8 @@ open class InvitationList
     
     private var invitations : [Invitation] = []
     
+    var runningQuery = false
+    
     init(city: String, sortingCriteria: SorginCriteria, owner: User?, participatingUser: User?) {
         self.sortingCriteria = sortingCriteria
         self.city = city
@@ -52,10 +54,13 @@ open class InvitationList
         
         if(self.participatingUser != nil) {
             let request = HTTPInvitationParticipatingListRequest() // TODO combine to one request with HTTPInvitationListRequest
+            
+            if(self.runningQuery) { completion(false); return }
+            self.runningQuery = true
 
             request.send(self.participatingUser!) { (success: Bool) in
                 if(request.responseValue == false) {
-                    completion(false)
+                    self.runningQuery = false; completion(false)
                     return
                 }
                 
@@ -64,15 +69,18 @@ open class InvitationList
                     self.invitations.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
                 }
                 
-                completion(true)
+                self.runningQuery = false; completion(true)
             }
 
         } else {
             let request = HTTPInvitationListRequest()
             
+            if(self.runningQuery) { completion(false); return }
+            self.runningQuery = true
+            
             request.send(owner: self.owner) { (success: Bool) in
                 if(request.responseValue == false) {
-                    completion(false)
+                    self.runningQuery = false; completion(false)
                     return
                 }
                 
@@ -81,7 +89,9 @@ open class InvitationList
                     self.invitations.append(Invitation(invitationId: invitationId, name: invitationHeader.name))
                 }
                 
-                completion(true)
+                print("invitations: \(self.invitations.count)")
+                
+                self.runningQuery = false; completion(true)
             }
         }
         
@@ -184,8 +194,13 @@ open class Invitation
         
         let request = HTTPInvitationGetParticipantsRequest()
         request.send(self.invitationId) { (success: Bool) in
-            self.runningQuery = false
-            completion(success)
+            
+            self.participants = request.participants
+            if(self.owner != nil) {
+                self.participants.insert(self.owner!, at: 0)
+            }
+            
+            self.runningQuery = false; completion(success)
         }
     }
     

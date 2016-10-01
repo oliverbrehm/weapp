@@ -109,6 +109,7 @@ open class User
             
             if(!success) {
                 completion(false)
+                return
             }
             
             print("user: \(userDetailsRequest.email), \(userDetailsRequest.dateOfBirth)")
@@ -140,8 +141,6 @@ open class User
             
             completion(true)
         }
-        
-        completion(true)
     }
     
     open func queryInvitations(completion: @escaping (Bool) -> Void)

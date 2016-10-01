@@ -21,6 +21,10 @@ class UserProfileTVC: UITableViewController {
     @IBOutlet weak var locationLatitudeLabel: UILabel!
     @IBOutlet weak var locationLongitudeLabel: UILabel!
     
+    @IBOutlet weak var logoutCell: UITableViewCell!
+    
+    var user: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,26 +36,49 @@ class UserProfileTVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        updateUI()
+        if(self.user == nil) {
+            self.user = User.current
+            updateUI()
+        } else {
+            // diffrent user, get details
+            
+            self.user?.queryDetails() { (success : Bool) in
+                DispatchQueue.main.async {
+                    if(success) {
+                        self.updateUI()
+                    } else {
+                        self.presentAlert("Error", message: "Failed to load user details", cancelButtonTitle: "OK", animated: true)
+                    }
+                }
+            }
+        }
+    
+        if(self.user === User.current) {
+            self.logoutCell.isHidden = false
+        } else {
+            self.logoutCell.isHidden = true
+
+        }
     }
     
     func updateUI()
     {
-        if let user = User.current {
+        if let user = self.user {
             let sqlDateFormatter = DateFormatter()
             sqlDateFormatter.dateFormat = "yyyy-MM-dd"
             
-            self.title = user.firstName! + " " + user.lastName!
+            self.title = (user.firstName != nil ? user.firstName! : "") + " " + (user.lastName != nil ? user.lastName! : "")
+            
             self.emailLabel.text = user.email
             self.sessionIdLabel.text = user.sessionId
             self.userIdLabel.text = "\(user.id)"
-            self.userTypeLabel.text = user.immigrant! ? "Immigrant" : "Local"
-            self.genderLabel.text = user.gender! ? "Male" : "Female"
-            self.dateOfBirthLabel.text  = sqlDateFormatter.string(from: user.dateOfBirth!)
-            self.dateOfImmigrationLabel.text  = sqlDateFormatter.string(from: user.dateOfImmigration!)
+            self.userTypeLabel.text = (user.immigrant == nil) ? "" : user.immigrant! ? "Immigrant" : "Local"
+            self.genderLabel.text = (user.gender == nil) ? "" : user.gender! ? "Male" : "Female"
+            self.dateOfBirthLabel.text  = (user.dateOfBirth == nil) ? "" : sqlDateFormatter.string(from: user.dateOfBirth!)
+            self.dateOfImmigrationLabel.text  = (user.dateOfImmigration == nil) ? "" : sqlDateFormatter.string(from: user.dateOfImmigration!)
             self.nationalityLabel.text = user.nationality
-            self.locationLatitudeLabel.text = "\(user.locationLatitude!)"
-            self.locationLongitudeLabel.text = "\(user.locationLongitude!)"
+            self.locationLatitudeLabel.text = (user.locationLatitude == nil) ? "" : "\(user.locationLatitude!)"
+            self.locationLongitudeLabel.text = (user.locationLongitude == nil) ? "" :  "\(user.locationLongitude!)"
         }
     }
     

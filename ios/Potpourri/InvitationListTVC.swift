@@ -13,6 +13,8 @@ class InvitationListTVC: UITableViewController {
     
     fileprivate var stateCell : TableViewStateCell?
     
+    var refreshing = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +49,7 @@ class InvitationListTVC: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.loadInvitations()
+
     }
 
     func loadInvitations()
@@ -58,6 +60,7 @@ class InvitationListTVC: UITableViewController {
         }
         
         if(self.invitations.isEmpty()) {
+            self.refreshing = true
             self.stateCell?.setBusy()
             self.invitations.fetch(number: 20) { (success) in
                 if(!success) {
@@ -65,6 +68,7 @@ class InvitationListTVC: UITableViewController {
                 }
                 
                 DispatchQueue.main.async {
+                    self.refreshing = false
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
                 }
@@ -74,7 +78,9 @@ class InvitationListTVC: UITableViewController {
     
     func userDidLogin()
     {
-        self.loadInvitations()
+        if(!self.invitations.runningQuery && self.invitations.isEmpty()) {
+            self.loadInvitations()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -89,18 +95,14 @@ class InvitationListTVC: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if(self.invitations.isEmpty()) {
-            return 1 // state cell
-        }
         return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(self.invitations.isEmpty()) {
-            return 1 // state cell
-        }
-        
         if(section == 0) {
+            if(self.refreshing) {
+                return 2 // add invitation cell, new invitation cell
+            }
             return 1 // add invitation cell
         } else if(section == 1) {
             return self.invitations.count()
@@ -114,19 +116,18 @@ class InvitationListTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(self.invitations.isEmpty()) {
-            if(self.stateCell == nil) {
-                self.stateCell = tableView.dequeueReusableCell(withIdentifier: "invitationLoadingCell", for: indexPath) as? TableViewStateCell
-                self.loadInvitations()
+        if(indexPath.section == 0) {
+            if(indexPath.row == 0) { // add invitation cell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "addInvitationCell", for: indexPath)
+                return cell
+            } else { // 1, state cell
+                if(self.stateCell == nil) {
+                    self.stateCell = tableView.dequeueReusableCell(withIdentifier: "invitationLoadingCell", for: indexPath) as? TableViewStateCell
+                    self.loadInvitations()
+                }
+                
+                return self.stateCell!
             }
-            
-            return self.stateCell!
-        }
-        
-        if(indexPath.section == 0) { // add invitation cell
-            let cell = tableView.dequeueReusableCell(withIdentifier: "addInvitationCell", for: indexPath)
-            
-            return cell
         } else { // invitation cell
             let cell = tableView.dequeueReusableCell(withIdentifier: "invitationCell", for: indexPath) as! InvitationCell
             

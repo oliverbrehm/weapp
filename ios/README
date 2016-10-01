@@ -2,10 +2,6 @@ ios app prototype
 
 TASKS
 
-- bug: participants dont show in invitation detail vc
-
-- user pages (wall, profile...?)
-
 - display recent messages (no matter which invitation) to user
 - display notification message to user on the day the invitation takes place
 - promt for "how was it" if invitation not completed and date in the past, set "completed" bit in invitation, display in completed list
