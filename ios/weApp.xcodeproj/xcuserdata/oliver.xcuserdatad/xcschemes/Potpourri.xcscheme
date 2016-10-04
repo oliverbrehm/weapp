@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A74F5B231C5676A9006C03CC"
-            BuildableName = "weApp.app"
-            BlueprintName = "weApp"
+            BuildableName = "WE.app"
+            BlueprintName = "WE"
             ReferencedContainer = "container:weApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A74F5B231C5676A9006C03CC"
-            BuildableName = "weApp.app"
-            BlueprintName = "weApp"
+            BuildableName = "WE.app"
+            BlueprintName = "WE"
             ReferencedContainer = "container:weApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
