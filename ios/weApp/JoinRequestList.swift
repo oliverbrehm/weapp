@@ -12,11 +12,11 @@ open class JoinRequestList
 {
     public let user: User
     
+    private var joinRequests: [JoinRequest] = []
+
     init(for user: User) {
         self.user = user
     }
-    
-    private var joinRequests: [JoinRequest] = []
     
     func isEmpty() -> Bool
     {

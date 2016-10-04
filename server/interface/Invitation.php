@@ -48,13 +48,6 @@
             } else if($action == "invitation_query") {
                 Invitation::query();
                 return true;
-            } else if($action == "invitation_query_participating") {
-                if(empty($_POST['userId'])) {
-                    Invitation::$xmlResponse->sendError("UserId not specified");
-                } else {
-                    Invitation::queryParticipating($_POST['userId']);
-                }
-                return true;
             } else if($action == "joinRequest_query") {
                 Invitation::queryJoinRequests();
                 return true;
@@ -307,13 +300,23 @@
             // TODO if logged in
             Invitation::$xmlResponse->addResponse(true);
             $invitations = Invitation::$xmlResponse->addList("invitationList");
-
-            $sql = "SELECT InvitationID, Name FROM Invitation WHERE 1";
             
-            if(!empty($_POST['userID'])) {
-                $sql .= " AND UserID='".$_POST['userID']."'";
-            }       
+            $sqlSelect = "Invitation.InvitationID, Invitation.Name";
+            $sqlFrom = "Invitation";
+            $sqlWhere = "1";
             
+            if(!empty($_POST['ownerID'])) {
+                $owner = $_POST['ownerID'];
+                $sqlWhere .= " AND Invitation.UserID='".$owner."'";
+            }     
+            
+            if(!empty($_POST['participatingUserID'])) {
+                $participatingUser = $_POST['participatingUserID'];
+                $sqlFrom = "Invitation, InvitationParticipant";
+                $sqlWhere .= " AND InvitationParticipant.InvitationID = Invitation.InvitationID AND InvitationParticipant.UserID='".$participatingUser."'";
+            }
+            
+            $sql = "SELECT ".$sqlSelect." FROM ".$sqlFrom." WHERE ".$sqlWhere;
             $result = mysql_query($sql);
 
             while($row = mysql_fetch_array($result))
@@ -327,30 +330,7 @@
 
             Invitation::$xmlResponse->writeOutput();
         }
-        
-        /// returns a list of invitation headers containg id and name
-        public static function queryParticipating($userID)
-        {
-            // TODO if logged in
-            Invitation::$xmlResponse->addResponse(true);
-            $invitations = Invitation::$xmlResponse->addList("invitationList");
-
-            $sql = "SELECT Invitation.InvitationID, Invitation.Name FROM Invitation, InvitationParticipant WHERE InvitationParticipant.InvitationID = Invitation.InvitationID AND InvitationParticipant.UserID='".$userID."'";
-            
-            $result = mysql_query($sql);
-
-            while($row = mysql_fetch_array($result))
-            {
-                if(isset($row['InvitationID']) && isset($row['Name'])) {
-                    $invitation = $invitations->addList("invitation");
-                    $invitation->addElement('id', $row['InvitationID']);
-                    $invitation->addElement('name', $row['Name']);
-                }
-            }
-
-            Invitation::$xmlResponse->writeOutput();
-        }
-        
+               
         public static function queryJoinRequests()
         {
             // TODO if logged in

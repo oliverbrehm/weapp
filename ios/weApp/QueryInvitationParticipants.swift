@@ -16,12 +16,6 @@ open class QueryInvitationParticipants: Query
     
     open var participants: [User] = []
     
-    open func send(completion: @escaping ((Bool) -> Void))
-    {
-        let postData = "action=invitation_query"
-        super.sendHTTPPost(data: postData, completion: completion)
-    }
-    
     open func send(_ invitationId: Int, completion: @escaping ((Bool) -> Void))
     {
         let postData = "action=invitation_get_participants&id=\(invitationId)"

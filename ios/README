@@ -4,4 +4,5 @@ TASKS
 
 - display recent messages (no matter which invitation) to user
 - display notification message to user on the day the invitation takes place
+- set user location and invitation location using map kit, display map in invitation detail
 - promt for "how was it" if invitation not completed and date in the past, set "completed" bit in invitation, display in completed list

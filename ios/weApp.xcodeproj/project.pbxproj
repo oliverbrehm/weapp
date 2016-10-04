@@ -42,7 +42,6 @@
 		A7BE09FE1DA3A951004DE714 /* QueryJoinRequestAccept.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09FD1DA3A951004DE714 /* QueryJoinRequestAccept.swift */; };
 		A7BE0A001DA3A960004DE714 /* QueryJoinRequestReject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09FF1DA3A960004DE714 /* QueryJoinRequestReject.swift */; };
 		A7BE0A021DA3A9A3004DE714 /* QueryMessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A011DA3A9A3004DE714 /* QueryMessageList.swift */; };
-		A7BE0A041DA3A9DD004DE714 /* QueryInvitationUserParticipations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A031DA3A9DD004DE714 /* QueryInvitationUserParticipations.swift */; };
 		A7BE0A061DA3A9F8004DE714 /* QueryInvitationCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A051DA3A9F8004DE714 /* QueryInvitationCreate.swift */; };
 		A7BE0A081DA3AA10004DE714 /* QueryInvitationJoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A071DA3AA10004DE714 /* QueryInvitationJoin.swift */; };
 		A7BE0A0A1DA3AA29004DE714 /* QueryInvitationUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A091DA3AA29004DE714 /* QueryInvitationUpdate.swift */; };
@@ -96,7 +95,6 @@
 		A7BE09FD1DA3A951004DE714 /* QueryJoinRequestAccept.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryJoinRequestAccept.swift; sourceTree = "<group>"; };
 		A7BE09FF1DA3A960004DE714 /* QueryJoinRequestReject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryJoinRequestReject.swift; sourceTree = "<group>"; };
 		A7BE0A011DA3A9A3004DE714 /* QueryMessageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryMessageList.swift; sourceTree = "<group>"; };
-		A7BE0A031DA3A9DD004DE714 /* QueryInvitationUserParticipations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryInvitationUserParticipations.swift; sourceTree = "<group>"; };
 		A7BE0A051DA3A9F8004DE714 /* QueryInvitationCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryInvitationCreate.swift; sourceTree = "<group>"; };
 		A7BE0A071DA3AA10004DE714 /* QueryInvitationJoin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryInvitationJoin.swift; sourceTree = "<group>"; };
 		A7BE0A091DA3AA29004DE714 /* QueryInvitationUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryInvitationUpdate.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				A743D8581CBE805A00D14320 /* QueryInvitationList.swift */,
-				A7BE0A031DA3A9DD004DE714 /* QueryInvitationUserParticipations.swift */,
 				A7BE0A051DA3A9F8004DE714 /* QueryInvitationCreate.swift */,
 				A7BE0A071DA3AA10004DE714 /* QueryInvitationJoin.swift */,
 				A7BE0A091DA3AA29004DE714 /* QueryInvitationUpdate.swift */,
@@ -370,7 +367,6 @@
 				A7BE0A061DA3A9F8004DE714 /* QueryInvitationCreate.swift in Sources */,
 				A7BE0A101DA3ABE3004DE714 /* QueryInvitationDetail.swift in Sources */,
 				A7BE09F41DA3A7D7004DE714 /* InvitationList.swift in Sources */,
-				A7BE0A041DA3A9DD004DE714 /* QueryInvitationUserParticipations.swift in Sources */,
 				A7BE0A001DA3A960004DE714 /* QueryJoinRequestReject.swift in Sources */,
 				A7BE0A0C1DA3AA4B004DE714 /* QueryInvitationDelete.swift in Sources */,
 				A7BE0A141DA3AF26004DE714 /* QueryUserLogout.swift in Sources */,
