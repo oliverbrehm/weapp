@@ -57,7 +57,7 @@
 		A74776931CBA92E500144226 /* UserProfileTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTVC.swift; sourceTree = "<group>"; };
 		A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		A74DA6191CBBA670008AB1C3 /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
-		A74F5B241C5676A9006C03CC /* Potpourri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Potpourri.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A74F5B241C5676A9006C03CC /* weApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74F5B271C5676A9006C03CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A74F5B2E1C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A74F5B301C5676A9006C03CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,11 +94,6 @@
 			children = (
 				A747768D1CBA891900144226 /* User.swift */,
 				A743D8541CBE801B00D14320 /* Invitation.swift */,
-				A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */,
-				A74DA6191CBBA670008AB1C3 /* UserRequest.swift */,
-				A743D8581CBE805A00D14320 /* InvitationRequest.swift */,
-				A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */,
-				A71BDA911D9D06F8008D6984 /* MessageRequest.swift */,
 				A71BDA931D9D0A6D008D6984 /* Message.swift */,
 			);
 			name = Model;
@@ -116,7 +111,7 @@
 		A74F5B251C5676A9006C03CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A74F5B241C5676A9006C03CC /* Potpourri.app */,
+				A74F5B241C5676A9006C03CC /* weApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,19 +119,16 @@
 		A74F5B261C5676A9006C03CC /* Potpourri */ = {
 			isa = PBXGroup;
 			children = (
-				A77E5B9D1CBFB829003A7D0C /* ViewControllers */,
+				A77E5B9D1CBFB829003A7D0C /* ViewController */,
 				A747768C1CBA890C00144226 /* Model */,
-				A74F5B271C5676A9006C03CC /* AppDelegate.swift */,
-				A74F5B2D1C5676A9006C03CC /* Main.storyboard */,
-				A74F5B301C5676A9006C03CC /* Assets.xcassets */,
-				A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */,
-				A74F5B351C5676A9006C03CC /* Info.plist */,
-				A79FD0391CCA6F1A001FFEB4 /* Utility.swift */,
+				A786F2611DA3A2820034708C /* Network */,
+				A786F2621DA3A2F80034708C /* Application */,
+				A786F2631DA3A31C0034708C /* Resources */,
 			);
 			path = Potpourri;
 			sourceTree = "<group>";
 		};
-		A77E5B9D1CBFB829003A7D0C /* ViewControllers */ = {
+		A77E5B9D1CBFB829003A7D0C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				A77E5B9E1CBFB84F003A7D0C /* Registration */,
@@ -155,7 +147,7 @@
 				A71BDA971D9D2E9D008D6984 /* MessageCell.swift */,
 				A7892FA51D9D438800D1B851 /* MessageEditCell.swift */,
 			);
-			name = ViewControllers;
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 		A77E5B9E1CBFB84F003A7D0C /* Registration */ = {
@@ -169,12 +161,44 @@
 			name = Registration;
 			sourceTree = "<group>";
 		};
+		A786F2611DA3A2820034708C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A74DA6171CBB86D0008AB1C3 /* HTTPRequest.swift */,
+				A74DA6191CBBA670008AB1C3 /* UserRequest.swift */,
+				A743D8581CBE805A00D14320 /* InvitationRequest.swift */,
+				A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */,
+				A71BDA911D9D06F8008D6984 /* MessageRequest.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		A786F2621DA3A2F80034708C /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				A74F5B271C5676A9006C03CC /* AppDelegate.swift */,
+				A79FD0391CCA6F1A001FFEB4 /* Utility.swift */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		A786F2631DA3A31C0034708C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A74F5B2D1C5676A9006C03CC /* Main.storyboard */,
+				A74F5B301C5676A9006C03CC /* Assets.xcassets */,
+				A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */,
+				A74F5B351C5676A9006C03CC /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A74F5B231C5676A9006C03CC /* Potpourri */ = {
+		A74F5B231C5676A9006C03CC /* weApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "Potpourri" */;
+			buildConfigurationList = A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "weApp" */;
 			buildPhases = (
 				A74F5B201C5676A9006C03CC /* Sources */,
 				A74F5B211C5676A9006C03CC /* Frameworks */,
@@ -184,9 +208,9 @@
 			);
 			dependencies = (
 			);
-			name = Potpourri;
+			name = weApp;
 			productName = "integrationsproject-incubateion";
-			productReference = A74F5B241C5676A9006C03CC /* Potpourri.app */;
+			productReference = A74F5B241C5676A9006C03CC /* weApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -206,7 +230,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "Potpourri" */;
+			buildConfigurationList = A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "weApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -219,7 +243,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A74F5B231C5676A9006C03CC /* Potpourri */,
+				A74F5B231C5676A9006C03CC /* weApp */,
 			);
 		};
 /* End PBXProject section */
@@ -408,7 +432,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "Potpourri" */ = {
+		A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "weApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A74F5B361C5676A9006C03CC /* Debug */,
@@ -417,7 +441,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "Potpourri" */ = {
+		A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "weApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A74F5B391C5676A9006C03CC /* Debug */,

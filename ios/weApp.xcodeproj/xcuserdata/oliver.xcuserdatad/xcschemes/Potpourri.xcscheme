@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A74F5B231C5676A9006C03CC"
-            BuildableName = "Potpourri.app"
-            BlueprintName = "Potpourri"
-            ReferencedContainer = "container:Potpourri.xcodeproj">
+            BuildableName = "weApp.app"
+            BlueprintName = "weApp"
+            ReferencedContainer = "container:weApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A74F5B231C5676A9006C03CC"
-            BuildableName = "Potpourri.app"
-            BlueprintName = "Potpourri"
-            ReferencedContainer = "container:Potpourri.xcodeproj">
+            BuildableName = "weApp.app"
+            BlueprintName = "weApp"
+            ReferencedContainer = "container:weApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

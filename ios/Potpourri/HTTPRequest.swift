@@ -82,7 +82,7 @@ open class HTTPRequest: NSObject, XMLParserDelegate
         
     }
     
-    open func parser(_ parser: XMLParser, parseErrorOccurred parseError: NSError) {
+    open func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         
     }
     
