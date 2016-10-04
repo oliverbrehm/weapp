@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				A71BDA8F1D9CFA7C008D6984 /* README */,
-				A74F5B261C5676A9006C03CC /* Potpourri */,
+				A74F5B261C5676A9006C03CC /* weApp */,
 				A74F5B251C5676A9006C03CC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,7 +116,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A74F5B261C5676A9006C03CC /* Potpourri */ = {
+		A74F5B261C5676A9006C03CC /* weApp */ = {
 			isa = PBXGroup;
 			children = (
 				A77E5B9D1CBFB829003A7D0C /* ViewController */,
@@ -125,7 +125,7 @@
 				A786F2621DA3A2F80034708C /* Application */,
 				A786F2631DA3A31C0034708C /* Resources */,
 			);
-			path = Potpourri;
+			path = weApp;
 			sourceTree = "<group>";
 		};
 		A77E5B9D1CBFB829003A7D0C /* ViewController */ = {
@@ -408,7 +408,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CR6FRMMTU7;
-				INFOPLIST_FILE = "$(SRCROOT)/Potpourri/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "incubation.integrationsproject-incubateion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -421,7 +421,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CR6FRMMTU7;
-				INFOPLIST_FILE = "$(SRCROOT)/Potpourri/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "incubation.integrationsproject-incubateion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
