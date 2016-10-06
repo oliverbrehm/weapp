@@ -31,70 +31,70 @@
                     Invitation::create($name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude);
                 }
                 return true;
-            } else if($action == "invitation_post_comment") {
-                if(empty($_POST['id']) || empty($_POST['comment'])) {
+            } else if($action == "invitation_postMessage") {
+                if(empty($_POST['invitationId']) || empty($_POST['message'])) {
                     Invitation::$xmlResponse->sendError("Invitation id or comment not specified");
                 } else {
-                    Invitation::postComment($_POST['id'], $_POST['comment']);
+                    Invitation::postComment($_POST['invitationId'], $_POST['message']);
                 }
                 return true;            
-            } else if($action == "invitation_get_comments") {
-                if(empty($_POST['id'])) {
+            } else if($action == "invitation_messages") {
+                if(empty($_POST['invitationId'])) {
                     Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
-                    Invitation::queryComments($_POST['id']);
+                    Invitation::queryComments($_POST['invitationId']);
                 }                
                 return true;
             } else if($action == "invitation_query") {
                 Invitation::query();
                 return true;
-            } else if($action == "joinRequest_query") {
+            } else if($action == "joinRequest_query") { // TODO specify user id
                 Invitation::queryJoinRequests();
                 return true;
-            } else if($action == "invitation_get_details") {
-                if(empty($_POST['id'])) {
+            } else if($action == "invitation_details") {
+                if(empty($_POST['invitationId'])) {
                     Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
-                    Invitation::queryDetails($_POST['id']);
+                    Invitation::queryDetails($_POST['invitationId']);
                 }
                 return true;
-            } else if($action == "invitation_join_request") {
-                if(empty($_POST['id']) || empty($_POST['userId']) || empty($_POST['numParticipants'])) {
+            } else if($action == "joinRequest_create") {
+                if(empty($_POST['invitationId']) || empty($_POST['userId']) || empty($_POST['numParticipants'])) {
                     Invitation::$xmlResponse->sendError("Invitation id, user id or number of participants not specified");
                 } else {
-                    Invitation::createJoinRequest($_POST['id'], $_POST['userId'], $_POST['numParticipants']);
+                    Invitation::createJoinRequest($_POST['invitationId'], $_POST['userId'], $_POST['numParticipants']);
                 }
                 return true;
             } else if($action == "joinRequest_accept") {
-                if(empty($_POST['id'])) {
+                if(empty($_POST['joinRequestId'])) {
                     Invitation::$xmlResponse->sendError("Request id not specified");
                 } else {
-                    Invitation::acceptJoinRequest($_POST['id']);
+                    Invitation::acceptJoinRequest($_POST['joinRequestId']);
                 }
                 return true;            
             } else if($action == "joinRequest_reject") {
-                if(empty($_POST['id'])) {
+                if(empty($_POST['joinRequestId'])) {
                     Invitation::$xmlResponse->sendError("Request id not specified");
                 } else {
-                    Invitation::rejectJoinRequest($_POST['id']);
+                    Invitation::rejectJoinRequest($_POST['joinRequestId']);
                 }
                 return true;            
-            } else if($action == "invitation_get_participants") {
-                if(empty($_POST['id'])) {
+            } else if($action == "invitation_participants") {
+                if(empty($_POST['invitationId'])) {
                     Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
-                    Invitation::getParticipants($_POST['id']);
+                    Invitation::getParticipants($_POST['invitationId']);
                 }
                 return true;            
             } else if($action == "invitation_delete") {
-                if(empty($_POST['id'])) {
+                if(empty($_POST['invitationId'])) {
                     Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
-                    Invitation::delete($_POST['id']);
+                    Invitation::delete($_POST['invitationId']);
                 }
                 return true;    
             } else if($action == "invitation_update") {
-                if(empty($_POST['id'])) {
+                if(empty($_POST['invitationId'])) {
                     Invitation::$xmlResponse->sendError("Invitation id not specified");
                 } else {
                     $name = $_POST['name'];
@@ -108,7 +108,7 @@
                     $locationLatitude = $_POST['locationLatitude'];
                     $locationLongitude = $_POST['locationLongitude'];
             
-                    Invitation::update($_POST['id'], $name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude);
+                    Invitation::update($_POST['invitationId'], $name, $description, $maxParticipants, $date, $time, $locationCity, $locationStreet, $locationStreetNumber, $locationLatitude, $locationLongitude);
                 }
                 return true;    
             }

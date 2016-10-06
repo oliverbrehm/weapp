@@ -18,7 +18,7 @@
         echo "<div class='info'>Gender: ".($user->gender == 1 ? "Male" : "Female")."</div><br>";
         echo "<div class='info'>Date of birth: ".$user->dateOfBirth."</div><br>";
         echo "<div class='info'>Nationality: ".$user->nationality."</div><br>";
-        echo "<div class='info'>Email: ".$user->email."</div><br>";
+        echo "<div class='info'>Mail: ".$user->mail."</div><br>";
         if($user->userType == 1) { // Immigrant
             echo "<div class='info'>Date of immigration: ".$user->dateOfImmigration."</div><br>";
         }

@@ -11,9 +11,9 @@ import Foundation
 open class QueryUserLogin: Query
 {
     open var userId = ""
-    open func send(_ email: String, password: String, completion: @escaping ((Bool) -> Void))
+    open func send(_ mail: String, password: String, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=user_login&email=\(email)&password=\(password)"
+        let postData = "action=user_login&mail=\(mail)&password=\(password)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     

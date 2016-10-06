@@ -11,7 +11,7 @@ import Foundation
 open class QueryUserRegister: Query
 {
     open var userId = ""
-    open func send(_ email: String, password: String, firstName: String, lastName: String,
+    open func send(_ mail: String, password: String, firstName: String, lastName: String,
                    userType: Bool, gender: Bool,
                    dateOfBirth: Date, nationality: String,
                    dateOfImmigration: Date,
@@ -26,7 +26,7 @@ open class QueryUserRegister: Query
         let postData =
             "action=user_register&" +
                 
-                "email=\(email)&" +
+                "mail=\(mail)&" +
                 "password=\(password)&" +
                 "firstName=\(firstName)&" +
                 "lastName=\(lastName)&" +

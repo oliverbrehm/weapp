@@ -17,8 +17,9 @@
                 session_start();
             }
             
-            $this->initializeDatabase();
             $this->readAction();
+
+            $this->initializeDatabase();
             
             $this->xmlResponse = new XMLMessage();
             

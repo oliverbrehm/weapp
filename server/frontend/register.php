@@ -20,12 +20,12 @@
 
         $dateOfBirth = $_POST['dateOfBirth'];
         $nationality = $_POST['nationality'];
-        $email = $_POST['email'];
+        $mail = $_POST['mail'];
         $dateOfImmigration = $_POST['dateOfImmigration'];
         $locationLatitude = $_POST['locationLatitude'];
         $locationLongitude = $_POST['locationLongitude'];
                 
-        if(!UserQuery::register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $email, $dateOfImmigration, $locationLatitude, $locationLongitude))
+        if(!UserQuery::register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $mail, $dateOfImmigration, $locationLatitude, $locationLongitude))
         {
             echo "<h1>Error</h1>";
             echo "<div class='errorMessage'><p>Sorry, that username is taken.</p></div>";
@@ -59,7 +59,7 @@
                     <input type="radio" name="gender" id="gender" value="female"> Female<br><br />
                 <label for="dateOfBirth">Date of birth:</label><input type="date" name="dateOfBirth" id="dateOfBirth" /><br />
                 <label for="nationality">Nationality:</label><input type="text" name="nationality" id="nationality" /><br />
-                <label for="email">Mail:</label><input type="email" name="email" id="email" /><br />
+                <label for="mail">Mail:</label><input type="mail" name="mail" id="mail" /><br />
                 <label for="dateOfImmigration">Date of immigration:</label><input type="date" name="dateOfImmigration" id="dateOfImmigration" /><br />
                 <label for="locationLatitude">Longitude:</label><input type="text" name="locationLatitude" id="locationLatitude" /><br />
                 <label for="locationLongitude">Latitude:</label><input type="text" name="locationLongitude" id="locationLongitude" /><br />

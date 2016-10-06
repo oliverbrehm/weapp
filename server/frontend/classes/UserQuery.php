@@ -10,13 +10,13 @@
         public $gender;
         public $dateOfBirth;
         public $nationality;
-        public $email;
+        public $mail;
         public $dateOfImmigration;
         public $locationLatitude;
         public $locationLongitude;
         
         public function __construct($id, $name, $firstName, $lastName, 
-                $userType, $gender, $dateOfBirth, $nationality, $email, 
+                $userType, $gender, $dateOfBirth, $nationality, $mail, 
                 $dateOfImmigration, $locationLatitude, $locationLongitude) {
             $this->id = $id;
             $this->name = $name;
@@ -26,7 +26,7 @@
             $this->gender = $gender;
             $this->dateOfBirth = $dateOfBirth;
             $this->nationality = $nationality;
-            $this->email = $email;
+            $this->mail = $mail;
             $this->dateOfImmigration = $dateOfImmigration;
             $this->locationLatitude = $locationLatitude;
             $this->locationLongitude = $locationLongitude;
@@ -104,7 +104,7 @@
             $gender = "";
             $dateOfBirth = "";
             $nationality = "";
-            $email = "";
+            $mail = "";
             $dateOfImmigration = "";
             $locationLatitude = "";
             $locationLongitude = "";
@@ -134,8 +134,8 @@
                     if($child->tagName === "Nationality") {
                         $nationality = $child->textContent;
                     } 
-                    if($child->tagName === "Email") {
-                        $email = $child->textContent;
+                    if($child->tagName === "Mail") {
+                        $mail = $child->textContent;
                     } 
                     if($child->tagName === "DateOfImmigration") {
                         $dateOfImmigration = $child->textContent;
@@ -148,7 +148,7 @@
                     } 
                 }
     
-                $user = new User($userId, $userName, $firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $email, $dateOfImmigration, $locationLatitude, $locationLongitude);
+                $user = new User($userId, $userName, $firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $mail, $dateOfImmigration, $locationLatitude, $locationLongitude);
                 
                 // should only be one user so return
                 return $user;
@@ -157,7 +157,7 @@
             return null;        
         }
 
-        public static function register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $email, $dateOfImmigration, $locationLatitude, $locationLongitude)
+        public static function register($username, $password,$firstName, $lastName, $userType, $gender, $dateOfBirth, $nationality, $mail, $dateOfImmigration, $locationLatitude, $locationLongitude)
         {
             $data = array('action' => 'user_register'
                     , 'username' => $username
@@ -168,7 +168,7 @@
                     , 'gender' => $gender
                     , 'dateOfBirth' => $dateOfBirth
                     , 'nationality' => $nationality
-                    , 'email' => $email
+                    , 'mail' => $mail
                     , 'dateOfImmigration' => $dateOfImmigration
                     , 'locationLatitude' => $locationLatitude
                     , 'locationLongitude' => $locationLongitude);

@@ -4,9 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/oliver/Documents/weApp/server/interface/API.php</file>
+            <file>file:/Users/oliver/Documents/weApp/server/interface/User.php</file>
             <file>file:/Users/oliver/Documents/weApp/server/interface/Invitation.php</file>
-            <file>file:/Users/oliver/Documents/weApp/server/frontend/classes/InvitationQuery.php</file>
-            <file>file:/Users/oliver/Documents/weApp/server/frontend/invitations.php</file>
         </group>
     </open-files>
 </project-private>

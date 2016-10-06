@@ -155,7 +155,7 @@
 		A74F5B261C5676A9006C03CC /* weApp */ = {
 			isa = PBXGroup;
 			children = (
-				A77E5B9D1CBFB829003A7D0C /* ViewController */,
+				A77E5B9D1CBFB829003A7D0C /* UI */,
 				A747768C1CBA890C00144226 /* Model */,
 				A786F2611DA3A2820034708C /* Network */,
 				A786F2621DA3A2F80034708C /* Application */,
@@ -164,7 +164,7 @@
 			path = weApp;
 			sourceTree = "<group>";
 		};
-		A77E5B9D1CBFB829003A7D0C /* ViewController */ = {
+		A77E5B9D1CBFB829003A7D0C /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				A7BE09F01DA3A5EB004DE714 /* TableViewCell */,
@@ -180,7 +180,7 @@
 				A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */,
 				A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */,
 			);
-			name = ViewController;
+			name = UI;
 			sourceTree = "<group>";
 		};
 		A77E5B9E1CBFB84F003A7D0C /* Registration */ = {
