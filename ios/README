@@ -2,7 +2,8 @@ ios app prototype
 
 TASKS
 
-- create documentation, headerdoc
+- fix server query action names
+- create headerdoc
 - display recent messages (no matter which invitation) to user
 - display notification message to user on the day the invitation takes place
 - set user location and invitation location using map kit, display map in invitation detail

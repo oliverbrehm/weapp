@@ -1,0 +1,3 @@
+TODO
+
+- fix ER model and database to use coherent names (and e.g. missing password field in ER!)
