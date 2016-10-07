@@ -12,7 +12,7 @@ open class QueryInvitationDelete: Query
 {
     open func send(_ invitationId: Int, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_delete" +
+        let postData = "\(Arguments.Action)=\(Action.Invitation.Delete)" +
         "&id=\(invitationId)"
         
         super.sendHTTPPost(data: postData, completion: completion)

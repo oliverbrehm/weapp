@@ -13,7 +13,7 @@ open class QueryUserLogin: Query
     open var userId = ""
     open func send(_ mail: String, password: String, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=user_login&mail=\(mail)&password=\(password)"
+        let postData = "\(Arguments.Action)=\(Action.User.Login)&\(Arguments.User.Mail)=\(mail)&\(Arguments.User.Password)=\(password)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     

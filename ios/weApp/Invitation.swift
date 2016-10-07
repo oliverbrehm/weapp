@@ -85,7 +85,7 @@ open class Invitation
         if(self.runningQuery) { completion(false); return }
         self.runningQuery = true
         
-        let request = QueryInvitationJoin()
+        let request = QueryJoinRequestCreate()
         request.send(self.invitationId, userId: user.id, numParticipants: numParticipants) { (success: Bool) in
             self.runningQuery = false; completion(success)
         }

@@ -113,7 +113,7 @@ Bla</string>
         <!--Registration-->
         <scene sceneID="CZ7-Ul-nxQ">
             <objects>
-                <viewController title="Registration" id="KSC-gr-quu" customClass="UserPersonalInfoVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Registration" id="KSC-gr-quu" customClass="UserPersonalInfoVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4jq-55-uU3"/>
                         <viewControllerLayoutGuide type="bottom" id="eyR-7k-UQp"/>
@@ -228,7 +228,7 @@ Bla</string>
         <!--Who are you?-->
         <scene sceneID="YCY-OV-Zk6">
             <objects>
-                <viewController title="Who are you?" id="cja-qH-onE" customClass="UserTypeSelectionVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Who are you?" id="cja-qH-onE" customClass="UserTypeSelectionVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ImN-cO-Gcq"/>
                         <viewControllerLayoutGuide type="bottom" id="dSj-Fz-1eg"/>
@@ -305,13 +305,13 @@ Bla</string>
         <!--Invitations-->
         <scene sceneID="jFQ-5L-LcX">
             <objects>
-                <tableViewController title="Invitations" id="RbD-OH-6S9" customClass="InvitationListTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Invitations" id="RbD-OH-6S9" customClass="InvitationListTVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="U3X-kx-fMo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addInvitationCell" id="Bk8-f1-inb" customClass="InvitationCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addInvitationCell" id="Bk8-f1-inb" customClass="InvitationCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bk8-f1-inb" id="hxH-EW-sh6">
@@ -337,7 +337,7 @@ Bla</string>
                                     <segue destination="zGD-Zn-CCv" kind="presentation" id="a01-mf-kgx"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invitationCell" id="0fr-UX-OhW" customClass="InvitationCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invitationCell" id="0fr-UX-OhW" customClass="InvitationCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0fr-UX-OhW" id="cG5-7k-n3p">
@@ -362,7 +362,7 @@ Bla</string>
                                     <segue destination="Ef6-Ze-xSe" kind="show" identifier="invitationDetail" id="hDj-fK-3IV"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invitationLoadingCell" id="xLI-eY-gQ5" customClass="TableViewStateCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invitationLoadingCell" id="xLI-eY-gQ5" customClass="TableViewStateCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="180" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xLI-eY-gQ5" id="I6P-3h-UKk">
@@ -403,14 +403,14 @@ Bla</string>
         <!--Loading...-->
         <scene sceneID="Aa5-S2-34Q">
             <objects>
-                <tableViewController title="Loading..." id="Ef6-Ze-xSe" customClass="InvitationDetailTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Loading..." id="Ef6-Ze-xSe" customClass="InvitationDetailTVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Jj6-Dy-5Qn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="invitationInfoCell" textLabel="Ce3-bL-XcQ" detailTextLabel="2ib-Lg-uSf" style="IBUITableViewCellStyleValue1" id="zp7-mL-7F5">
-                                <rect key="frame" x="0.0" y="119.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zp7-mL-7F5" id="X3r-hy-LAe">
                                     <frame key="frameInset" width="375" height="43"/>
@@ -434,7 +434,7 @@ Bla</string>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="participantCell" textLabel="Mjw-yL-a2Z" style="IBUITableViewCellStyleDefault" id="bkS-2C-Lwj">
-                                <rect key="frame" x="0.0" y="163.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="164" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bkS-2C-Lwj" id="RBe-I5-2vu">
                                     <frame key="frameInset" width="375" height="43"/>
@@ -451,14 +451,14 @@ Bla</string>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" textLabel="UoX-lD-qNG" style="IBUITableViewCellStyleDefault" id="n2f-YE-pkU">
-                                <rect key="frame" x="0.0" y="207.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="208" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n2f-YE-pkU" id="Ltt-6T-lbY">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UoX-lD-qNG">
-                                            <frame key="frameInset" minX="15" width="345" height="43.5"/>
+                                            <frame key="frameInset" minX="15" width="345" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -468,14 +468,14 @@ Bla</string>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="showMessagesCell" textLabel="p3x-RG-dZp" style="IBUITableViewCellStyleDefault" id="Ygi-Po-Isd">
-                                <rect key="frame" x="0.0" y="251.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="252" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ygi-Po-Isd" id="duS-lM-tSg">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Show all..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p3x-RG-dZp">
-                                            <frame key="frameInset" minX="15" width="345" height="43.5"/>
+                                            <frame key="frameInset" minX="15" width="345" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -509,7 +509,7 @@ Bla</string>
         <!--Create Join RequestVC-->
         <scene sceneID="gNx-lu-Tn5">
             <objects>
-                <viewController id="o32-5b-yB1" customClass="CreateJoinRequestVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="o32-5b-yB1" customClass="CreateJoinRequestVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mVG-3j-lhZ"/>
                         <viewControllerLayoutGuide type="bottom" id="rZj-6k-aop"/>
@@ -587,13 +587,13 @@ Bla</string>
         <!--Messages-->
         <scene sceneID="Ry8-5j-NLj">
             <objects>
-                <tableViewController id="DP6-7y-SqF" userLabel="Messages" customClass="InvitationMessageTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="DP6-7y-SqF" userLabel="Messages" customClass="InvitationMessageTVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ywF-M7-p4e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="167" id="Fil-yn-Fti" customClass="MessageCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="167" id="Fil-yn-Fti" customClass="MessageCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="167"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fil-yn-Fti" id="3Sk-f0-ICn">
@@ -637,7 +637,7 @@ Bla</string>
                                     <outlet property="timestampLabel" destination="aPx-Fm-T9e" id="gMg-rB-z5l"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="stateCell" id="rOu-0O-hsc" customClass="TableViewStateCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="stateCell" id="rOu-0O-hsc" customClass="TableViewStateCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="259" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rOu-0O-hsc" id="tOb-PL-Lrc">
@@ -663,7 +663,7 @@ Bla</string>
                                     <outlet property="messageLabel" destination="ZNV-Ct-dpj" id="j6z-nq-cxR"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editCell" rowHeight="155" id="TsP-MJ-XEQ" customClass="MessageEditCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editCell" rowHeight="155" id="TsP-MJ-XEQ" customClass="MessageEditCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="303" width="375" height="155"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TsP-MJ-XEQ" id="Tsd-AW-dbP">
@@ -714,7 +714,7 @@ Bla</string>
         <!--LoginVC-->
         <scene sceneID="C3Z-Yo-9xh">
             <objects>
-                <viewController id="Xy9-GZ-Pac" customClass="LoginVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Xy9-GZ-Pac" customClass="LoginVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yf7-7U-cpb"/>
                         <viewControllerLayoutGuide type="bottom" id="BHf-As-1Yd"/>
@@ -827,8 +827,8 @@ Bla</string>
                     <connections>
                         <outlet property="activityIndicator" destination="vLi-qX-eIR" id="B8Q-iw-An9"/>
                         <outlet property="autologinSwitch" destination="qOa-GT-J8R" id="RiY-lp-8oT"/>
-                        <outlet property="emailTextField" destination="FGq-YV-lLo" id="lMg-MJ-ayK"/>
                         <outlet property="loginButton" destination="qcW-s8-PcU" id="LXH-6c-bUU"/>
+                        <outlet property="mailTextField" destination="FGq-YV-lLo" id="AcU-rI-6H9"/>
                         <outlet property="passwordTextField" destination="SZJ-9b-8E5" id="Fd4-F8-IqR"/>
                     </connections>
                 </viewController>
@@ -905,7 +905,7 @@ Bla</string>
         <!--MainTBC-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" customClass="MainTBC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="MainTBC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -926,7 +926,7 @@ Bla</string>
         <!--Invitations-->
         <scene sceneID="U4N-k1-jMR">
             <objects>
-                <tableViewController id="Rza-2Z-Ikk" customClass="UserInvitationsTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Rza-2Z-Ikk" customClass="UserInvitationsTVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="sH0-zE-EgB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -954,7 +954,7 @@ Bla</string>
                                     <segue destination="Ef6-Ze-xSe" kind="show" identifier="invitationDetail" id="hcb-jL-jQI"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" id="B8C-i7-0mR" customClass="TableViewStateCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loadingCell" id="B8C-i7-0mR" customClass="TableViewStateCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="180" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B8C-i7-0mR" id="da8-yc-ajd">
@@ -995,13 +995,13 @@ Bla</string>
         <!--Request-->
         <scene sceneID="mGG-Db-2pS">
             <objects>
-                <tableViewController title="Request" id="X15-5i-GX0" customClass="JoinRequestTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Request" id="X15-5i-GX0" customClass="JoinRequestTVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QhJ-ci-NJI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reactionCell" rowHeight="66" id="DWN-uU-HsQ" customClass="RequestReactionCell" customModule="Potpourri" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reactionCell" rowHeight="66" id="DWN-uU-HsQ" customClass="RequestReactionCell" customModule="WE" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DWN-uU-HsQ" id="Mw2-mp-inU">
@@ -1073,7 +1073,7 @@ Bla</string>
         <!--User-->
         <scene sceneID="IPR-id-9eV">
             <objects>
-                <tableViewController storyboardIdentifier="UserProfileTVC" title="User" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dh7-zw-vif" customClass="UserProfileTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserProfileTVC" title="User" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dh7-zw-vif" customClass="UserProfileTVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ht5-sV-5mm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1350,11 +1350,11 @@ Bla</string>
                     <connections>
                         <outlet property="dateOfBirthLabel" destination="deV-G9-ujy" id="Pmf-OZ-4Wa"/>
                         <outlet property="dateOfImmigrationLabel" destination="f35-LR-Z9s" id="HG6-HO-xuO"/>
-                        <outlet property="emailLabel" destination="gRR-LT-6JA" id="A8X-hy-Tlu"/>
                         <outlet property="genderLabel" destination="vqC-Wf-Etq" id="IPm-zl-g2U"/>
                         <outlet property="locationLatitudeLabel" destination="hev-2G-Gzd" id="LGb-Mp-Med"/>
                         <outlet property="locationLongitudeLabel" destination="35T-XB-lfM" id="pbC-Ch-3lt"/>
                         <outlet property="logoutCell" destination="wGw-AF-nLr" id="nzU-hC-lCS"/>
+                        <outlet property="mailLabel" destination="gRR-LT-6JA" id="jLC-IE-CAJ"/>
                         <outlet property="nationalityLabel" destination="Dz4-R6-3BG" id="bGO-kW-SfC"/>
                         <outlet property="sessionIdLabel" destination="Dpu-r1-RZe" id="fqe-Tr-0h5"/>
                         <outlet property="userIdLabel" destination="vWg-GE-oQ1" id="Nlw-Dc-gtA"/>
@@ -1387,7 +1387,7 @@ Bla</string>
         <!--Create Invitation-->
         <scene sceneID="83V-Ra-KRD">
             <objects>
-                <tableViewController id="4HU-QX-x2H" customClass="CreateInvitationTVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="4HU-QX-x2H" customClass="CreateInvitationTVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="chP-Ai-AsY">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1711,7 +1711,7 @@ Bla</string>
         <!--RegistrationNVC-->
         <scene sceneID="khs-DB-z7V">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4tN-iT-FLD" customClass="RegistrationNVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4tN-iT-FLD" customClass="RegistrationNVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="r3h-uY-90A">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1762,7 +1762,7 @@ Bla</string>
         <!--Registration 2-->
         <scene sceneID="V0E-Eg-qJA">
             <objects>
-                <viewController title="Registration 2" id="4NJ-IG-r57" customClass="UserRegistrationVC" customModule="Potpourri" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Registration 2" id="4NJ-IG-r57" customClass="UserRegistrationVC" customModule="WE" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GxC-0W-m7M"/>
                         <viewControllerLayoutGuide type="bottom" id="MFp-On-lby"/>
@@ -1864,7 +1864,7 @@ Bla</string>
                     <connections>
                         <outlet property="activityIndicator" destination="6IJ-kw-ILn" id="whh-IW-SGo"/>
                         <outlet property="agreementSwitch" destination="cVg-lB-9ay" id="vVM-FK-iM7"/>
-                        <outlet property="emailTextField" destination="U7r-uI-nWe" id="iAf-Hu-Ul7"/>
+                        <outlet property="mailTextField" destination="U7r-uI-nWe" id="ctm-gl-vFV"/>
                         <outlet property="password1TextField" destination="t1b-y9-6k2" id="xcp-YT-bJj"/>
                         <outlet property="password2TextField" destination="Cct-l3-yFX" id="c3d-59-nJB"/>
                         <outlet property="stackView" destination="JBO-nB-5U3" id="qDb-rM-WfK"/>

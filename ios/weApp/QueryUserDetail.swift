@@ -26,7 +26,7 @@ open class QueryUserDetail: Query
     
     open func send(_ userId: Int, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=user_get_details&user_id=\(userId)"
+        let postData = "\(Arguments.Action)=\(Action.User.Details)&\(Arguments.User.UserId)=\(userId)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     
@@ -52,7 +52,7 @@ open class QueryUserDetail: Query
         case "Nationality":
             self.nationality = self.currentString
             break
-        case "mail":
+        case "Mail":
             self.mail = self.currentString
             break
         case "DateOfImmigration":

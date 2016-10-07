@@ -27,7 +27,7 @@ open class QueryInvitationDetail: Query
         
     open func send(_ id: Int, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_get_details&id=\(id)"
+        let postData = "\(Arguments.Action)=\(Action.Invitation.Details)&\(Arguments.Invitation.InvitationId)=\(id)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     

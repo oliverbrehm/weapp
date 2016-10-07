@@ -16,9 +16,83 @@ open class Query: NSObject, XMLParserDelegate
     
     var currentString = ""
     
+    let APIURL = "http://vocab-book.com/integrationsprojekt/develop/interface/API.php"
+    
+    public struct Action {
+        struct User {
+            static let Register   = "user_register"
+            static let Login      = "user_login"
+            static let Logout     = "user_logout"
+            static let IsLoggedIn = "user_isLoggedIn"
+            static let Query      = "user_query"
+            static let Details    = "user_details"
+        }
+        
+        struct Invitation {
+            static let Create       = "invitation_create"
+            static let PostMessage  = "invitation_postMessage"
+            static let Messages      = "invitation_messages"
+            static let Query        = "invitation_query"
+            static let Details      = "invitation_details"
+            static let Participants = "invitation_participants"
+            static let Delete       = "invitation_delete"
+            static let Update       = "invitation_update"
+        }
+    
+        struct JoinRequest {
+            static let Create   = "joinRequest_create"
+            static let Query    = "joinRequest_query"
+            static let Accept   = "joinRequest_accept"
+            static let Reject   = "joinRequest_reject"
+        }
+    }
+    
+    public struct Arguments {
+        static let Action = "action"
+        
+        struct User {
+            static let Mail              = "mail"
+            static let Password          = "password"
+            static let FirstName         = "firstName"
+            static let LastName          = "lastName"
+            static let UserType          = "userType"
+            static let Gender            = "gender"
+            static let DateOfBirth       = "dateOfBirth"
+            static let Nationality       = "nationality"
+            static let DateOfImmigration = "dateOfImmigration"
+            static let LocationLatitude  = "locationLatitude"
+            static let LocationLongitude = "locationLongitude"
+            static let UserId            = "userId"
+        }
+
+        struct Invitation {
+            static let Name                 = "name"
+            static let Description          = "description"
+            static let MaxParticipants      = "maxParticipants"
+            static let Date                 = "date"
+            static let Time                 = "time"
+            static let LocationCity         = "locationCity"
+            static let LocationStreet       = "locationStreet"
+            static let LocationStreetNumber = "locationStreetNumber"
+            static let LocationLatitude     = "locationLatitude"
+            static let LocationLongitude    = "locationLongitude"
+            static let InvitationId         = "invitationId"
+            static let Message              = "message"
+            static let OwnerId              = "ownerId"
+            static let ParticipatingUserId  = "participatingUserId"
+        }
+        
+        struct JoinRequest {
+            static let InvitationId     = "invitationId"
+            static let UserId           = "userId"
+            static let NumParticipants  = "numParticipants"
+            static let JoinRequestId    = "joinRequestId"
+        }
+    }
+    
     internal func sendHTTPPost(data: String, completion: @escaping ((Bool) -> Void))
     {
-        let request = NSMutableURLRequest(url: URL(string: "http://vocab-book.com/integrationsprojekt/develop/interface/API.php")!)
+        let request = NSMutableURLRequest(url: URL(string: self.APIURL)!)
         // TODO use HTTPS? normally HTTP is not even supported (hack in Project -> target -> Info -> App Transport Security Settings)
         
         request.httpMethod = "POST"

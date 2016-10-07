@@ -17,19 +17,19 @@ open class QueryInvitationList: Query
    
     open func send(completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_query"
+        let postData = "\(Arguments.Action)=\(Action.Invitation.Query)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     
     open func send(owner: User, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_query&ownerID=\(owner.id)"
+        let postData = "\(Arguments.Action)=\(Action.Invitation.Query)&\(Arguments.Invitation.OwnerId)=\(owner.id)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     
     open func send(participatingUser: User, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_query&participatingUserID=\(participatingUser.id)"
+        let postData = "\(Arguments.Action)=\(Action.Invitation.Query)&\(Arguments.Invitation.ParticipatingUserId)=\(participatingUser.id)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     

@@ -12,7 +12,7 @@ open class QueryMessagePost: Query
 {
     open func send(invitationId: Int, message: String, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_post_comment&id=\(invitationId)&comment=\(message)"
+        let postData = "\(Arguments.Action)=\(Action.Invitation.PostMessage)&id=\(invitationId)&\(Arguments.Invitation.Message)=\(message)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
 }

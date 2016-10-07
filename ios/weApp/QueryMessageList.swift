@@ -27,7 +27,7 @@ open class QueryMessageList: Query
     
     open func send(invitationId: Int, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_get_comments&id=\(invitationId)"
+        let postData = "\(Arguments.Action)=\(Action.Invitation.Messages)&\(Arguments.Invitation.InvitationId)=\(invitationId)"
         
         super.sendHTTPPost(data: postData, completion: completion)
     }

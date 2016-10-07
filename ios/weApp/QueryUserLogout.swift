@@ -12,7 +12,7 @@ open class QueryUserLogout: Query
 {
     open var userId = ""
     open func send(completion: @escaping ((Bool) -> Void))    {
-        let postData = "action=user_logout"
+        let postData = "\(Arguments.Action)=\(Action.User.Logout)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
 }

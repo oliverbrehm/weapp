@@ -23,13 +23,13 @@ open class QueryJoinRequestList: Query
     
     open func send(completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=joinRequest_query"
+        let postData = "\(Arguments.Action)=\(Action.JoinRequest.Query)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     
     open func send(_ user: User, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=joinRequest_query&userID=\(user.id)"
+        let postData = "\(Arguments.Action)=\(Action.JoinRequest.Query)&\(Arguments.JoinRequest.UserId)=\(user.id)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
     

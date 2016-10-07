@@ -23,20 +23,18 @@ open class QueryUserRegister: Query
         let immigrationDateString = dateFormatter.string(from: dateOfImmigration)
         let birthDateString = dateFormatter.string(from: dateOfBirth)
         
-        let postData =
-            "action=user_register&" +
-                
-                "mail=\(mail)&" +
-                "password=\(password)&" +
-                "firstName=\(firstName)&" +
-                "lastName=\(lastName)&" +
-                "userType=\(userType)&" +
-                "gender=\(gender)&" +
-                "dateOfBirth=\(birthDateString)&" +
-                "nationality=\(nationality)&" +
-                "dateOfImmigration=\(immigrationDateString)&" +
-                "locationLatitude=\(locationLatitude)&" +
-        "locationLongitude=\(locationLongitude)&"
+        let postData = "\(Arguments.Action)=\(Action.User.Register)&" +
+                "\(Arguments.User.Mail)=\(mail)&" +
+                "\(Arguments.User.Password)=\(password)&" +
+                "\(Arguments.User.FirstName)=\(firstName)&" +
+                "\(Arguments.User.LastName)=\(lastName)&" +
+                "\(Arguments.User.UserType)=\(userType)&" +
+                "\(Arguments.User.Gender)=\(gender)&" +
+                "\(Arguments.User.DateOfBirth)=\(birthDateString)&" +
+                "\(Arguments.User.Nationality)=\(nationality)&" +
+                "\(Arguments.User.DateOfImmigration)=\(immigrationDateString)&" +
+                "\(Arguments.User.LocationLatitude)=\(locationLatitude)&" +
+                "\(Arguments.User.LocationLongitude)=\(locationLongitude)&"
         
         super.sendHTTPPost(data: postData, completion: completion)
     }

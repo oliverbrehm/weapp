@@ -12,7 +12,7 @@ open class QueryJoinRequestAccept: Query
 {
     open func send(_ requestId: Int, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=joinRequest_accept&id=\(requestId)"
+        let postData = "\(Arguments.Action)=\(Action.JoinRequest.Accept)&\(Arguments.JoinRequest.InvitationId)=\(requestId)"
         super.sendHTTPPost(data: postData, completion: completion)
     }
 }

@@ -48,17 +48,17 @@
             } else if($action == "user_logout") {
                 User::logout();
                 return true;
-            } else if($action == "user_logged_in") {
+            } else if($action == "user_idLoggedIn") {
                 User::queryLoggedIn();
                 return true;
-            } else if($action == "user_get_all") {
+            } else if($action == "user_query") {
                 User::queryAll();
                 return true;
-            } else if($action == "user_get_details") {
-                if(empty($_POST["user_id"])) {
+            } else if($action == "user_details") {
+                if(empty($_POST["userId"])) {
                     User::$xmlResponse->sendError("User not specified");
                 } else {
-                    User::queryDetails($_POST['user_id']);
+                    User::queryDetails($_POST['userId']);
                 }
                 return true;
             }

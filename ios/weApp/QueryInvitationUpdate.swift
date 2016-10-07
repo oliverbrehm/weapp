@@ -15,18 +15,18 @@ open class QueryInvitationUpdate: Query
                    locationCity : String, locationStreet : String, locationStreetNumber : Int,
                    locationLatitude : Int, locationLongitude : Int, completion: @escaping ((Bool) -> Void))
     {
-        let postData = "action=invitation_update" +
-            "&id=\(invitationId)" +
-            "&name=\(name)" +
-            "&description=\(detailedDescription)" +
-            "&maxParticipants=\(maxParticipants)" +
-            "&date=\(date)" +
-            "&time=\(time)" +
-            "&locationCity=\(locationCity)" +
-            "&locationStreet=\(locationStreet)" +
-            "&locationStreetNumber=\(locationStreetNumber)" +
-            "&locationLatitude=\(locationLatitude)" +
-        "&locationLongitude=\(locationLongitude)"
+        let postData = "\(Arguments.Action)=\(Action.Invitation.Update)" +
+            "&\(Arguments.Invitation.InvitationId)=\(invitationId)" +
+            "&\(Arguments.Invitation.Name)=\(name)" +
+            "&\(Arguments.Invitation.Description)=\(detailedDescription)" +
+            "&\(Arguments.Invitation.MaxParticipants)=\(maxParticipants)" +
+            "&\(Arguments.Invitation.Date)=\(date)" +
+            "&\(Arguments.Invitation.Time)=\(time)" +
+            "&\(Arguments.Invitation.LocationCity)=\(locationCity)" +
+            "&\(Arguments.Invitation.LocationStreet)=\(locationStreet)" +
+            "&\(Arguments.Invitation.LocationStreetNumber)=\(locationStreetNumber)" +
+            "&\(Arguments.Invitation.LocationLatitude)=\(locationLatitude)" +
+        "&\(Arguments.Invitation.LocationLongitude)=\(locationLongitude)"
         
         super.sendHTTPPost(data: postData, completion: completion)
     }
