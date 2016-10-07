@@ -2,7 +2,7 @@ ios app prototype
 
 TASKS
 
-- fix server query action names
+- split storyboard into multiple files
 - create headerdoc
 - display recent messages (no matter which invitation) to user
 - display notification message to user on the day the invitation takes place

@@ -150,7 +150,9 @@ A list of actions and required arguments is given in figures 2-4.\\
 			\texttt{invitation\_messages} &  & queries all messages for a given invitation \\  
 												   & \texttt{invitationId} & id of the invitation \\  
 			\hline									   
-			\texttt{invitation\_query} &  & returns a list of all invitations \\  
+			\texttt{invitation\_query} &  & returns a list of invitations \\  
+													& \texttt{ownerId} & only invitations by this user \\   
+													& \texttt{participatingUserId} & only invitations in which this user takes part in\\  
 			\hline
 			\texttt{invitation\_details} &  & returns detailed information for a given invitation \\  
 												   & \texttt{invitationId} & id of the invitation \\   

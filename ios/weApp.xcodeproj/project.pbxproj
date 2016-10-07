@@ -12,6 +12,7 @@
 		A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
 		A71BDA961D9D288E008D6984 /* InvitationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */; };
 		A71BDA981D9D2E9D008D6984 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA971D9D2E9D008D6984 /* MessageCell.swift */; };
+		A72681A91DA7F238002703FE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72681A81DA7F238002703FE /* Invitation.storyboard */; };
 		A743D8551CBE801B00D14320 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
 		A743D8591CBE805A00D14320 /* QueryInvitationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8581CBE805A00D14320 /* QueryInvitationList.swift */; };
 		A743D85B1CBE861400D14320 /* InvitationListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85A1CBE861400D14320 /* InvitationListTVC.swift */; };
@@ -55,6 +56,7 @@
 		A7EC55ED1CCBBEC300A4056B /* CreateJoinRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */; };
 		A7EC55EF1CCBCAE100A4056B /* JoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */; };
 		A7EC55F11CCBE87900A4056B /* JoinRequestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */; };
+		A7FFC7C91DA7EEFE007D8CC0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FFC7C81DA7EEFE007D8CC0 /* Login.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +65,7 @@
 		A71BDA931D9D0A6D008D6984 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationMessageTVC.swift; sourceTree = "<group>"; };
 		A71BDA971D9D2E9D008D6984 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		A72681A81DA7F238002703FE /* Invitation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		A743D8541CBE801B00D14320 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
 		A743D8581CBE805A00D14320 /* QueryInvitationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryInvitationList.swift; sourceTree = "<group>"; };
 		A743D85A1CBE861400D14320 /* InvitationListTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationListTVC.swift; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateJoinRequestVC.swift; sourceTree = "<group>"; };
 		A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequest.swift; sourceTree = "<group>"; };
 		A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequestTVC.swift; sourceTree = "<group>"; };
+		A7FFC7C81DA7EEFE007D8CC0 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,10 +222,12 @@
 		A786F2631DA3A31C0034708C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A74F5B2D1C5676A9006C03CC /* Main.storyboard */,
 				A74F5B301C5676A9006C03CC /* Assets.xcassets */,
-				A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */,
 				A74F5B351C5676A9006C03CC /* Info.plist */,
+				A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */,
+				A74F5B2D1C5676A9006C03CC /* Main.storyboard */,
+				A7FFC7C81DA7EEFE007D8CC0 /* Login.storyboard */,
+				A72681A81DA7F238002703FE /* Invitation.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -344,7 +350,9 @@
 				A71BDA901D9CFA7C008D6984 /* README in Resources */,
 				A74F5B341C5676A9006C03CC /* LaunchScreen.storyboard in Resources */,
 				A74F5B311C5676A9006C03CC /* Assets.xcassets in Resources */,
+				A7FFC7C91DA7EEFE007D8CC0 /* Login.storyboard in Resources */,
 				A74F5B2F1C5676A9006C03CC /* Main.storyboard in Resources */,
+				A72681A91DA7F238002703FE /* Invitation.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

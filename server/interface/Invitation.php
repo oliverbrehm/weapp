@@ -305,13 +305,13 @@
             $sqlFrom = "Invitation";
             $sqlWhere = "1";
             
-            if(!empty($_POST['ownerID'])) {
-                $owner = $_POST['ownerID'];
+            if(!empty($_POST['ownerId'])) {
+                $owner = $_POST['ownerId'];
                 $sqlWhere .= " AND Invitation.UserID='".$owner."'";
             }     
             
-            if(!empty($_POST['participatingUserID'])) {
-                $participatingUser = $_POST['participatingUserID'];
+            if(!empty($_POST['participatingUserId'])) {
+                $participatingUser = $_POST['participatingUserId'];
                 $sqlFrom = "Invitation, InvitationParticipant";
                 $sqlWhere .= " AND InvitationParticipant.InvitationID = Invitation.InvitationID AND InvitationParticipant.UserID='".$participatingUser."'";
             }

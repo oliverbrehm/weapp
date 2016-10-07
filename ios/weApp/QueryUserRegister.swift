@@ -34,7 +34,7 @@ open class QueryUserRegister: Query
                 "\(Arguments.User.Nationality)=\(nationality)&" +
                 "\(Arguments.User.DateOfImmigration)=\(immigrationDateString)&" +
                 "\(Arguments.User.LocationLatitude)=\(locationLatitude)&" +
-                "\(Arguments.User.LocationLongitude)=\(locationLongitude)&"
+                "\(Arguments.User.LocationLongitude)=\(locationLongitude)"
         
         super.sendHTTPPost(data: postData, completion: completion)
     }
