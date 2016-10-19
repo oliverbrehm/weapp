@@ -8,7 +8,3 @@ COMPONENTS:
 - server: server API backend
 - ios: ios frontend
 - android: android frontend
-
-- - - - - - - - -
-
-Specific TODOs are located in each components README file
