@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A71BDA901D9CFA7C008D6984 /* README in Resources */ = {isa = PBXBuildFile; fileRef = A71BDA8F1D9CFA7C008D6984 /* README */; };
 		A71BDA921D9D06F8008D6984 /* QueryMessagePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */; };
 		A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
 		A71BDA961D9D288E008D6984 /* InvitationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */; };
@@ -60,7 +59,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A71BDA8F1D9CFA7C008D6984 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryMessagePost.swift; sourceTree = "<group>"; };
 		A71BDA931D9D0A6D008D6984 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationMessageTVC.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 		A74F5B1B1C5676A9006C03CC = {
 			isa = PBXGroup;
 			children = (
-				A71BDA8F1D9CFA7C008D6984 /* README */,
 				A74F5B261C5676A9006C03CC /* weApp */,
 				A74F5B251C5676A9006C03CC /* Products */,
 			);
@@ -347,7 +344,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A71BDA901D9CFA7C008D6984 /* README in Resources */,
 				A74F5B341C5676A9006C03CC /* LaunchScreen.storyboard in Resources */,
 				A74F5B311C5676A9006C03CC /* Assets.xcassets in Resources */,
 				A7FFC7C91DA7EEFE007D8CC0 /* Login.storyboard in Resources */,
