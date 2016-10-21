@@ -7,6 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45A4A4171DB8D098007F1F70 /* QueryJoinRequestAccept.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09FD1DA3A951004DE714 /* QueryJoinRequestAccept.swift */; };
+		45A4A4181DB8D098007F1F70 /* QueryJoinRequestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09FB1DA3A92B004DE714 /* QueryJoinRequestList.swift */; };
+		45A4A4191DB8D098007F1F70 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
+		45A4A41A1DB8D098007F1F70 /* QueryInvitationParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A0D1DA3ABBD004DE714 /* QueryInvitationParticipants.swift */; };
+		45A4A41B1DB8D098007F1F70 /* UserRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA31CBFBB0A003A7D0C /* UserRegistrationVC.swift */; };
+		45A4A41C1DB8D098007F1F70 /* JoinRequestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */; };
+		45A4A41D1DB8D098007F1F70 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74F5B271C5676A9006C03CC /* AppDelegate.swift */; };
+		45A4A41E1DB8D098007F1F70 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09F11DA3A7CC004DE714 /* MessageList.swift */; };
+		45A4A41F1DB8D098007F1F70 /* QueryUserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA6191CBBA670008AB1C3 /* QueryUserDetail.swift */; };
+		45A4A4201DB8D098007F1F70 /* QueryInvitationCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A051DA3A9F8004DE714 /* QueryInvitationCreate.swift */; };
+		45A4A4211DB8D098007F1F70 /* QueryInvitationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A0F1DA3ABE3004DE714 /* QueryInvitationDetail.swift */; };
+		45A4A4221DB8D098007F1F70 /* InvitationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09F31DA3A7D7004DE714 /* InvitationList.swift */; };
+		45A4A4231DB8D098007F1F70 /* QueryJoinRequestReject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09FF1DA3A960004DE714 /* QueryJoinRequestReject.swift */; };
+		45A4A4241DB8D098007F1F70 /* QueryInvitationDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A0B1DA3AA4B004DE714 /* QueryInvitationDelete.swift */; };
+		45A4A4251DB8D098007F1F70 /* QueryUserLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A131DA3AF26004DE714 /* QueryUserLogout.swift */; };
+		45A4A4261DB8D098007F1F70 /* InvitationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */; };
+		45A4A4271DB8D098007F1F70 /* TableViewStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A768EE0D1D9BDC9000C17148 /* TableViewStateCell.swift */; };
+		45A4A4281DB8D098007F1F70 /* MessageEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7892FA51D9D438800D1B851 /* MessageEditCell.swift */; };
+		45A4A4291DB8D098007F1F70 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
+		45A4A42A1DB8D098007F1F70 /* RegistrationNVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */; };
+		45A4A42B1DB8D098007F1F70 /* JoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EE1CCBCAE100A4056B /* JoinRequest.swift */; };
+		45A4A42C1DB8D098007F1F70 /* QueryInvitationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8581CBE805A00D14320 /* QueryInvitationList.swift */; };
+		45A4A42D1DB8D098007F1F70 /* UserPersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5BA11CBFB9BF003A7D0C /* UserPersonalInfoVC.swift */; };
+		45A4A42E1DB8D098007F1F70 /* InvitationListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85A1CBE861400D14320 /* InvitationListTVC.swift */; };
+		45A4A42F1DB8D098007F1F70 /* InvitationDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D85C1CBE8BE900D14320 /* InvitationDetailTVC.swift */; };
+		45A4A4301DB8D098007F1F70 /* MainTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74776911CBA8CAE00144226 /* MainTBC.swift */; };
+		45A4A4311DB8D098007F1F70 /* QueryInvitationUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A091DA3AA29004DE714 /* QueryInvitationUpdate.swift */; };
+		45A4A4321DB8D098007F1F70 /* QueryMessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A011DA3A9A3004DE714 /* QueryMessageList.swift */; };
+		45A4A4331DB8D098007F1F70 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A747768A1CBA868D00144226 /* LoginVC.swift */; };
+		45A4A4341DB8D098007F1F70 /* InvitationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */; };
+		45A4A4351DB8D098007F1F70 /* CreateJoinRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */; };
+		45A4A4361DB8D098007F1F70 /* UserInvitationsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */; };
+		45A4A4371DB8D098007F1F70 /* UserTypeSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77E5B9B1CBFA696003A7D0C /* UserTypeSelectionVC.swift */; };
+		45A4A4381DB8D098007F1F70 /* QueryUserRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A151DA3AF33004DE714 /* QueryUserRegister.swift */; };
+		45A4A4391DB8D098007F1F70 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD0391CCA6F1A001FFEB4 /* Utility.swift */; };
+		45A4A43A1DB8D098007F1F70 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A747768D1CBA891900144226 /* User.swift */; };
+		45A4A43B1DB8D098007F1F70 /* QueryJoinRequestCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A071DA3AA10004DE714 /* QueryJoinRequestCreate.swift */; };
+		45A4A43C1DB8D098007F1F70 /* QueryMessagePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */; };
+		45A4A43D1DB8D098007F1F70 /* CreateInvitationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79FD03B1CCA7F14001FFEB4 /* CreateInvitationTVC.swift */; };
+		45A4A43E1DB8D098007F1F70 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA6171CBB86D0008AB1C3 /* Query.swift */; };
+		45A4A43F1DB8D098007F1F70 /* QueryUserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE0A111DA3AF1C004DE714 /* QueryUserLogin.swift */; };
+		45A4A4401DB8D098007F1F70 /* JoinRequestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09F71DA3A83D004DE714 /* JoinRequestList.swift */; };
+		45A4A4411DB8D098007F1F70 /* UserProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74776931CBA92E500144226 /* UserProfileTVC.swift */; };
+		45A4A4421DB8D098007F1F70 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA971D9D2E9D008D6984 /* MessageCell.swift */; };
+		45A4A4451DB8D098007F1F70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */; };
+		45A4A4461DB8D098007F1F70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B301C5676A9006C03CC /* Assets.xcassets */; };
+		45A4A4471DB8D098007F1F70 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FFC7C81DA7EEFE007D8CC0 /* Login.storyboard */; };
+		45A4A4481DB8D098007F1F70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B2D1C5676A9006C03CC /* Main.storyboard */; };
+		45A4A4491DB8D098007F1F70 /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72681A81DA7F238002703FE /* Invitation.storyboard */; };
+		45A4A4501DB8D1A1007F1F70 /* WE sohrab.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45A4A44F1DB8D1A1007F1F70 /* WE sohrab.plist */; };
 		A71BDA921D9D06F8008D6984 /* QueryMessagePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */; };
 		A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
 		A71BDA961D9D288E008D6984 /* InvitationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */; };
@@ -59,6 +109,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45A4A44D1DB8D098007F1F70 /* WE Sohrab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WE Sohrab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45A4A44F1DB8D1A1007F1F70 /* WE sohrab.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WE sohrab.plist"; sourceTree = "<group>"; };
 		A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryMessagePost.swift; sourceTree = "<group>"; };
 		A71BDA931D9D0A6D008D6984 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationMessageTVC.swift; sourceTree = "<group>"; };
@@ -113,6 +165,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		45A4A4431DB8D098007F1F70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A74F5B211C5676A9006C03CC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -140,6 +199,7 @@
 		A74F5B1B1C5676A9006C03CC = {
 			isa = PBXGroup;
 			children = (
+				45A4A44F1DB8D1A1007F1F70 /* WE sohrab.plist */,
 				A74F5B261C5676A9006C03CC /* weApp */,
 				A74F5B251C5676A9006C03CC /* Products */,
 			);
@@ -149,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				A74F5B241C5676A9006C03CC /* WE.app */,
+				45A4A44D1DB8D098007F1F70 /* WE Sohrab.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -287,6 +348,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		45A4A4151DB8D098007F1F70 /* WE Sohrab */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45A4A44A1DB8D098007F1F70 /* Build configuration list for PBXNativeTarget "WE Sohrab" */;
+			buildPhases = (
+				45A4A4161DB8D098007F1F70 /* Sources */,
+				45A4A4431DB8D098007F1F70 /* Frameworks */,
+				45A4A4441DB8D098007F1F70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WE Sohrab";
+			productName = "integrationsproject-incubateion";
+			productReference = 45A4A44D1DB8D098007F1F70 /* WE Sohrab.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A74F5B231C5676A9006C03CC /* WE */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A74F5B381C5676A9006C03CC /* Build configuration list for PBXNativeTarget "WE" */;
@@ -314,6 +392,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Oliver Brehm";
 				TargetAttributes = {
+					45A4A4151DB8D098007F1F70 = {
+						DevelopmentTeam = 2VZS5C3SLW;
+					};
 					A74F5B231C5676A9006C03CC = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = CR6FRMMTU7;
@@ -335,11 +416,24 @@
 			projectRoot = "";
 			targets = (
 				A74F5B231C5676A9006C03CC /* WE */,
+				45A4A4151DB8D098007F1F70 /* WE Sohrab */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		45A4A4441DB8D098007F1F70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45A4A4451DB8D098007F1F70 /* LaunchScreen.storyboard in Resources */,
+				45A4A4461DB8D098007F1F70 /* Assets.xcassets in Resources */,
+				45A4A4471DB8D098007F1F70 /* Login.storyboard in Resources */,
+				45A4A4481DB8D098007F1F70 /* Main.storyboard in Resources */,
+				45A4A4491DB8D098007F1F70 /* Invitation.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A74F5B221C5676A9006C03CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -349,12 +443,64 @@
 				A7FFC7C91DA7EEFE007D8CC0 /* Login.storyboard in Resources */,
 				A74F5B2F1C5676A9006C03CC /* Main.storyboard in Resources */,
 				A72681A91DA7F238002703FE /* Invitation.storyboard in Resources */,
+				45A4A4501DB8D1A1007F1F70 /* WE sohrab.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		45A4A4161DB8D098007F1F70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45A4A4171DB8D098007F1F70 /* QueryJoinRequestAccept.swift in Sources */,
+				45A4A4181DB8D098007F1F70 /* QueryJoinRequestList.swift in Sources */,
+				45A4A4191DB8D098007F1F70 /* Invitation.swift in Sources */,
+				45A4A41A1DB8D098007F1F70 /* QueryInvitationParticipants.swift in Sources */,
+				45A4A41B1DB8D098007F1F70 /* UserRegistrationVC.swift in Sources */,
+				45A4A41C1DB8D098007F1F70 /* JoinRequestTVC.swift in Sources */,
+				45A4A41D1DB8D098007F1F70 /* AppDelegate.swift in Sources */,
+				45A4A41E1DB8D098007F1F70 /* MessageList.swift in Sources */,
+				45A4A41F1DB8D098007F1F70 /* QueryUserDetail.swift in Sources */,
+				45A4A4201DB8D098007F1F70 /* QueryInvitationCreate.swift in Sources */,
+				45A4A4211DB8D098007F1F70 /* QueryInvitationDetail.swift in Sources */,
+				45A4A4221DB8D098007F1F70 /* InvitationList.swift in Sources */,
+				45A4A4231DB8D098007F1F70 /* QueryJoinRequestReject.swift in Sources */,
+				45A4A4241DB8D098007F1F70 /* QueryInvitationDelete.swift in Sources */,
+				45A4A4251DB8D098007F1F70 /* QueryUserLogout.swift in Sources */,
+				45A4A4261DB8D098007F1F70 /* InvitationCell.swift in Sources */,
+				45A4A4271DB8D098007F1F70 /* TableViewStateCell.swift in Sources */,
+				45A4A4281DB8D098007F1F70 /* MessageEditCell.swift in Sources */,
+				45A4A4291DB8D098007F1F70 /* Message.swift in Sources */,
+				45A4A42A1DB8D098007F1F70 /* RegistrationNVC.swift in Sources */,
+				45A4A42B1DB8D098007F1F70 /* JoinRequest.swift in Sources */,
+				45A4A42C1DB8D098007F1F70 /* QueryInvitationList.swift in Sources */,
+				45A4A42D1DB8D098007F1F70 /* UserPersonalInfoVC.swift in Sources */,
+				45A4A42E1DB8D098007F1F70 /* InvitationListTVC.swift in Sources */,
+				45A4A42F1DB8D098007F1F70 /* InvitationDetailTVC.swift in Sources */,
+				45A4A4301DB8D098007F1F70 /* MainTBC.swift in Sources */,
+				45A4A4311DB8D098007F1F70 /* QueryInvitationUpdate.swift in Sources */,
+				45A4A4321DB8D098007F1F70 /* QueryMessageList.swift in Sources */,
+				45A4A4331DB8D098007F1F70 /* LoginVC.swift in Sources */,
+				45A4A4341DB8D098007F1F70 /* InvitationMessageTVC.swift in Sources */,
+				45A4A4351DB8D098007F1F70 /* CreateJoinRequestVC.swift in Sources */,
+				45A4A4361DB8D098007F1F70 /* UserInvitationsTVC.swift in Sources */,
+				45A4A4371DB8D098007F1F70 /* UserTypeSelectionVC.swift in Sources */,
+				45A4A4381DB8D098007F1F70 /* QueryUserRegister.swift in Sources */,
+				45A4A4391DB8D098007F1F70 /* Utility.swift in Sources */,
+				45A4A43A1DB8D098007F1F70 /* User.swift in Sources */,
+				45A4A43B1DB8D098007F1F70 /* QueryJoinRequestCreate.swift in Sources */,
+				45A4A43C1DB8D098007F1F70 /* QueryMessagePost.swift in Sources */,
+				45A4A43D1DB8D098007F1F70 /* CreateInvitationTVC.swift in Sources */,
+				45A4A43E1DB8D098007F1F70 /* Query.swift in Sources */,
+				45A4A43F1DB8D098007F1F70 /* QueryUserLogin.swift in Sources */,
+				45A4A4401DB8D098007F1F70 /* JoinRequestList.swift in Sources */,
+				45A4A4411DB8D098007F1F70 /* UserProfileTVC.swift in Sources */,
+				45A4A4421DB8D098007F1F70 /* MessageCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A74F5B201C5676A9006C03CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,6 +574,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		45A4A44B1DB8D098007F1F70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2VZS5C3SLW;
+				INFOPLIST_FILE = "WE sohrab.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		45A4A44C1DB8D098007F1F70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2VZS5C3SLW;
+				INFOPLIST_FILE = "WE sohrab.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		A74F5B361C5676A9006C03CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -540,6 +712,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		45A4A44A1DB8D098007F1F70 /* Build configuration list for PBXNativeTarget "WE Sohrab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45A4A44B1DB8D098007F1F70 /* Debug */,
+				45A4A44C1DB8D098007F1F70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A74F5B1F1C5676A9006C03CC /* Build configuration list for PBXProject "weApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
