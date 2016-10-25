@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		453BE2331DBEAD30003E0449 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453BE2321DBEAD30003E0449 /* SearchTVC.swift */; };
+		453BE2341DBEAD30003E0449 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453BE2321DBEAD30003E0449 /* SearchTVC.swift */; };
+		456C791B1DBEB4AB00EEFFE1 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C791A1DBEB4AB00EEFFE1 /* AddressCell.swift */; };
+		456C791C1DBEB4AB00EEFFE1 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456C791A1DBEB4AB00EEFFE1 /* AddressCell.swift */; };
+		456C791E1DBEBA3500EEFFE1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 456C791D1DBEBA3500EEFFE1 /* Info.plist */; };
+		456C791F1DBEBA3500EEFFE1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 456C791D1DBEBA3500EEFFE1 /* Info.plist */; };
 		45A4A4171DB8D098007F1F70 /* QueryJoinRequestAccept.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09FD1DA3A951004DE714 /* QueryJoinRequestAccept.swift */; };
 		45A4A4181DB8D098007F1F70 /* QueryJoinRequestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE09FB1DA3A92B004DE714 /* QueryJoinRequestList.swift */; };
 		45A4A4191DB8D098007F1F70 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A743D8541CBE801B00D14320 /* Invitation.swift */; };
@@ -56,7 +62,6 @@
 		45A4A4471DB8D098007F1F70 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FFC7C81DA7EEFE007D8CC0 /* Login.storyboard */; };
 		45A4A4481DB8D098007F1F70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A74F5B2D1C5676A9006C03CC /* Main.storyboard */; };
 		45A4A4491DB8D098007F1F70 /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72681A81DA7F238002703FE /* Invitation.storyboard */; };
-		45A4A4501DB8D1A1007F1F70 /* WE sohrab.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45A4A44F1DB8D1A1007F1F70 /* WE sohrab.plist */; };
 		A71BDA921D9D06F8008D6984 /* QueryMessagePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */; };
 		A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
 		A71BDA961D9D288E008D6984 /* InvitationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */; };
@@ -109,8 +114,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		453BE2321DBEAD30003E0449 /* SearchTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
+		456C791A1DBEB4AB00EEFFE1 /* AddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
+		456C791D1DBEBA3500EEFFE1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = weApp/Info.plist; sourceTree = "<group>"; };
 		45A4A44D1DB8D098007F1F70 /* WE Sohrab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WE Sohrab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		45A4A44F1DB8D1A1007F1F70 /* WE sohrab.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "WE sohrab.plist"; sourceTree = "<group>"; };
 		A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryMessagePost.swift; sourceTree = "<group>"; };
 		A71BDA931D9D0A6D008D6984 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationMessageTVC.swift; sourceTree = "<group>"; };
@@ -131,7 +138,6 @@
 		A74F5B2E1C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A74F5B301C5676A9006C03CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A74F5B331C5676A9006C03CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A74F5B351C5676A9006C03CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A768EE0D1D9BDC9000C17148 /* TableViewStateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewStateCell.swift; sourceTree = "<group>"; };
 		A77E5B9B1CBFA696003A7D0C /* UserTypeSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTypeSelectionVC.swift; sourceTree = "<group>"; };
 		A77E5B9F1CBFB87A003A7D0C /* RegistrationNVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationNVC.swift; sourceTree = "<group>"; };
@@ -199,7 +205,7 @@
 		A74F5B1B1C5676A9006C03CC = {
 			isa = PBXGroup;
 			children = (
-				45A4A44F1DB8D1A1007F1F70 /* WE sohrab.plist */,
+				456C791D1DBEBA3500EEFFE1 /* Info.plist */,
 				A74F5B261C5676A9006C03CC /* weApp */,
 				A74F5B251C5676A9006C03CC /* Products */,
 			);
@@ -240,6 +246,7 @@
 				A7EC55EA1CCBB2AB00A4056B /* UserInvitationsTVC.swift */,
 				A7EC55EC1CCBBEC300A4056B /* CreateJoinRequestVC.swift */,
 				A7EC55F01CCBE87900A4056B /* JoinRequestTVC.swift */,
+				453BE2321DBEAD30003E0449 /* SearchTVC.swift */,
 				A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */,
 			);
 			name = UI;
@@ -281,7 +288,6 @@
 			isa = PBXGroup;
 			children = (
 				A74F5B301C5676A9006C03CC /* Assets.xcassets */,
-				A74F5B351C5676A9006C03CC /* Info.plist */,
 				A74F5B321C5676A9006C03CC /* LaunchScreen.storyboard */,
 				A74F5B2D1C5676A9006C03CC /* Main.storyboard */,
 				A7FFC7C81DA7EEFE007D8CC0 /* Login.storyboard */,
@@ -297,6 +303,7 @@
 				A7A9CB6A1D9BE4E3007B76DD /* InvitationCell.swift */,
 				A71BDA971D9D2E9D008D6984 /* MessageCell.swift */,
 				A7892FA51D9D438800D1B851 /* MessageEditCell.swift */,
+				456C791A1DBEB4AB00EEFFE1 /* AddressCell.swift */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -397,7 +404,7 @@
 					};
 					A74F5B231C5676A9006C03CC = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = CR6FRMMTU7;
+						DevelopmentTeam = 2VZS5C3SLW;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -428,6 +435,7 @@
 			files = (
 				45A4A4451DB8D098007F1F70 /* LaunchScreen.storyboard in Resources */,
 				45A4A4461DB8D098007F1F70 /* Assets.xcassets in Resources */,
+				456C791F1DBEBA3500EEFFE1 /* Info.plist in Resources */,
 				45A4A4471DB8D098007F1F70 /* Login.storyboard in Resources */,
 				45A4A4481DB8D098007F1F70 /* Main.storyboard in Resources */,
 				45A4A4491DB8D098007F1F70 /* Invitation.storyboard in Resources */,
@@ -443,7 +451,7 @@
 				A7FFC7C91DA7EEFE007D8CC0 /* Login.storyboard in Resources */,
 				A74F5B2F1C5676A9006C03CC /* Main.storyboard in Resources */,
 				A72681A91DA7F238002703FE /* Invitation.storyboard in Resources */,
-				45A4A4501DB8D1A1007F1F70 /* WE sohrab.plist in Resources */,
+				456C791E1DBEBA3500EEFFE1 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				453BE2341DBEAD30003E0449 /* SearchTVC.swift in Sources */,
 				45A4A4171DB8D098007F1F70 /* QueryJoinRequestAccept.swift in Sources */,
 				45A4A4181DB8D098007F1F70 /* QueryJoinRequestList.swift in Sources */,
 				45A4A4191DB8D098007F1F70 /* Invitation.swift in Sources */,
@@ -491,6 +500,7 @@
 				45A4A4391DB8D098007F1F70 /* Utility.swift in Sources */,
 				45A4A43A1DB8D098007F1F70 /* User.swift in Sources */,
 				45A4A43B1DB8D098007F1F70 /* QueryJoinRequestCreate.swift in Sources */,
+				456C791C1DBEB4AB00EEFFE1 /* AddressCell.swift in Sources */,
 				45A4A43C1DB8D098007F1F70 /* QueryMessagePost.swift in Sources */,
 				45A4A43D1DB8D098007F1F70 /* CreateInvitationTVC.swift in Sources */,
 				45A4A43E1DB8D098007F1F70 /* Query.swift in Sources */,
@@ -540,8 +550,10 @@
 				A77E5B9C1CBFA696003A7D0C /* UserTypeSelectionVC.swift in Sources */,
 				A7BE0A161DA3AF33004DE714 /* QueryUserRegister.swift in Sources */,
 				A79FD03A1CCA6F1A001FFEB4 /* Utility.swift in Sources */,
+				453BE2331DBEAD30003E0449 /* SearchTVC.swift in Sources */,
 				A747768E1CBA891900144226 /* User.swift in Sources */,
 				A7BE0A081DA3AA10004DE714 /* QueryJoinRequestCreate.swift in Sources */,
+				456C791B1DBEB4AB00EEFFE1 /* AddressCell.swift in Sources */,
 				A71BDA921D9D06F8008D6984 /* QueryMessagePost.swift in Sources */,
 				A79FD03C1CCA7F14001FFEB4 /* CreateInvitationTVC.swift in Sources */,
 				A74DA6181CBB86D0008AB1C3 /* Query.swift in Sources */,
@@ -579,7 +591,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2VZS5C3SLW;
-				INFOPLIST_FILE = "WE sohrab.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -592,7 +605,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2VZS5C3SLW;
-				INFOPLIST_FILE = "WE sohrab.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -687,7 +701,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CR6FRMMTU7;
+				DEVELOPMENT_TEAM = 2VZS5C3SLW;
 				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;
@@ -700,7 +714,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CR6FRMMTU7;
+				DEVELOPMENT_TEAM = 2VZS5C3SLW;
 				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;

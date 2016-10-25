@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MapKit
 class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var numberOfGuestsLabel: UILabel!
@@ -25,6 +25,7 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var createInvitationButton: UIButton!
     
+    @IBOutlet weak var map: MKMapView!
     var invitationDetailTVC : InvitationDetailTVC?
     
     var city = ""
@@ -258,14 +259,35 @@ class CreateInvitationTVC: UITableViewController, UITextFieldDelegate, UITextVie
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "searchAddressSegue"
+        {
+            let searchView = segue.destination as! SearchTVC
+            searchView.delegate = self
+        }
+        else{
+            print("unkown segue")
+        }
     }
-    */
+ 
 
+}
+
+// MARK:- search address delegate
+extension CreateInvitationTVC: SearchTVCDelegate {
+    
+    func returnPlacemark(placeMark: MKPlacemark) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placeMark.coordinate
+        annotation.title = placeMark.title
+        map.addAnnotation(annotation)
+        map.setCenter(placeMark.coordinate, animated: true)
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region = MKCoordinateRegion(center: placeMark.coordinate, span: span)
+        map.setRegion(region, animated: true)
+    }
 }
