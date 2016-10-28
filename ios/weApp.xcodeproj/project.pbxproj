@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7044E5F1DC358D000AEE568 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7044E5D1DC358D000AEE568 /* Bolts.framework */; };
+		A7044E601DC358D000AEE568 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7044E5E1DC358D000AEE568 /* Parse.framework */; };
+		A7044E621DC3590100AEE568 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7044E611DC3590100AEE568 /* AudioToolbox.framework */; };
+		A7044E641DC3590700AEE568 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7044E631DC3590700AEE568 /* SystemConfiguration.framework */; };
+		A7044E681DC3595700AEE568 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A7044E671DC3595700AEE568 /* libsqlite3.tbd */; };
 		A71BDA921D9D06F8008D6984 /* QueryMessagePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */; };
 		A71BDA941D9D0A6D008D6984 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA931D9D0A6D008D6984 /* Message.swift */; };
 		A71BDA961D9D288E008D6984 /* InvitationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */; };
@@ -59,6 +64,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A7044E521DC3568200AEE568 /* WE-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WE-Bridging-Header.h"; sourceTree = "<group>"; };
+		A7044E5D1DC358D000AEE568 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = weApp/Bolts.framework; sourceTree = "<group>"; };
+		A7044E5E1DC358D000AEE568 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = weApp/Parse.framework; sourceTree = "<group>"; };
+		A7044E611DC3590100AEE568 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A7044E631DC3590700AEE568 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A7044E671DC3595700AEE568 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		A71BDA911D9D06F8008D6984 /* QueryMessagePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryMessagePost.swift; sourceTree = "<group>"; };
 		A71BDA931D9D0A6D008D6984 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A71BDA951D9D288E008D6984 /* InvitationMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationMessageTVC.swift; sourceTree = "<group>"; };
@@ -117,12 +128,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7044E681DC3595700AEE568 /* libsqlite3.tbd in Frameworks */,
+				A7044E641DC3590700AEE568 /* SystemConfiguration.framework in Frameworks */,
+				A7044E621DC3590100AEE568 /* AudioToolbox.framework in Frameworks */,
+				A7044E601DC358D000AEE568 /* Parse.framework in Frameworks */,
+				A7044E5F1DC358D000AEE568 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A7044E4A1DC34DC600AEE568 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A7044E671DC3595700AEE568 /* libsqlite3.tbd */,
+				A7044E631DC3590700AEE568 /* SystemConfiguration.framework */,
+				A7044E611DC3590100AEE568 /* AudioToolbox.framework */,
+				A7044E5D1DC358D000AEE568 /* Bolts.framework */,
+				A7044E5E1DC358D000AEE568 /* Parse.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A747768C1CBA890C00144226 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +170,7 @@
 			children = (
 				A74F5B261C5676A9006C03CC /* weApp */,
 				A74F5B251C5676A9006C03CC /* Products */,
+				A7044E4A1DC34DC600AEE568 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -212,6 +241,7 @@
 			children = (
 				A74F5B271C5676A9006C03CC /* AppDelegate.swift */,
 				A79FD0391CCA6F1A001FFEB4 /* Utility.swift */,
+				A7044E521DC3568200AEE568 /* WE-Bridging-Header.h */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -515,11 +545,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = CR6FRMMTU7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/weApp",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "weApp/WE-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -528,11 +565,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = CR6FRMMTU7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/weApp",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/weApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brehm.oliver.weApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "weApp/WE-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

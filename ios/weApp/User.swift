@@ -53,9 +53,9 @@ open class User
     /**
      Tries to log in the user with given mail and password.
      
-     - parameter mail: the user's mail address for logging in
-     - parameter password: the user's password for logging in
-     - completion: called as soon as the login request has completed
+     - parameter mail:      the user's mail address for logging in
+     - parameter password:  the user's password for logging in
+     - completion: called   as soon as the login request has completed
      */
     open static func login(_ mail: String, password: String, completion: @escaping ((Bool) -> Void))
     {
